@@ -12,9 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
-	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/static/", "classpath:/public/",
-			"classpath:/", "classpath:/resources/", "classpath:/META-INF/resources/",
-			"classpath:/META-INF/resources/webjars/" };
+	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "/css/**", "/js/**", "/img/**", "/lib/**" };
 	
 	//정적 자원에 대해서는 security 설정을 하지 않는다.
 	@Override
@@ -29,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.formLogin()
 		.loginPage("/login")
-		.defaultSuccessUrl("/")
+		.defaultSuccessUrl("/index")
 		.permitAll();
 		
 		http.exceptionHandling().accessDeniedPage("/login");

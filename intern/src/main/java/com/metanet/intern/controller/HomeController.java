@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-	@RequestMapping("/")
+	@GetMapping(value = {"/","/index"})
 	public String index() {
 		return "thymeleaf/index";
 	}
 	
 	@RequestMapping("/hello")
-	public String tes2t() {
+	public String test2() {
 		return "thymeleaf/hello";
 	}
 	@RequestMapping("/default")
-	public String tes3t() {
+	public String test3() {
 		return "thymeleaf/default";
 	}
 	
