@@ -24,7 +24,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -78,7 +78,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         
                         <a class="collapse-item" href="/education/list">교과목 관리</a>
-                        <a class="collapse-item" href="/education/list">개설과목관리</a>
+                        <a class="collapse-item" href="/lecture/list">개설과목관리</a>
                     </div>
                 </div>
             </li>
@@ -101,49 +101,16 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         
-                        <a class="collapse-item" href="login.html">강의시수 조회</a>
-                        <a class="collapse-item" href="register.html">수강관리</a>
-                        <a class="collapse-item" href="forgot-password.html">출결관리</a>
+                        
+                        <a class="collapse-item" href="/lecture/student_search">학생검색</a>
+                        <a class="collapse-item" href="/lecture/attendance_search">출결검색</a>
                         <div class="collapse-divider"></div>
+
+                        <a class="collapse-item" href="/lecture/grade_search">성적검색</a>
                         
-                        <a class="collapse-item" href="404.html">성적조회</a>
-                        <a class="collapse-item" href="blank.html">성적관리</a>
                     </div>
                 </div>
             </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsegradu"
-                    aria-expanded="true" aria-controls="collapsegradu">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>졸업생 관리</span>
-                </a>
-                <div id="collapsegradu" class="collapse" aria-labelledby="headinggradu" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        
-                        <a class="collapse-item" href="login.html">졸업관리</a>
-                        <a class="collapse-item" href="register.html">졸업생관리</a>
-                       
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>FAQ</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
         </ul>
 
 </th:block>

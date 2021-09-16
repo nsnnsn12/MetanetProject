@@ -8,29 +8,31 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">교과목 조회</h6>
+				<h6 class="m-0 font-weight-bold text-primary">교과목 수정</h6>
 			</div>
 			<div class="card-body">
 				<div class="d-flex mb-2">
-					<div class="input-group col-lg-6">
+					<div class="input-group col-lg-6 mr-auto">
 						<div class="input-group-prepend">
 							<select name="" id="" class="form-control">
 								<option value="">
-									과목명
+									과목코드
 								</option>
 								<option value="">
-									과목코드
+									과목명
 								</option>
 							</select>
 						</div>
 						<input type="text" class="form-control">
+						<button class="col-1 btn btn-sm btn-outline-primary mr-auto">검색</button>
 					</div>
-					<button class="col-1 btn btn-outline-primary">검색</button>
+					<button class="col-1 btn btn-sm btn-outline-info">등록</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
+								<th>과목코드</th>
 								<th>
 									<select class="form-control">
 										<option value="">
@@ -45,7 +47,6 @@
 									</select>
 								</th>
 								<th>과목명</th>
-								<th>과목코드</th>
 								<th>
 									<select class="form-control">
 										<option value="0">
@@ -88,9 +89,9 @@
 						</thead>
 						<tbody>
 							<tr>
+								<td>F150E</td>
 								<td>컴퓨터공학</td>
 								<td>전산이론</td>
-								<td>F150E</td>
 								<td>3</td>
 								<td>전공필수</td>
 							</tr>
