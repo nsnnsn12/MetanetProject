@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="thymeleaf/layout/default">
+
+<div layout:fragment="content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 order-md-1">
+				<h4 class="mb-3">교과목 등록</h4>
+				<form class="needs-validation" novalidate>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="firstName">전공</label> 
+							<select class="custom-select d-block w-100" id="state" required>
+								<option value="">전공선택</option>
+								<option>컴퓨터공학</option>
+							</select>
+							<div class="invalid-feedback">전공을 선택해주세요.</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="lastName">이수구분</label> <select class="custom-select d-block w-100" id="state" required>
+								<option value="">이수선택</option>
+								<option>전공심화</option>
+							</select>
+							<div class="invalid-feedback">이수구분을 선택해주세요.</div>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="title">교과목명</label> <input type="text" class="form-control" id="title" placeholder="교과목을 입력해주세요" required>
+						<div class="invalid-feedback">교과목명을 입력해주세요.</div>
+					</div>
+					<hr class="mb-4">
+
+					<h4 class="mb-3">학점</h4>
+
+					<div class="d-block my-3">
+						<div class="custom-control custom-radio">
+							<input id="zero" name="credit" type="radio" class="custom-control-input" checked required> <label class="custom-control-label" for="zero">0</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input id="one" name="credit" type="radio" class="custom-control-input" checked required> <label class="custom-control-label" for="one">1</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input id="two" name="credit" type="radio" class="custom-control-input" required> <label class="custom-control-label" for="two">2</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input id="three" name="credit" type="radio" class="custom-control-input" required> <label class="custom-control-label" for="three">3</label>
+						</div>
+					</div>
+					<hr class="mb-4">
+					<h4 class="mb-3">교과목 설명</h4>
+					<div class="row">
+						<!-- ckeditor 넣을 예정 -->
+					</div>
+					<hr class="mb-4">
+					<button class="btn btn-primary btn-lg btn-block" type="submit">교과목 등록</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function () {
+			'use strict';
+
+			window.addEventListener('load', function () {
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				var forms = document.getElementsByClassName('needs-validation');
+
+				// Loop over them and prevent submission
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+					}, false);
+				});
+			}, false);
+		})();
+	</script>
+</div>
+
+</html>
