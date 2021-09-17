@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
-	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "/css/**", "/js/**", "/img/**", "/lib/**" };
+	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "/css/**", "/js/**", "/img/**", "/vendor/**",  "/scss/**" };
 
 	//정적 자원에 대해서는 security 설정을 하지 않는다.
 	@Override
