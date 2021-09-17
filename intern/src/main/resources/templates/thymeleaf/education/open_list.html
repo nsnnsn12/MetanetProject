@@ -8,7 +8,7 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">교과목 조회</h6>
+				<h6 class="m-0 font-weight-bold text-primary">개설과목 조회</h6>
 			</div>
 			<div class="card-body">
 				<div class="d-flex mb-2">
@@ -21,12 +21,14 @@
 								<option value="">
 									과목명
 								</option>
+								<option value="">
+									담당교수
+								</option>
 							</select>
 						</div>
 						<input type="text" class="form-control">
 						<button class="col-1 col-md-2 col-sm-2 btn btn-sm btn-outline-primary mr-auto">검색</button>
 					</div>
-					<button class="col-1 btn btn-sm btn-outline-info" onclick="location.href='/education/create'">등록</button>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -85,23 +87,23 @@
 										</option>
 									</select>
 								</th>
-								<th>개설과목등록</th>
+								<th>
+									담당교수
+								</th>
+								<th>
+									최대인원
+								</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><a href="/education/detail">F150E</a></td>
+								<td><a href="/education/open/modify">F150E</a></td>
 								<td>컴퓨터공학</td>
 								<td>전산이론</td>
 								<td>3</td>
 								<td>전공필수</td>
-								<td>
-									<button 
-									class="btn btn-sm btn-outline-info" 
-									data-toggle="modal" data-target="#myModal">
-										등록
-									</button>
-								</td>
+								<td>한항규</td>
+								<td>30</td>
 							</tr>
 						</tbody>
 					</table>
@@ -120,58 +122,6 @@
 
 	</div>
 	<!-- /.container-fluid -->
-
-	<!-- The Modal -->
-	<div class="modal" id="myModal">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title">개설과목등록</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th>과목코드</th>
-								<th>전공명</th>
-								<th>과목명</th>
-								<th>학점</th>
-								<th>이수구분</th>
-								<th>교수선택</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>F150E</td>
-								<td>컴퓨터공학</td>
-								<td>전산이론</td>
-								<td>3</td>
-								<td>전공필수</td>
-								<td>
-									<select class="form-control">
-										<option value="">교수선택</option>
-										<option>한항규</option>
-										<option>안재엽</option>
-									</select>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">등록</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
 </div>
 
 </html>

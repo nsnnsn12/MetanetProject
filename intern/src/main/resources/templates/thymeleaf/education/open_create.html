@@ -10,39 +10,61 @@
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex">
 				<div>
-					<h6 class="m-0 font-weight-bold text-primary">교과목 등록</h6>
+					<h6 class="m-0 font-weight-bold text-primary">개설과목 등록</h6>
 				</div>
 			</div>
 			<form class="needs-validation" novalidate>
 	            <div class="card-body">
 	                <div class="row g-3">
 	                    <div class="col-sm-6 mb-3">
-	                        <label class="form-label">전공</label> 
-	                        <select class="custom-select d-block w-100" id="state" required>
-								<option value="">전공선택</option>
-								<option>컴퓨터공학</option>
-							</select>
-							<div class="invalid-feedback">전공을 선택해주세요.</div>
+	                        <label class="form-label">교과목</label>
+	                        <input type="text" class="form-control" disabled value="전산이론">
 	                    </div>
-	                    
 	                    <div class="col-sm-6 mb-3">
-	                        <label>이수구분</label> 
-							<select class="custom-select d-block w-100" id="state" required>
-								<option value="">이수선택</option>
-								<option>전공심화</option>
-							</select>
-							<div class="invalid-feedback">이수구분을 선택해주세요.</div>
+	                        <label class="form-label">교과목코드</label>
+	                        <input type="text" class="form-control" disabled value="F150E">
 	                    </div>
-	                    <div class=" col-sm-6 mb-3">
-							<label for="title">교과목명</label> <input type="text" class="form-control" id="title"
-								placeholder="교과목을 입력해주세요" required>
-							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
-						</div>
-						<div class=" col-sm-6 mb-3">
-							<label for="code">교과목코드</label> <input type="text" class="form-control" id="code"
-								placeholder="교과목을 입력해주세요" required>
-							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
-						</div>
+						<div class="col-sm-6 mb-3">
+	                        <label class="form-label">전공명</label>
+	                        <input type="text" class="form-control" disabled value="컴퓨터공학">
+	                    </div>
+						<div class="col-sm-6 mb-3">
+	                        <label class="form-label">학점</label>
+	                        <input type="text" class="form-control" disabled value="3">
+	                    </div>
+						<div class="col-sm-6 mb-3">
+	                        <label class="form-label">이수구분</label>
+	                        <input type="text" class="form-control" disabled value="전공심화">
+	                    </div>
+						<div class="col-sm-6 mb-3">
+	                        <label class="form-label">최대인원</label>
+	                        <input type="number" class="form-control" required>
+							<div class="invalid-feedback">인원을 입력해주세요</div>
+	                    </div>
+						<div class="col-sm-6 mb-3">
+	                        <label>교수선택</label> 
+							<select class="custom-select d-block w-100" id="state" required>
+								<option value="">교수선택</option>
+								<option>한항규</option>
+								<option>안재엽</option>
+							</select>
+							<div class="invalid-feedback">교수를 지정해주세요</div>
+	                    </div>
+						<div class="col-sm-6 mb-3">
+	                        <label class="form-label">이메일</label>
+	                        <input type="text" class="form-control" required>
+							<div class="invalid-feedback">이메일을 입력해주세요</div>
+	                    </div>
+						<div class="col-sm-6 mb-3">
+	                        <label class="form-label">총수업시간</label>
+	                        <input type="number" class="form-control" required>
+							<div class="invalid-feedback">총수업시간을 입력해주세요</div>
+	                    </div>
+						<div class="col-sm-6 mb-3">
+	                        <label class="form-label">주당시수</label>
+	                        <input type="number" class="form-control" required>
+							<div class="invalid-feedback">주당시수를 입력해주세요</div>
+	                    </div>
 					</div>
 	                    
 	                <hr class="my-4">
