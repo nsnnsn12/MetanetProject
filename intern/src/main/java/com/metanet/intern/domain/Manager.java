@@ -33,14 +33,14 @@ public class Manager extends BaseEntity{
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="manager_id")
-	private Long mid;
+	private Long id;
 	
 	@OneToOne
 	@JoinColumn(name= "photo_id")
 	private PhotoFile photo_id;
 	
 	@Column(unique = true)
-	private String id;
+	private String loginId;
 	private String password;
 	private String name;
 	private Role role;
