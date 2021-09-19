@@ -3,7 +3,6 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="thymeleaf/layout/default">
-
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
 	<div class="container">
@@ -13,91 +12,128 @@
 					<h6 class="m-0 font-weight-bold text-primary">학적정보 조회</h6>
 				</div>
 				<div class="ml-auto">
-					<button class="btn btn-sm btn-outline-info"  onclick = "history.back(-1)">취소</button>
+					<button class="btn btn-sm btn-outline-info"
+						onclick="history.back(-1)">취소</button>
 				</div>
 				<div class="ml-3">
-					<button class="btn btn-sm btn-outline-info"  onclick = "location.href='/records/modify'">저장</button>
+					<button class="btn btn-sm btn-outline-info"
+						onclick="location.href='/records/modify'">저장</button>
 				</div>
 			</div>
-            <div class="card-body">
-                <div class="row g-3">
-                
-                    <div class="col-sm-6">
-                        <label for="lastName" class="form-label">이름</label> 
-                        <input type="text" class="form-control" id="이름" placeholder="이름을 입력하세요" value="김학생" required="">
-                        <div class="invalid-feedback">유효한 이름이 아닙니다.</div>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">학번</label> 
-                        <input type="text" class="form-control" id="학번" placeholder="이름을 입력하세요" value="20212233" required="">
-                        <div class="invalid-feedback">유효한 학번이 아닙니다.</div>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="lastName" class="form-label">아이디</label> 
-                        <input type="text" class="form-control" id="아이디" placeholder="아이디를 입력하세요" value="abcd" required="">
-                        <div class="invalid-feedback">유효한 아이디가 아닙니다.</div>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">비밀번호</label> 
-                        <input type="text" class="form-control" id="비밀번호" placeholder="비밀번호를 입력하세요" value="1111" required="">
-                        <div class="invalid-feedback">유효한 비밀번호가 아닙니다.</div>
-                    </div>
-                    
-                    <div class="col-12">
-                        <label for="address" class="form-label">전화번호</label> 
-                        <input type="text" class="form-control" id="전화번호" placeholder="전화번호를 입력하세요" value="010-1234-5678" required="">
-                        <div class="invalid-feedback">유효한 전화번호가 아닙니다.</div>
-                    </div>
-                    
+			<div class="card-body">
+				<div class="d-flex">
+					<img src="/img/test.jpg" id="image"
+						class="img-responsive rounded ml-auto border p-3" width="300"
+						height="300" alt="..." />
+					<div class="mt-auto">
+						<input class="file-upload" type="file" id="chooseFile"
+							name="chooseFile" accept="image/*" onchange="loadFile(this)">
+					</div>
+				</div>
+				<div class="row g-3">
+					<div class="col-sm-6">
+						<label for="lastName" class="form-label">이름</label> <input
+							type="text" class="form-control" id="이름" placeholder="이름을 입력하세요"
+							value="김학생" required="">
+						<div class="invalid-feedback">유효한 이름이 아닙니다.</div>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">학번</label> <input
+							type="text" class="form-control" id="학번" placeholder="이름을 입력하세요"
+							value="20212233" required="">
+						<div class="invalid-feedback">유효한 학번이 아닙니다.</div>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="lastName" class="form-label">아이디</label> <input
+							type="text" class="form-control" id="아이디"
+							placeholder="아이디를 입력하세요" value="abcd" required="">
+						<div class="invalid-feedback">유효한 아이디가 아닙니다.</div>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">비밀번호</label> <input
+							type="text" class="form-control" id="비밀번호"
+							placeholder="비밀번호를 입력하세요" value="1111" required="">
+						<div class="invalid-feedback">유효한 비밀번호가 아닙니다.</div>
+					</div>
+
+					<div class="col-12">
+						<label for="address" class="form-label">전화번호</label> <input
+							type="text" class="form-control" id="전화번호"
+							placeholder="전화번호를 입력하세요" value="010-1234-5678" required="">
+						<div class="invalid-feedback">유효한 전화번호가 아닙니다.</div>
+					</div>
+
 				</div>
 				<hr class="my-4">
 				<div class="row g-3">
-	                    <div class="col-sm-6">
-	                        <label for="username" class="form-label">전공</label>
-							<select class="form-control" id="전공" required="">
+					<div class="col-sm-6">
+						<label for="username" class="form-label">전공</label> <select
+							class="form-control" id="전공" required="">
 							<option value="컴퓨터공학과">전공을 선택하세요.</option>
-	                        <option>컴퓨터공학과</option>
-	                        <option>전기공학과</option>
+							<option>컴퓨터공학과</option>
+							<option>전기공학과</option>
 						</select>
-                        <div class="invalid-feedback">전공을 선택하세요.</div>
-	                    </div>
-	                                        
-	                    <div class="col-sm-6">
-	                        <label for="lastName" class="form-label">학적상태</label> 
-	                        <input type="text" class="form-control" id="학적상태" placeholder="학적상태를 입력하세요" value="재학" required="">
-	                        <div class="invalid-feedback">유효한 학적상태가 아닙니다.</div>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="lastName" class="form-label">입학년도</label> 
-	                        <input type="text" class="form-control" id="입학년도" placeholder="입학년도를 입력하세요" value="2021" required="">
-	                        <div class="invalid-feedback">유효한 입학년도가 아닙니다.</div>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="firstName" class="form-label">학기</label> 
-	                        <input type="text" class="form-control" id="학기" placeholder="학기를 입력하세요" value="2" required="">
-	                        <div class="invalid-feedback">유효한 학기가 아닙니다.</div>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="lastName" class="form-label">생성일</label> 
-	                        <input type="date" class="form-control" id="생성일" placeholder="생성일을 입력하세요" value="2021.02.20" required="">
-	                        <div class="invalid-feedback">유효한 생성일이 아닙니다.</div>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="firstName" class="form-label">수정일</label> 
-	                        <input type="date" class="form-control" id="수정일" placeholder="수정일을 입력하세요" value="2021.03.01" required="">
-	                        <div class="invalid-feedback">유효한 수정일이 아닙니다.</div>
-	                    </div>
-              
-                	</div>
-            </div>
+						<div class="invalid-feedback">전공을 선택하세요.</div>
+					</div>
+					<div class="col-sm-6">
+						<label for="lastName" class="form-label">학적상태</label> <input
+							type="text" class="form-control" id="학적상태"
+							placeholder="학적상태를 입력하세요" value="재학" required="">
+						<div class="invalid-feedback">유효한 학적상태가 아닙니다.</div>
+					</div>
+					<div class="col-sm-6">
+						<label for="lastName" class="form-label">입학년도</label> <input
+							type="text" class="form-control" id="입학년도"
+							placeholder="입학년도를 입력하세요" value="2021" required="">
+						<div class="invalid-feedback">유효한 입학년도가 아닙니다.</div>
+					</div>
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">학기</label> <input
+							type="text" class="form-control" id="학기" placeholder="학기를 입력하세요"
+							value="2" required="">
+						<div class="invalid-feedback">유효한 학기가 아닙니다.</div>
+					</div>
+					<div class="col-sm-6">
+						<label for="lastName" class="form-label">생성일</label> <input
+							type="date" class="form-control" id="생성일"
+							placeholder="생성일을 입력하세요" value="2021.02.20" required="">
+						<div class="invalid-feedback">유효한 생성일이 아닙니다.</div>
+					</div>
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">수정일</label> <input
+							type="date" class="form-control" id="수정일"
+							placeholder="수정일을 입력하세요" value="2021.03.01" required="">
+						<div class="invalid-feedback">유효한 수정일이 아닙니다.</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			var readURL = function(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					
+					reader.onload = function(e) {
+						$('#image').attr('src', e.target.result);
+					}
+					
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			
+			$(".file-upload").on('change', function() {
+				readURL(this);
+			});
+			
+			$(".upload-button").on('click', function() {
+				$(".file-upload").click();
+			});
+		});
+	</script>
 </div>
 </html>
