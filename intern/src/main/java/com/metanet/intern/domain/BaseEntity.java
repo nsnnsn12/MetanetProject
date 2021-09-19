@@ -14,6 +14,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -25,5 +26,5 @@ public abstract class BaseEntity {
 	@LastModifiedDate
 	private Date modifyDate;
 	@Column(nullable = false)
-	private Integer isDeleted;
+	private Integer isDeleted = 0;
 }

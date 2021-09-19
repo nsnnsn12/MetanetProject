@@ -13,15 +13,17 @@ import com.metanet.intern.domain.Manager;
 import com.metanet.intern.repository.ManagerRepository;
 
 import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
-@Validated
+@Slf4j
 public class ManagerService {
+	
 	@Autowired
 	ManagerRepository managerRepository;
 	
-	public Long join(@Valid Manager manager) {
+	public Long join(Manager manager) {
 		validationDuplicateLoginId(manager);
 		managerRepository.save(manager);
 		return manager.getId();

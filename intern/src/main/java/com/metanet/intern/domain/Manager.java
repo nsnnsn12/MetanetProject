@@ -23,10 +23,10 @@ import javax.validation.constraints.NotNull;
 
 import com.metanet.intern.enummer.Role;
 
-import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
@@ -34,6 +34,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Entity
+@ToString
 public class Manager extends BaseEntity{
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,7 +65,7 @@ public class Manager extends BaseEntity{
 	@Temporal(TemporalType.DATE)
 	private Date birth;
 	
-	private Integer isAccept;
+	private Integer isAccept = 0;
 	private String telNo;
 	
 	
