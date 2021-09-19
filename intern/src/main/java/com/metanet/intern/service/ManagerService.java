@@ -2,9 +2,12 @@ package com.metanet.intern.service;
 
 import java.util.*;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.repository.ManagerRepository;
@@ -13,11 +16,12 @@ import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
 
 @Service
 @Transactional
+@Validated
 public class ManagerService {
 	@Autowired
 	ManagerRepository managerRepository;
 	
-	public Long join(Manager manager) {
+	public Long join(@Valid Manager manager) {
 		validationDuplicateLoginId(manager);
 		managerRepository.save(manager);
 		return manager.getId();
