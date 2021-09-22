@@ -56,15 +56,27 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		List<Manager> managers = managerRepository.findByLoginId(username);
-		if(managers.isEmpty()) {
+		final Integer isDeleted = 0;
+		Manager manager = managerRepository.findByLoginIdAndIsDeleted(username, isDeleted);
+		if(manager == null) {
 			throw new IllegalStateException("아이디가 존재하지 않습니다.");
 		}
-		Manager manager = managers.get(0);
-
+		isAccept(manager);
+		
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-        if(manager.getRole() == Role.admin) {
+        grantRole(authorities, manager);
+        
+        return new User(manager.getLoginId(), manager.getPassword(), authorities);
+	}
+	
+	private void isAccept(Manager manager) {
+		if(manager.getIsAccept() == 0) {
+			throw new IllegalStateException("승인되지 않은 회원정보입니다.");
+		}
+	}
+	
+	private void grantRole(List<GrantedAuthority> authorities, Manager manager) {
+		if(manager.getRole() == Role.admin) {
         	authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }else if(manager.getRole() == Role.professor) {
         	authorities.add(new SimpleGrantedAuthority("ROLE_PROFESSOR"));
@@ -73,8 +85,6 @@ public class ManagerServiceImpl implements ManagerService{
         }else {
         	throw new IllegalStateException("권한이 존재하지 않습니다.");
         }
-        
-        return new User(manager.getLoginId(), manager.getPassword(), authorities);
 	}
 	
 	private void validationDuplicateLoginId(Manager manager) {

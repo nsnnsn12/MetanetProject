@@ -48,7 +48,7 @@ public class AccountController {
 		return "thymeleaf/account/join_fail";
 	}
 	
-	@GetMapping("loginFail")
+	@RequestMapping("loginFail")
 	public String loginFail(Model model) {
 		return "thymeleaf/account/login_fail";
 	}
