@@ -21,6 +21,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.metanet.intern.enummer.Role;
 
 import lombok.Getter;
@@ -53,7 +55,7 @@ public class Manager extends BaseEntity{
 	@NotNull
 	@NotBlank
 	private String password;
-	
+	private String email;
 	@NotNull
 	@NotBlank
 	private String name;
@@ -63,6 +65,7 @@ public class Manager extends BaseEntity{
 	private Role role;
 	
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	
 	private Integer isAccept = 0;
