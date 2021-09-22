@@ -10,7 +10,7 @@ public class HomeController {
 	public String index() {
 		return "thymeleaf/index";
 	}	
-	@GetMapping("/")
+	@GetMapping(value = {"/", "/login"})
 	public String longinView() {
 		return "thymeleaf/account/login";
 	}

@@ -23,8 +23,10 @@ public abstract class BaseEntity {
 	@CreatedDate
 	@Column(updatable = false)
 	private Date createDate;
+	
 	@LastModifiedDate
 	private Date modifyDate;
+	
 	@Column(nullable = false)
 	private Integer isDeleted = 0;
 }

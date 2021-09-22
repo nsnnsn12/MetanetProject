@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="thymeleaf/layout/login_layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="~{thymeleaf/layout/login_layout}">
 
 <div layout:fragment="content">
     <div class="row">
@@ -10,14 +10,17 @@
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">메타넷 학사정보 시스템</h1>
                 </div>
-                <form class="user" th:action="@{/login}" method="post">
+                <form th:action="@{/login}" method="post"
+                class="user needs-validation" novalidate>
                     <div class="form-group">
                         <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail"
-                            aria-describedby="emailHelp" placeholder="아이디">
+                            aria-describedby="emailHelp" placeholder="아이디" required>
+                        <div class="invalid-feedback">아이디를 입력해주세요.</div>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control form-control-user"
-                            id="exampleInputPassword" placeholder="비밀번호">
+                            id="exampleInputPassword" placeholder="비밀번호" required>
+                        <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-checkbox small">

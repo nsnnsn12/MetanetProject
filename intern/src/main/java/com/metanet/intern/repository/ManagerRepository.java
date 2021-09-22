@@ -10,5 +10,4 @@ import com.metanet.intern.domain.Manager;
 
 public interface ManagerRepository extends JpaRepository<Manager, Long>{
 	List<Manager> findByLoginId(String loginId);
-	
 }

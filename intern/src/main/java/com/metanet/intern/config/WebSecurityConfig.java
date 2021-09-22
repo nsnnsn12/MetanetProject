@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.metanet.intern.service.ManagerService;
+import com.metanet.intern.service.ManagerServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -23,8 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "/css/**", "/js/**", "/img/**", "/vendor/**",  "/scss/**" };
 
 	@Autowired
-	ManagerService managerService;
-	
+	ManagerServiceImpl managerService;
+	@Autowired
+	AuthFailureHandler authFailureHandler;
 	@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,10 +46,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.anyRequest().authenticated();
 		
 		http.formLogin()
-		.loginPage("/")
+		.loginPage("/login")
+		.failureHandler(authFailureHandler)
 		.defaultSuccessUrl("/index")
 		.permitAll();
 		
 		http.exceptionHandling().accessDeniedPage("/deniedPage");
 	}
+	
+	@Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(managerService).passwordEncoder(passwordEncoder());
+    }
 }

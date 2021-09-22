@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @SpringBootTest
 @Slf4j
-public class ManagerServiceTest {
+public class ManagerServiceImplTest {
 	@Autowired
 	ManagerService managerService;
 	

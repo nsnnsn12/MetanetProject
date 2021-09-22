@@ -35,23 +35,28 @@ public class AccountController {
 	public String regist(Manager manager) {
 		managerService.join(manager);
 		log.info(manager.toString());
-		return "redirect:success";
+		return "redirect:joinSuccess";
 	}
 
-	@GetMapping("success")
-	public String success() {
-		return "thymeleaf/account/success";
+	@GetMapping("joinSuccess")
+	public String joinSuccess() {
+		return "thymeleaf/account/join_success";
 	}
 	
-	@GetMapping("fail")
-	public String fail(Model model) {
-		return "thymeleaf/account/fail";
+	@GetMapping("joinFail")
+	public String joinFail(Model model) {
+		return "thymeleaf/account/join_fail";
+	}
+	
+	@GetMapping("loginFail")
+	public String loginFail(Model model) {
+		return "thymeleaf/account/login_fail";
 	}
 
 	@ExceptionHandler(IllegalStateException.class)
 	public String illegalEx(IllegalStateException e, RedirectAttributes attributes) {
 		log.info(e.getMessage());
 		attributes.addFlashAttribute("errMessage", e.getMessage());
-		return "redirect:fail";
+		return "redirect:joinFail";
 	}
 }
