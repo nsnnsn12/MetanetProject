@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.metanet.intern.enummer.EducationDivision;
@@ -29,13 +30,16 @@ public class Education extends BaseEntity{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="education_id")
 	private Long id;
-	
+	private String name;
 	@ManyToOne
 	@JoinColumn(name="major_id")
 	private Major major;
 	
 	@Enumerated(EnumType.STRING)
 	private EducationDivision division;
+	
+	@OneToMany(mappedBy = "education")
+	private List<Lecture> lectures;
 	
 	@Column(unique = true)
 	private String code;

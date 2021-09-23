@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.metanet.intern.enummer.AttendanceStatus;
 
 import groovy.transform.builder.Builder;
@@ -38,6 +40,7 @@ public class Attendance {
 	private AttendanceStatus status;
 	
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date checkDate;
 	
 }

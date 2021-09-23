@@ -37,6 +37,7 @@ public class Lecture extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name="education_id")
 	private Education education;
+	
 	private Integer maximumPerson;
 	private Integer totalHour;
 	private Integer weekHour;
