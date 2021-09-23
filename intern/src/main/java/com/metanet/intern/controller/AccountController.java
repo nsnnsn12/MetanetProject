@@ -3,8 +3,9 @@ package com.metanet.intern.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.service.ManagerService;
+import com.metanet.intern.vo.Pager;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,6 +53,22 @@ public class AccountController {
 	@RequestMapping("loginFail")
 	public String loginFail(Model model) {
 		return "thymeleaf/account/login_fail";
+	}
+
+	
+	@GetMapping("list")
+	public String accountList(@PageableDefault(size = 5)Pageable pageable, Model model) {
+		Page<Manager> page = managerService.findAllManagers(pageable);
+		model.addAttribute("managerList", page.getContent());
+		model.addAttribute("page", page);
+		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
+		model.addAttribute("pager", pager);
+		return "thymeleaf/account/account_list";
+	}
+	
+	@GetMapping("detail")
+	public String accountDetail() {
+		return"thymeleaf/account/account_detail";
 	}
 
 	@ExceptionHandler(IllegalStateException.class)

@@ -11,4 +11,5 @@ import com.metanet.intern.domain.Manager;
 public interface ManagerRepository extends JpaRepository<Manager, Long>{
 	List<Manager> findByLoginId(String loginId);
 	Manager findByLoginIdAndIsDeleted(String loginId, Integer isDeleted);
+	Page<Manager> findByIsDeleted(Integer isDeleted, Pageable pageable);
 }

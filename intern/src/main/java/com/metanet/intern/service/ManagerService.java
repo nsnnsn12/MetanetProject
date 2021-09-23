@@ -18,5 +18,5 @@ public interface ManagerService extends UserDetailsService{
 	
 	public Long save(Manager manager);
 	
-	public Page<Manager> findManagers(Pageable pageable);
+	public Page<Manager> findAllManagers(Pageable pageable);
 }

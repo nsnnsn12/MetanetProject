@@ -50,8 +50,9 @@ public class ManagerServiceImpl implements ManagerService{
 		return manager.getId();
 	}
 	
-	public Page<Manager> findManagers(Pageable pageable){
-		return managerRepository.findAll(pageable);
+	public Page<Manager> findAllManagers(Pageable pageable){
+		final Integer isDeleted = 0;
+		return managerRepository.findByIsDeleted(isDeleted, pageable);
 	}
 	
 	@Override
