@@ -28,7 +28,7 @@ public class Lecture extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name="manager_id")
-	private Professor professor;
+	private Manager professor;
 	
 	@OneToOne
 	@JoinColumn(name="lecture_plan_id")

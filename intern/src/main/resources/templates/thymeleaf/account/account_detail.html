@@ -47,10 +47,11 @@
 	                    </div>
 						<div class="col-sm-6">
 							<label for="firstName" class="form-label">권한</label> 
-							<select class="form-control" th:value="${detailObject.role}">
-								<option th:value="manager">행정직원</option>
-								<option th:value="admin">관리자</option>
-								<option th:value="professor">교수</option>
+							<select class="form-control" th:field="*{detailObject.role}">
+								<option th:each="roleValue : ${T(com.metanet.intern.enummer.Role).values()}"
+									th:value="${roleValue}"
+									th:text="${roleValue}">
+								</option>
 							</select>
 						</div>
 	                    <div class="col-sm-6">

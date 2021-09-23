@@ -72,4 +72,8 @@ public class Manager extends BaseEntity{
 	private Integer isAccept = 0;
 	private String telNo;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name= "major_id")
+	private Major major;
+	
 }

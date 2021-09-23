@@ -69,11 +69,10 @@
 						</thead>
 						<tbody>
 							<tr th:each="manager : ${managerList}"> 
-								<td th:text="${#strings.toString(manager.role) == 'admin'?'관리자':#strings.toString(manager.role) == 'manager'?'행정직원':'교수'}"></td> 
+								<td th:text="${manager.role}"></td> 
 								<td th:text="${manager.name}"></td> 
 								<td>
-									<a th:if="${manager.role != 'professor'}" th:href="@{/account/mangerDetail/}+${manager.id}" th:text="${manager.loginId}"></a>
-									<a th:if="${manager.role == 'professor'}" th:href="@{/account/professorDetail/}+${manager.id}" th:text="${manager.loginId}"></a>
+									<a th:href="@{/account/mangerDetail/}+${manager.id}" th:text="${manager.loginId}"></a>
 								</td> 
 								<td th:text="${manager.isAccept == 1?'승인':'미승인'}"></td> 
 								<td th:text="${manager.email}"></td> 

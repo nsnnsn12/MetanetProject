@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.metanet.intern.domain.Manager;
-import com.metanet.intern.domain.Professor;
+import com.metanet.intern.enummer.Role;
 import com.metanet.intern.service.ManagerService;
 import com.metanet.intern.vo.Pager;
 
@@ -71,12 +71,6 @@ public class AccountController {
 	@GetMapping("mangerDetail/{id}")
 	public String mangerDetail(@PathVariable("id")Manager manager, Model model) {
 		model.addAttribute("detailObject", manager);
-		return"thymeleaf/account/account_detail";
-	}
-	
-	@GetMapping("professorDetail/{id}")
-	public String professorDetail(@PathVariable("id")Professor professor, Model model) {
-		model.addAttribute("detailObject", professor);
 		return"thymeleaf/account/account_detail";
 	}
 

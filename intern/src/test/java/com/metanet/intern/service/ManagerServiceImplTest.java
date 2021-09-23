@@ -10,10 +10,8 @@ import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.intern.domain.Manager;
-import com.metanet.intern.domain.Professor;
 import com.metanet.intern.enummer.Role;
 import com.metanet.intern.repository.ManagerRepository;
-import com.metanet.intern.repository.ProfessorRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,9 +26,6 @@ public class ManagerServiceImplTest {
 	
 	@Autowired
 	ManagerRepository managerRepository;
-	
-	@Autowired
-	ProfessorRepository professorRepository;
 	
 	@Test
 	public void 회원가입테스트() {
@@ -85,14 +80,6 @@ public class ManagerServiceImplTest {
 		manager.setName("노성규");
 		manager.setRole(Role.manager);
 		managerRepository.save(manager);
-		
-		Professor professor = new Professor();
-		professor.setLoginId("ghfi");
-		professor.setPassword("1234");
-		professor.setName("노성규");
-		professor.setRole(Role.professor);
-		professorRepository.save(professor);
-		
 		//When
 		List<Manager> managers = managerRepository.findAll();
 		
@@ -109,13 +96,6 @@ public class ManagerServiceImplTest {
 		manager.setName("노성규");
 		manager.setRole(Role.manager);
 		managerRepository.save(manager);
-		
-		Professor professor = new Professor();
-		professor.setLoginId("ghfi");
-		professor.setPassword("1234");
-		professor.setName("노성규");
-		professor.setRole(Role.professor);
-		professorRepository.save(professor);
 		
 		PageRequest pageRequest = PageRequest.of(0, 5);
 		
