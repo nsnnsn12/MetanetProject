@@ -6,115 +6,66 @@
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
-	<div class="container-sm">
+	<div class="container">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex">
 				<div>
-					<h6 class="m-0 font-weight-bold text-primary">직원 정보</h6>
+					<h6 class="m-0 font-weight-bold text-primary">교직원 조회</h6>
+				</div>
+				<div class="ml-auto">
+					<button class="btn btn-sm btn-outline-info"  onclick = "location.href='/records/modify'">수정</button>
 				</div>
 			</div>
-			<form class="needs-validation" novalidate>
-	            <div class="card-body">
-	                <div class="row g-3">
-	                    <div class="col-sm-6 mb-3">
-	                        <label class="form-label">전공</label> 
-	                        <select class="custom-select d-block w-100" id="state" required>
-								<option value="">전공선택</option>
-								<option>컴퓨터공학</option>
+            <div class="card-body">
+            	<img src="/img/test.jpg" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" alt="..."/>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="lastName" class="form-label">이름</label> 
+                        <input type="text" class="form-control" th:value="${detailObject.name}" disabled></input>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label">아이디</label> 
+                        <input type="text" class="form-control" th:value="${detailObject.loginId}" disabled></input>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <label for="address" class="form-label">이메일</label> 
+                        <input type="text" class="form-control" th:value="${detailObject.email}" disabled></input>
+                    </div>
+					<div class="col-sm-6">
+                        <label for="firstName" class="form-label">전화번호</label> 
+                        <input type="text" class="form-control" th:value="${detailObject.telNo}" disabled></input>
+                    </div>
+                    
+				</div>
+				<hr class="my-4">
+				<div class="row g-3">
+	                    <div class="col-sm-6">
+	                        <label for="username" class="form-label">전공</label>
+							<label class="form-control" id="전공">컴퓨터공학과</label>
+	                    </div>
+						<div class="col-sm-6">
+							<label for="firstName" class="form-label">권한</label> 
+							<select class="form-control" th:value="${detailObject.role}">
+								<option th:value="manager">행정직원</option>
+								<option th:value="admin">관리자</option>
+								<option th:value="professor">교수</option>
 							</select>
-							<div class="invalid-feedback">전공을 선택해주세요.</div>
+						</div>
+	                    <div class="col-sm-6">
+	                        <label for="lastName" class="form-label">생성일</label> 
+	                        <input type="text" class="form-control" th:value="${detailObject.createDate}" disabled></input>
 	                    </div>
 	                    
-	                    <div class="col-sm-6 mb-3">
-	                        <label>이수구분</label> 
-							<select class="custom-select d-block w-100" id="state" required>
-								<option value="">이수선택</option>
-								<option>전공심화</option>
-							</select>
-							<div class="invalid-feedback">이수구분을 선택해주세요.</div>
+	                    <div class="col-sm-6">
+	                        <label for="firstName" class="form-label">수정일</label> 
+	                        <input type="text" class="form-control" th:value="${detailObject.modifyDate}" disabled></input>
 	                    </div>
-	                    <div class=" col-sm-6 mb-3">
-							<label for="title">교과목명</label> <input type="text" class="form-control" id="title"
-								placeholder="교과목을 입력해주세요" required>
-							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
-						</div>
-						<div class=" col-sm-6 mb-3">
-							<label for="code">교과목코드</label> <input type="text" class="form-control" id="code"
-								placeholder="교과목을 입력해주세요" required>
-							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
-						</div>
-					</div>
-	                    
-	                <hr class="my-4">
-	
-					<div class="row g-3">
-	                    <div class="col-sm-6 mb-3">
-	                        <label class="form-label">학점</label> 
-	                        <div class="custom-control custom-radio">
-								<input name="credit" id="zero" type="radio" class="custom-control-input" checked required>
-								<label class="custom-control-label" for="zero">0</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input name="credit" id="one" type="radio" class="custom-control-input" checked required>
-								<label class="custom-control-label" for="one">1</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input name="credit" id="two" type="radio" class="custom-control-input" required> <label
-									class="custom-control-label" for="two">2</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input name="credit" id="three" type="radio" class="custom-control-input" required> <label
-									class="custom-control-label" for="three">3</label>
-							</div>
-	                    </div>
-	                </div>
-	                <hr class="mb-4">
-					<div class="row g-3">
-						<div class="col-12 mb-3">
-							<textarea name="contents" id="contents">[[*{contents}]]</textarea> 
-						</div>
-	                </div>
-					<hr class="mb-4">
-					<div class="row g-3 d-flex justify-content-end">
-						<button class="btn btn btn-outline-info" type="submit" onclick = "">등록</button>
-						<button class="btn btn btn-outline-danger" onclick = "">삭제</button>
-	                </div>
-	            </div>
-            </form>
+              
+                	</div>
+            </div>
 		</div>
 	</div>
-	<script src="/js/ckeditor/ckeditor.js"></script>
-	<script>
-		$(function () {
-			CKEDITOR.replace('contents', { 
-				width:'1000px',
-				filebrowserUploadUrl: '/common/ckeditor/fileUpload', 
-				font_names: "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana", 
-				font_defaultLabel: "맑은 고딕/Malgun Gothic", 
-				fontSize_defaultLabel: "12",
-				language: "ko" });
-		});
-
-		// Example starter JavaScript for disabling form submissions if there are invalid fields
-		(function () {
-			'use strict';
-
-			window.addEventListener('load', function () {
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
-				var forms = document.getElementsByClassName('needs-validation');
-
-				// Loop over them and prevent submission
-				var validation = Array.prototype.filter.call(forms, function (form) {
-					form.addEventListener('submit', function (event) {
-						if (form.checkValidity() === false) {
-							event.preventDefault();
-							event.stopPropagation();
-						}
-						form.classList.add('was-validated');
-					}, false);
-				});
-			}, false);
-		})();
-	</script>
 </div>
 </html>

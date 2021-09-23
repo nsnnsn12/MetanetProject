@@ -10,12 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.metanet.intern.domain.Manager;
+import com.metanet.intern.domain.Professor;
 import com.metanet.intern.service.ManagerService;
 import com.metanet.intern.vo.Pager;
 
@@ -57,7 +59,7 @@ public class AccountController {
 
 	
 	@GetMapping("list")
-	public String accountList(@PageableDefault(size = 5)Pageable pageable, Model model) {
+	public String accountList(Pageable pageable, Model model) {
 		Page<Manager> page = managerService.findAllManagers(pageable);
 		model.addAttribute("managerList", page.getContent());
 		model.addAttribute("page", page);
@@ -66,8 +68,15 @@ public class AccountController {
 		return "thymeleaf/account/account_list";
 	}
 	
-	@GetMapping("detail")
-	public String accountDetail() {
+	@GetMapping("mangerDetail/{id}")
+	public String mangerDetail(@PathVariable("id")Manager manager, Model model) {
+		model.addAttribute("detailObject", manager);
+		return"thymeleaf/account/account_detail";
+	}
+	
+	@GetMapping("professorDetail/{id}")
+	public String professorDetail(@PathVariable("id")Professor professor, Model model) {
+		model.addAttribute("detailObject", professor);
 		return"thymeleaf/account/account_detail";
 	}
 

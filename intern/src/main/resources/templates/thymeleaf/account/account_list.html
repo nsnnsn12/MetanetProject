@@ -69,15 +69,21 @@
 						</thead>
 						<tbody>
 							<tr th:each="manager : ${managerList}"> 
-								<td th:text="${manager.role}"></td> 
+								<td th:text="${#strings.toString(manager.role) == 'admin'?'관리자':#strings.toString(manager.role) == 'manager'?'행정직원':'교수'}"></td> 
 								<td th:text="${manager.name}"></td> 
-								<td><a th:href="@{/account/detail(page=${manager.id})}" th:text="${manager.loginId}"></a></td> 
-								<td th:text="${manager.isAccept}"></td> 
+								<td>
+									<a th:if="${manager.role != 'professor'}" th:href="@{/account/mangerDetail/}+${manager.id}" th:text="${manager.loginId}"></a>
+									<a th:if="${manager.role == 'professor'}" th:href="@{/account/professorDetail/}+${manager.id}" th:text="${manager.loginId}"></a>
+								</td> 
+								<td th:text="${manager.isAccept == 1?'승인':'미승인'}"></td> 
 								<td th:text="${manager.email}"></td> 
 								<td>
-									<button 
-									class="btn btn-sm btn-outline-danger" 
-									data-toggle="modal" data-target="#myModal">
+									<button th:if="${manager.isAccept == 0}"
+									class="btn btn-sm btn-outline-info">
+										승인
+									</button>
+									<button th:if="${manager.isAccept == 1}"
+									class="btn btn-sm btn-outline-danger">
 										승인취소
 									</button>
 								</td>

@@ -8,6 +8,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class Manager extends BaseEntity{
 	@Column(name="manager_id")
 	private Long id;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name= "photo_id")
 	private PhotoFile photo_id;
 	
@@ -70,6 +71,5 @@ public class Manager extends BaseEntity{
 	
 	private Integer isAccept = 0;
 	private String telNo;
-	
 	
 }
