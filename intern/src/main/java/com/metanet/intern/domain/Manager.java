@@ -46,7 +46,7 @@ public class Manager extends BaseEntity{
 	@Column(name="manager_id")
 	private Long id;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name= "photo_id")
 	private PhotoFile photo;
 	

@@ -73,6 +73,7 @@ public class FileSystemStorageService implements StorageService {
 			
 			photoSetting(photoFile, file);
 			
+			//uploadDir/photo/2304234_문서작성목록
 			Path destinationFile = this.rootLocation.resolve(
 					Paths.get(photoFile.getSaveFileName()))
 					.normalize().toAbsolutePath();
@@ -94,17 +95,28 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	public void photoSetting(PhotoFile photoFile, MultipartFile file) {
+		//오리지널 네임
 		photoFile.setOriginalFileName(file.getOriginalFilename());
+		//파일 확장자 (img, png 등등)
 		photoFile.setMimeType(file.getContentType());
+		//파일 사이즈
 		photoFile.setFileSize(file.getSize());
 		log.info(photoFile.getOriginalFileName());
+		
+		//파일 이름 중복 방지용 업로드 시간 문자열
 		SimpleDateFormat format1 = new SimpleDateFormat( "yyyyMMddHHmmss");
 		Date time = new Date();
 		String fileSuffix = format1.format(time);
 		log.info(file.getName());
+		
+		//작성문서목록_202102342340.png
 		String[] fileSplit = photoFile.getOriginalFileName().split("\\.");
 		log.info(fileSplit[0]);
+		
+		//실제 서버 저장명
 		photoFile.setSaveFileName(fileSplit[0]+"_"+fileSuffix+"."+fileSplit[1]);
+		
+		//저장파일 path
 		photoFile.setFilePath(this.rootLocation.toString());
 		
 	}
