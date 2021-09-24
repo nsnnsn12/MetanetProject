@@ -11,7 +11,8 @@
                 oninput='password2.setCustomValidity(password2.value != password.value ? "비밀번호가 맞지 않습니다." : "")'
                     novalidate>
                     <div class="form-group">
-                        <input type="file" th:field="*{image}" /></td>
+                        <img id="preview" src="/img/test.jpg"  class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" >
+                        <input type="file" th:field="*{image}" id="getfile" accept="image/*"/>
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" placeholder="ID" th:field="*{loginId}"
@@ -71,6 +72,22 @@
             </div>
         </div>
     </div>
+    <script>
+        var file = document.querySelector('#getfile');
+    
+        file.onchange = function () { 
+            var fileList = file.files ;
+            
+            // 읽기
+            var reader = new FileReader();
+            reader.readAsDataURL(fileList [0]);
+    
+            //로드 한 후
+            reader.onload = function  () {
+                document.querySelector('#preview').src = reader.result ;
+                console.log(reader.result);
+            }; 
+        }; 
+    </script>
 </div>
-
 </html>

@@ -82,14 +82,18 @@ public class AccountController {
 	
 	@GetMapping("mangerDetail/{id}")
 	public String mangerDetail(@PathVariable("id")Manager manager, Model model) {
-		if(manager.getPhoto() == null) {
-			manager.setPhoto(new PhotoFile());
-			manager.getPhoto().setId((long)0);
-		}
+		//사진을 등록하지 않았을 경우
+		preventPhotoNull(manager);
 		model.addAttribute("detailObject", manager);
 		return"thymeleaf/account/account_detail";
 	}
 
+	public void preventPhotoNull(Manager manager) {
+		if(manager.getPhoto() == null) {
+			manager.setPhoto(new PhotoFile());
+			manager.getPhoto().setId((long)0);
+		}
+	}
 	@ExceptionHandler(IllegalStateException.class)
 	public String illegalEx(IllegalStateException e, RedirectAttributes attributes) {
 		log.info(e.getMessage());
