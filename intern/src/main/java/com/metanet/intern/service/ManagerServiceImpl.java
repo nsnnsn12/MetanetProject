@@ -50,7 +50,10 @@ public class ManagerServiceImpl implements ManagerService{
 	public Long join(Manager manager) {
 		validationDuplicateLoginId(manager);
 		manager.setPassword(passwordEncoder.encode(manager.getPassword()));
+		
+		//파일저장
 		PhotoFile photoFile = storageService.photoStore(manager.getImage());
+		
 		if(photoFile != null) {
 			photoRepository.save(photoFile);
 			manager.setPhoto(photoFile);
