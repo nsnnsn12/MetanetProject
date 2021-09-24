@@ -77,21 +77,19 @@
 								<td th:text="${manager.isAccept == 1?'승인':'미승인'}"></td> 
 								<td th:text="${manager.email}"></td> 
 								<td>
-									<button th:if="${manager.isAccept == 0}"
+									<a th:if="${manager.isAccept == 0}" th:href="@{/account/accept(id=${manager.id}, isAccept = 1)}"
 									class="btn btn-sm btn-outline-info">
 										승인
-									</button>
-									<button th:if="${manager.isAccept == 1}"
+									</a>
+									<a th:if="${manager.isAccept == 1}" th:href="@{/account/accept(id=${manager.id}, isAccept = 0)}"
 									class="btn btn-sm btn-outline-danger">
 										승인취소
-									</button>
+									</a>
 								</td>
 								<td>
-									<button 
-									class="btn btn-sm btn-outline-danger" 
-									data-toggle="modal" data-target="#myModal">
+									<a class="btn btn-sm btn-outline-danger" th:href="@{/account/delete(id=${manager.id})}">
 										삭제
-									</button>
+									</a>
 								</td>
 							</tr>
 						</tbody>

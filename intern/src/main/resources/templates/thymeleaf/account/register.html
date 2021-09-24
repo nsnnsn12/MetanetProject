@@ -7,9 +7,12 @@
         <div class="col-lg-9 mx-auto">
             <div class="p-5">
                 <form class="user needs-validation" th:action="@{/account/join}" 
-                th:object="${manager}" method="POST" 
+                th:object="${manager}" method="POST"  enctype="multipart/form-data"
                 oninput='password2.setCustomValidity(password2.value != password.value ? "비밀번호가 맞지 않습니다." : "")'
                     novalidate>
+                    <div class="form-group">
+                        <input type="file" th:field="*{image}" /></td>
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" placeholder="ID" th:field="*{loginId}"
                             required>

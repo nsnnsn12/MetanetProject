@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Builder
 @Entity
@@ -24,6 +26,6 @@ public class PhotoFile extends BaseEntity{
 	private String originalFileName;
 	private String saveFileName;
 	private String filePath;
-	private Integer fileSize;
+	private Long fileSize;
 	private String mimeType;
 }

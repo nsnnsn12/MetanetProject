@@ -19,4 +19,7 @@ public interface ManagerService extends UserDetailsService{
 	public Long save(Manager manager);
 	
 	public Page<Manager> findAllManagers(Pageable pageable);
+
+	public void updateAccept(Long id, Integer acceptFlag);
+	public void delete(Long id, Integer deleteFlag);
 }

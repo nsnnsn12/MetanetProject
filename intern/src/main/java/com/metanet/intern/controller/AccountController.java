@@ -80,4 +80,17 @@ public class AccountController {
 		attributes.addFlashAttribute("errMessage", e.getMessage());
 		return "redirect:joinFail";
 	}
+	
+	@GetMapping("accept")
+	public String updateAccept(Long id, Integer acceptFlag) {
+		managerService.updateAccept(id, acceptFlag);
+		return "redirect:list";
+	}
+	
+	@GetMapping("delete")
+	public String deleteManager(Long id) {
+		Integer deleteFlag = 1;
+		managerService.delete(id, deleteFlag);
+		return "redirect:list";
+	}
 }

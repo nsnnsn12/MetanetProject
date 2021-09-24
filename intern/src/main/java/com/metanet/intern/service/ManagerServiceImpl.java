@@ -18,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.metanet.intern.domain.Manager;
+import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.enummer.Role;
 import com.metanet.intern.repository.ManagerRepository;
+import com.metanet.intern.repository.PhotoRepository;
 
 import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
 import lombok.extern.slf4j.Slf4j;
@@ -31,12 +33,28 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	@Autowired
 	ManagerRepository managerRepository;
+	
+	@Autowired
+	PhotoRepository photoRepository;
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	private final StorageService storageService;
+
+	@Autowired
+	public ManagerServiceImpl(StorageService storageService) {
+		this.storageService = storageService;
+	}
 	
 	public Long join(Manager manager) {
 		validationDuplicateLoginId(manager);
 		manager.setPassword(passwordEncoder.encode(manager.getPassword()));
+		PhotoFile photoFile = storageService.photoStore(manager.getImage());
+		if(photoFile != null) {
+			photoRepository.save(photoFile);
+			manager.setPhoto(photoFile);
+		}
 		managerRepository.save(manager);
 		return manager.getId();
 	}
@@ -53,6 +71,18 @@ public class ManagerServiceImpl implements ManagerService{
 	public Page<Manager> findAllManagers(Pageable pageable){
 		final Integer isDeleted = 0;
 		return managerRepository.findByIsDeleted(isDeleted, pageable);
+	}
+	
+	@Override
+	public void updateAccept(Long id, Integer acceptFlag) {
+		Manager manager = managerRepository.findById(id).get();
+		manager.setIsAccept(acceptFlag);
+	}
+	
+	@Override
+	public void delete(Long id, Integer deleteFlag) {
+		Manager manager = managerRepository.findById(id).get();
+		manager.setIsDeleted(deleteFlag);
 	}
 	
 	@Override

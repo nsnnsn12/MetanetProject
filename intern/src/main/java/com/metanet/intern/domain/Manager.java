@@ -19,10 +19,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.metanet.intern.enummer.Role;
 
@@ -46,7 +48,7 @@ public class Manager extends BaseEntity{
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name= "photo_id")
-	private PhotoFile photo_id;
+	private PhotoFile photo;
 	
 	@Column(unique = true)
 	@NotNull
@@ -75,5 +77,8 @@ public class Manager extends BaseEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name= "major_id")
 	private Major major;
+	
+	@Transient
+	private MultipartFile image; 
 	
 }
