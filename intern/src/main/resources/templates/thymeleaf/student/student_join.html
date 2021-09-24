@@ -22,7 +22,7 @@
 						<img src="/img/test.jpg" id="image" 
 							class="img-responsive rounded ml-auto border p-3" width="300"
 							height="300" alt="..." />
-						<div class="mt-auto" class="form-group">
+						<div class="mt-auto form-group">
 							<input class="file-upload" type="file" id="chooseFile" th:field="*{image}" 
 								name="chooseFile" accept="image/*" onchange="loadFile(this)">
 						</div>
@@ -49,13 +49,13 @@
 							<div class="invalid-feedback">유효한 비밀번호가 아닙니다.</div>
 						</div>
 
-						<div class="col-sm-6">
+						<div class="col-sm-6 form-group">
 							<label class="form-label">비밀번호 확인</label> <input type="password" name="password2" class="form-control" id="비밀번호"
 								placeholder="비밀번호를 입력하세요" required>
 							<div class="invalid-feedback">비밀번호가 맞지 않습니다.</div>
 						</div>
 
-						<div class="col-12">
+						<div class="col-12 form-group">
 							<label class="form-label">전화번호</label> <input type="text" th:field="*{telNo}"
 								class="form-control" id="전화번호" placeholder="전화번호를 입력하세요"
 								required>
@@ -66,20 +66,20 @@
 					<hr class="my-4">
 
 					<div class="row g-3">
-						<div class="col-sm-6">
-							<label class="form-label">전공</label> <select class="form-control" th:field="*{major}"
-								id="전공" required>
+						<div class="col-sm-6 form-group">
+							<label class="form-label">전공</label> 
+							<!-- <select class="form-control" th:field="*{major}" id="전공" required>
 								<option th:each="majorValue : ${majorList.values()}"
 									th:value="${majorValue}"
 									th:text="${majorValue}">
 								</option>
-							</select>
-							<div class="invalid-feedback">전공을 선택하세요.</div>
+							</select> -->
+							<div class="invalid-feedback">s전공을 선택하세요.</div>
 						</div>
 
-						<div class="col-sm-6">
-							<label class="form-label">학적상태</label> <select class="form-control" th:field="*{status}" 
-								id="학적상태" required>
+						<div class="col-sm-6 form-group">
+							<label class="form-label">학적상태</label> 
+							<select class="form-control" th:field="*{status}" id="학적상태" required>
 								<option th:each="statusValue : ${T(com.metanet.intern.enummer.Academic).values()}"
 									th:value="${statusValue}"
 									th:text="${statusValue}">
@@ -88,24 +88,12 @@
 							<div class="invalid-feedback">유효한 학적상태가 아닙니다.</div>
 						</div>
 
-						<div class="col-sm-4">
+						<div class="col-sm-6 form-group">
 							<label class="form-label">학기</label> <input type="text" th:field="*{semester}" 
 								class="form-control" id="학기" placeholder="학기를 입력하세요" value="">
 							<div class="invalid-feedback">유효한 학기가 아닙니다.</div>
 						</div>
-
-						<div class="col-sm-4">
-							<label class="form-label">생성일</label> <input type="date" 
-								class="form-control" id="생성일" placeholder="생성일을 입력하세요" value=""
-								required>
-							<div class="invalid-feedback">유효한 생성일이 아닙니다.</div>
-						</div>
-
-						<div class="col-sm-4">
-							<label class="form-label">수정일</label> <input type="date"
-								class="form-control" id="수정일" placeholder="수정일을 입력하세요" value="">
-							<div class="invalid-feedback">유효한 수정일이 아닙니다.</div>
-						</div>
+						
 					</div>
 					<hr class="mb-4">
 					<button class="btn btn-lg btn-outline-info btn-block">등록</button>

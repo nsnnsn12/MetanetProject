@@ -28,8 +28,8 @@ public class StudentController {
 
 	// 학적 등록
 	@GetMapping("join")
-	public String joinForm(Model model) {
-		model.addAttribute("majorList", null);
+	public String joinForm(Model model, Student student) {
+//		model.addAttribute("majorList", null);
 		return "/thymeleaf/student/student_join";
 	}
 
