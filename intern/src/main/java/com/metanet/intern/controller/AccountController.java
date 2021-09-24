@@ -82,6 +82,10 @@ public class AccountController {
 	
 	@GetMapping("mangerDetail/{id}")
 	public String mangerDetail(@PathVariable("id")Manager manager, Model model) {
+		if(manager.getPhoto() == null) {
+			manager.setPhoto(new PhotoFile());
+			manager.getPhoto().setId((long)0);
+		}
 		model.addAttribute("detailObject", manager);
 		return"thymeleaf/account/account_detail";
 	}
@@ -109,7 +113,6 @@ public class AccountController {
 	@GetMapping("download/{id}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable("id")PhotoFile photoFile) {
-		log.info(photoFile.getSaveFileName());
 		Resource file = storageService.loadAsResource(photoFile.getSaveFileName());
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
