@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.metanet.intern.enummer.Academic;
 
@@ -26,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class Student extends BaseEntity{
+	//기본 키
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="student_id")
 	private Long id;
@@ -42,6 +46,7 @@ public class Student extends BaseEntity{
 	@Temporal(TemporalType.DATE)
 	private Date birth;
 	
+	//학번
 	@Column(unique = true)
 	private Integer studentNumber;
 	
@@ -54,6 +59,8 @@ public class Student extends BaseEntity{
 	private Academic status;
 	
 	private String telNo;
-	
+
+	@Transient
+	private MultipartFile image;
 	
 }
