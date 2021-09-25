@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,11 +36,11 @@ public class Student extends BaseEntity{
 	@Column(name="student_id")
 	private Long id;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name= "photo_id")
-	private PhotoFile photo_id;
+	private PhotoFile photo;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name= "major_id")
 	private Major major;
 	
@@ -63,5 +64,8 @@ public class Student extends BaseEntity{
 
 	@Transient
 	private MultipartFile image;
+	
+	@Transient
+	private Long majorId;
 	
 }

@@ -68,7 +68,7 @@
 					<div class="row g-3">
 						<div class="col-sm-6 form-group">
 							<label class="form-label">전공</label> 
-							<select class="form-control" th:field="*{major}" id="전공" required>
+							<select class="form-control" th:field="*{majorId}" id="전공" required>
 								<option th:each="major : ${majorList}"
 									th:value="${major.id}"
 									th:text="${major.title}">
