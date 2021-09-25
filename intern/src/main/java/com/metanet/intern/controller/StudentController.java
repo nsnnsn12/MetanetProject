@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.metanet.intern.domain.Student;
+import com.metanet.intern.service.StudentService;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
 	@Autowired
+	StudentService studentService;
 
 	// 학적 목록조회
 	@GetMapping("list")
-	public String list() {
+	public String list(Model model) {
+		model.addAttribute("studentList", studentService.list());
 		return "/thymeleaf/student/student_list";
 	}
 
@@ -33,10 +36,18 @@ public class StudentController {
 		return "/thymeleaf/student/student_join";
 	}
 
-	//학적 등록 처리
+	// 학적 등록 처리
 	@PostMapping("join")
 	public String join(Student student) {
+		if (studentService.join(student) == null)
+			return "/thymeleaf/404page";
 		return "redirect:joinSuccess";
+	}
+
+	// 학적 등록 성공
+	@GetMapping("joinSuccess")
+	public String joinSuccess() {
+		return "thymeleaf/student/join_success";
 	}
 
 	// 학적 수정
