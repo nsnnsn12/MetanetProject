@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,10 +74,21 @@ public class AccountController {
 
 	
 	@GetMapping("list")
-	public String accountList(Pageable pageable, Model model, ManagerSearchCondition condition) {
+	public String accountList(@ModelAttribute("condition") ManagerSearchCondition condition, Pageable pageable, Model model) {
 		log.info(condition.toString());
 		Page<Manager> page = managerService.findAllManagers(pageable);
-		model.addAttribute("managerList", page.getContent());
+		model.addAttribute("page", page);
+		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
+		model.addAttribute("pager", pager);
+		return "thymeleaf/account/account_list";
+	}
+	
+	@GetMapping("page/{pageNo}")
+	public String search(@ModelAttribute("condition") ManagerSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
+		log.info(condition.toString());
+		log.info(condition.getRoleFilter().name());
+		log.info(condition.getRoleFilter().toString());
+		Page<Manager> page = managerService.findAllManagers(PageRequest.of(pageNo, 10));
 		model.addAttribute("page", page);
 		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
 		model.addAttribute("pager", pager);

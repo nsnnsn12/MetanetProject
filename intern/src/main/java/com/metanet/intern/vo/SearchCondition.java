@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Component
+@ToString
 public abstract class SearchCondition {
 	//검색어
 	private String text;
