@@ -17,31 +17,21 @@
 				</div>
 			</div>
             <div class="card-body">
-            	<img src="/img/test.jpg" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" alt="..."/>
+            	<img th:src="@{${'/account/download/' + student.photo.id }}" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" alt="..."/>
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label for="lastName" class="form-label">이름</label> 
-                        <label type="text" class="form-control" id="이름">김학생</label>
+                        <label type="text" class="form-control" id="이름" th:text="${student.name}"></label>
                     </div>
                     
                     <div class="col-sm-6">
                         <label for="firstName" class="form-label">학번</label> 
-                        <label type="text" class="form-control" id="학번">20212233</label>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="lastName" class="form-label">아이디</label> 
-                        <label type="text" class="form-control" id="아이디">abcd</label>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">비밀번호</label> 
-                        <label type="text" class="form-control" id="비밀번호">1111</label>
+                        <label type="text" class="form-control" id="학번" th:text="${student.studentNumber}"></label>
                     </div>
                     
                     <div class="col-12">
                         <label for="address" class="form-label">전화번호</label> 
-                        <label type="text" class="form-control" id="전화번호">010-1234-5678</label>
+                        <label type="text" class="form-control" id="전화번호" th:text="${student.telNo}"></label>
                     </div>
                     
 				</div>
@@ -49,12 +39,12 @@
 				<div class="row g-3">
 	                    <div class="col-sm-6">
 	                        <label for="username" class="form-label">전공</label>
-							<label class="form-control" id="전공">컴퓨터공학과</label>
+							<label class="form-control" id="전공" th:text="${student.major.title}"></label>
 	                    </div>
 	                                        
 	                    <div class="col-sm-6">
 	                        <label for="lastName" class="form-label">학적상태</label> 
-	                        <label type="text" class="form-control" id="학적상태">재학</label>
+	                        <label type="text" class="form-control" id="학적상태" th:text="${student.status}"></label>
 	                    </div>
 	                    
 	                    <div class="col-sm-6">
@@ -64,17 +54,17 @@
 	                    
 	                    <div class="col-sm-6">
 	                        <label for="firstName" class="form-label">학기</label> 
-	                        <label type="text" class="form-control" id="학기">2</label>
+	                        <label type="text" class="form-control" id="학기" th:text="${student.semester}"></label>
 	                    </div>
 	                    
 	                    <div class="col-sm-6">
 	                        <label for="lastName" class="form-label">생성일</label> 
-	                        <label type="date" class="form-control" id="생성일">2021.02.20</label>
+	                        <label type="date" class="form-control" id="생성일" th:text="${student.createDate}"></label>
 	                    </div>
 	                    
 	                    <div class="col-sm-6">
 	                        <label for="firstName" class="form-label">수정일</label> 
-	                        <label type="text" class="form-control" id="수정일">2021.03.01</label>
+	                        <label type="text" class="form-control" id="수정일" th:text="${student.modifyDate}"></label>
 	                    </div>
               
                 	</div>
