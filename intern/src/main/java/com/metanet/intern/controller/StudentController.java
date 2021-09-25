@@ -36,7 +36,7 @@ public class StudentController {
 	// 학적 등록
 	@GetMapping("join")
 	public String joinForm(Model model, Student student) {
-//		model.addAttribute("majorList", null);
+		model.addAttribute("majorList", majorService.getAll());
 		return "/thymeleaf/student/student_join";
 	}
 
@@ -51,7 +51,7 @@ public class StudentController {
 	// 학적 등록 성공
 	@GetMapping("joinSuccess")
 	public String joinSuccess() {
-		return "thymeleaf/student/join_success";
+		return "thymeleaf/student/student_join_success";
 	}
 
 	// 학적 수정

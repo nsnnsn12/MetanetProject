@@ -10,5 +10,7 @@ import com.metanet.intern.domain.Major;
 
 public interface MajorRepository extends JpaRepository<Major, Long> {
 	Page<Major> findByIsDeleted(Integer isNotDeleted,Pageable pageable);
+	//1:삭제
+	List<Major> findByIsDeleted(Integer isDeleted);
 	
 }

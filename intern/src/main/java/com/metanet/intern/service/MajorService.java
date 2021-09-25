@@ -30,7 +30,7 @@ public class MajorService {
 	}
 	
 	public List<Major> getAll(){
-		return majorRepository.findAll();
+		return majorRepository.findByIsDeleted(0);
 	}
 
 }
