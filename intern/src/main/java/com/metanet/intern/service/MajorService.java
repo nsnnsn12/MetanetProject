@@ -1,5 +1,7 @@
 package com.metanet.intern.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,10 @@ public class MajorService {
 
 	public Page<Major> getAllList(Pageable pageable) {
 		return majorRepository.findByIsDeleted(notDeleted, pageable);
+	}
+	
+	public List<Major> getAll(){
+		return majorRepository.findAll();
 	}
 
 }

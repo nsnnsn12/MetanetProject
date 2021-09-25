@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.metanet.intern.domain.Student;
+import com.metanet.intern.service.MajorService;
 import com.metanet.intern.service.StudentService;
 
 @Controller
@@ -15,6 +16,9 @@ import com.metanet.intern.service.StudentService;
 public class StudentController {
 	@Autowired
 	StudentService studentService;
+	
+	@Autowired
+	MajorService majorService;
 
 	// 학적 목록조회
 	@GetMapping("list")
