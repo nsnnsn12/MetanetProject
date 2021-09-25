@@ -3,12 +3,15 @@ package com.metanet.intern.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.domain.Student;
+import com.metanet.intern.repository.MajorRepository;
 import com.metanet.intern.repository.PhotoRepository;
 import com.metanet.intern.repository.StudentRepository;
 
@@ -27,6 +30,9 @@ public class StudentService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	MajorRepository majorRepository;
 
 	private final StorageService storageService;
 
@@ -36,8 +42,8 @@ public class StudentService {
 	}
 	
 	// 목록 조회
-	public List<Student> list(){
-		return studentRepository.findAll();
+	public Page<Student> list(Pageable pageable){
+		return studentRepository.findByIsDeleted(0, pageable);
 	}
 
 	// 등록
@@ -51,11 +57,15 @@ public class StudentService {
 		// 파일저장
 		PhotoFile photoFile = storageService.photoStore(student.getImage());
 
-		//
 		if (photoFile != null) {
 			photoRepository.save(photoFile);
-			student.setPhoto_id(photoFile);
+			student.setPhoto(photoFile);
 		}
+		
+		//전공 검색
+		student.setMajor(majorRepository.findById(student.getMajorId()).get());
+		
+		//데이터베이스 저장
 		studentRepository.save(student);
 		return student.getId();
 	}
