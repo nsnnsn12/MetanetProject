@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="thymeleaf/layout/default">
+
+<div layout:fragment="content">
+	<!-- Begin Page Content -->
+	<div class="container">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex">
+				<div>
+					<h6 class="m-0 font-weight-bold text-primary">과목코드 조회</h6>
+				</div>
+				<div class="ml-auto">
+					<button class="btn btn-sm btn-outline-info"  onclick = "location.href='/major/modify'">수정</button>
+				</div>
+			</div>
+            <div class="card-body">
+				<div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="title" class="form-label">전공명</label> 
+                        <input type="text" class="form-control" th:value="${detailObject.title}" disabled></input>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <label for="code" class="form-label">과목코드</label> 
+                        <input type="text" class="form-control" th:value="${detailObject.code}" disabled></input>
+                    </div>
+				</div>
+				<hr class="my-4">
+            </div>
+		</div>
+	</div>
+</div>
+</html>

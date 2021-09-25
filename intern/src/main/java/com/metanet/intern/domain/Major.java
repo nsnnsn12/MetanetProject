@@ -11,10 +11,11 @@ import javax.persistence.OneToMany;
 import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
-@Builder
 @Entity
 public class Major extends BaseEntity{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
