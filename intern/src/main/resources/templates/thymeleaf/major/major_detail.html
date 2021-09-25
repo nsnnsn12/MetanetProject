@@ -7,30 +7,36 @@
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
 	<div class="container">
-		<div class="card shadow mb-4">
+		<form class="card shadow mb-4" 
+			th:object="${detailObject}" method="post" novalidate>
 			<div class="card-header py-3 d-flex">
 				<div>
 					<h6 class="m-0 font-weight-bold text-primary">과목코드 조회</h6>
 				</div>
-				<div class="ml-auto">
-					<button class="btn btn-sm btn-outline-info"  onclick = "location.href='/major/modify'">수정</button>
-				</div>
+				
 			</div>
             <div class="card-body">
 				<div class="row g-3">
                     <div class="col-sm-6">
                         <label for="title" class="form-label">전공명</label> 
-                        <input type="text" class="form-control" th:value="${detailObject.title}" disabled></input>
+                        <input type="text" class="form-control" 
+                        th:field="*{title}" th:value="${detailObject.title}" ></input>
                     </div>
                     
                     <div class="col-sm-6">
                         <label for="code" class="form-label">과목코드</label> 
-                        <input type="text" class="form-control" th:value="${detailObject.code}" disabled></input>
+                        <input type="text" class="form-control" 
+                        th:field="*{code}" th:value="${detailObject.code}" ></input>
+                        <input type="hidden" th:field="*{id}"></input>
                     </div>
 				</div>
+				<div class="ml-auto">
 				<hr class="my-4">
+				<button class="btn btn-sm btn-outline-info" th:formaction="@{/major/update}" type="submit" >수정</button>
+				<button class="btn btn-sm btn-outline-danger" th:formaction="@{/major/delete}" type="submit">삭제</button>
+				</div>
             </div>
-		</div>
+		</form>
 	</div>
 </div>
 </html>

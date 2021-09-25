@@ -21,6 +21,15 @@ public class MajorService {
 		majorRepository.save(major);
 	}
 	
+	public void updateMajor(Major major) {
+		majorRepository.save(major);
+	}
+	
+	public void deleteMajor(Major major) {
+		major.setIsDeleted(1);
+		majorRepository.save(major);
+	}
+	
 	public Major findOne(Long id) {
 		return majorRepository.getById(id);
 	}
@@ -32,5 +41,7 @@ public class MajorService {
 	public List<Major> getAll(){
 		return majorRepository.findAll();
 	}
+
+	
 
 }
