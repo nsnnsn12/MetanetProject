@@ -10,20 +10,23 @@
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">직원 조회</h6>
 			</div>
-			<div class="card-body">
+			<div class="card-body" th:object="${condition}">
 				<div class="d-flex mb-2">
 					<div class="input-group col-lg-6 mr-auto">
 						<div class="input-group-prepend">
-							<select name="" id="" class="form-control">
+							<select class="form-control" th:field="*{type}" >
 								<option value="">
+									검색조건
+								</option>
+								<option value="name">
 									이름
 								</option>
-								<option value="">
+								<option value="id">
 									아이디
 								</option>
 							</select>
 						</div>
-						<input type="text" class="form-control">
+						<input type="text" class="form-control" th:field="*{text}">
 						<button class="col-1 col-md-2 col-sm-2 btn btn-sm btn-outline-primary mr-auto">검색</button>
 					</div>
 				</div>

@@ -28,6 +28,7 @@ import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.enummer.Role;
 import com.metanet.intern.service.ManagerService;
 import com.metanet.intern.service.StorageService;
+import com.metanet.intern.vo.ManagerSearchCondition;
 import com.metanet.intern.vo.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +72,8 @@ public class AccountController {
 
 	
 	@GetMapping("list")
-	public String accountList(Pageable pageable, Model model) {
+	public String accountList(Pageable pageable, Model model, ManagerSearchCondition condition) {
+		log.info(condition.toString());
 		Page<Manager> page = managerService.findAllManagers(pageable);
 		model.addAttribute("managerList", page.getContent());
 		model.addAttribute("page", page);
