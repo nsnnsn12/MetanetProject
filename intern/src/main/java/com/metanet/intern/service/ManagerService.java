@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.repository.ManagerRepository;
+import com.metanet.intern.vo.ManagerSearchCondition;
 
 public interface ManagerService extends UserDetailsService{
 	public Long join(Manager manager);
@@ -22,4 +23,6 @@ public interface ManagerService extends UserDetailsService{
 
 	public void updateAccept(Long id, Integer acceptFlag);
 	public void delete(Long id, Integer deleteFlag);
+	
+	public Page<Manager> searchManagerList(Pageable pageable, ManagerSearchCondition condition);
 }

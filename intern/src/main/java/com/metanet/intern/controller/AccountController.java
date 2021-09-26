@@ -76,7 +76,7 @@ public class AccountController {
 	@GetMapping("list")
 	public String accountList(@ModelAttribute("condition") ManagerSearchCondition condition, Pageable pageable, Model model) {
 		log.info(condition.toString());
-		Page<Manager> page = managerService.findAllManagers(pageable);
+		Page<Manager> page = managerService.searchManagerList(pageable, condition);
 		model.addAttribute("page", page);
 		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
 		model.addAttribute("pager", pager);
@@ -85,10 +85,7 @@ public class AccountController {
 	
 	@GetMapping("page/{pageNo}")
 	public String search(@ModelAttribute("condition") ManagerSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
-		log.info(condition.toString());
-		log.info(condition.getRoleFilter().name());
-		log.info(condition.getRoleFilter().toString());
-		Page<Manager> page = managerService.findAllManagers(PageRequest.of(pageNo, 10));
+		Page<Manager> page = managerService.searchManagerList(PageRequest.of(pageNo, 10), condition);
 		model.addAttribute("page", page);
 		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
 		model.addAttribute("pager", pager);

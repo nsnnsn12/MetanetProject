@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,6 +23,8 @@ import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.enummer.Role;
 import com.metanet.intern.repository.ManagerRepository;
 import com.metanet.intern.repository.PhotoRepository;
+import com.metanet.intern.spec.ManagerSpec;
+import com.metanet.intern.vo.ManagerSearchCondition;
 
 import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
 import lombok.extern.slf4j.Slf4j;
@@ -74,6 +77,27 @@ public class ManagerServiceImpl implements ManagerService{
 	public Page<Manager> findAllManagers(Pageable pageable){
 		final Integer isDeleted = 0;
 		return managerRepository.findByIsDeleted(isDeleted, pageable);
+	}
+	
+	public Page<Manager> searchManagerList(Pageable pageable, ManagerSearchCondition condition){
+		//삭제되지 않은 정보
+		Specification<Manager> spec = Specification.where(ManagerSpec.isNotDeleted());
+		if(!condition.getType().isBlank() && !condition.getText().isBlank()) {
+			if(condition.getType().equals("name")) {
+				spec = spec.and(ManagerSpec.likeName(condition.getText()));
+			}else {
+				spec = spec.and(ManagerSpec.likeLoginId(condition.getText()));
+			}
+		}
+		
+		if(condition.getRoleFilter() != null) {
+			spec = spec.and(ManagerSpec.equalRole(condition.getRoleFilter()));
+		}
+		
+		if(condition.getAcceptFilter() != null) {
+			spec = spec.and(ManagerSpec.equalAccept(condition.getAcceptFilter()));
+		}
+		return managerRepository.findAll(spec, pageable);
 	}
 	
 	@Override
