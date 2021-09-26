@@ -71,9 +71,9 @@ public class MajorController {
 	}
 	
 	@PostMapping("delete")
-	public String deleteMajor(Major major, Model model) {
+	public String deleteMajor(Long id) {
 		log.info("delete진입");
-		majorService.deleteMajor(major);
+		majorService.deleteMajor(id);
 		return "redirect:list";
 	}
 }

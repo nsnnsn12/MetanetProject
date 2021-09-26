@@ -25,7 +25,8 @@ public class MajorService {
 		majorRepository.save(major);
 	}
 	
-	public void deleteMajor(Major major) {
+	public void deleteMajor(Long id) {
+		Major major = majorRepository.findById(id).get();
 		major.setIsDeleted(1);
 		majorRepository.save(major);
 	}
