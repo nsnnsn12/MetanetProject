@@ -2,6 +2,7 @@ package com.metanet.intern.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,14 +54,26 @@ public class MajorController {
 	
 	@GetMapping("detail/{id}")
 	public String majorDetailForm(@PathVariable("id")Major major, Model model){
+		log.info("detail진입");
+		log.info(major.getTitle());
+		log.info(major.getCode());
 		model.addAttribute("detailObject", major);
+		
 		return "thymeleaf/major/major_detail";
 	}
 	
-	@GetMapping("modify/{code}")
-	public String majorModifyForm(@PathVariable("code")Major major, Model model){
-		
-		model.addAttribute("detailObject", major);
-		return "thymeleaf/major/major_modify";
+	@PostMapping("update")
+	public String updateMajor(Major major, Model model){
+		log.info("update진입");
+		log.info(major.getId().toString());
+		majorService.updateMajor(major);
+		return "redirect:list";
+	}
+	
+	@PostMapping("delete")
+	public String deleteMajor(Major major, Model model) {
+		log.info("delete진입");
+		majorService.deleteMajor(major);
+		return "redirect:list";
 	}
 }

@@ -14,9 +14,10 @@
                         <img id="preview" src="/img/test.jpg"  class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" >
                         <input type="file" th:field="*{image}" id="getfile" accept="image/*"/>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-user" placeholder="ID" th:field="*{loginId}"
+                    <div class="form-inline mb-2">
+                        <input type="text" class="form-control form-control-user col-6 mr-3" placeholder="ID" th:field="*{loginId}"
                             required>
+                        <a class="btn btn-sm btn-info">중복확인</a>
                         <div class="invalid-feedback">아이디를 입력해주세요.</div>
                     </div>
                     <div class="form-group row">

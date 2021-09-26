@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +28,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.enummer.Role;
+import com.metanet.intern.service.MajorService;
 import com.metanet.intern.service.ManagerService;
 import com.metanet.intern.service.StorageService;
+import com.metanet.intern.vo.ManagerSearchCondition;
 import com.metanet.intern.vo.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +45,9 @@ public class AccountController {
 
 	@Autowired
 	StorageService storageService;
+	
+	@Autowired
+	MajorService majorService;
 	
 	@GetMapping("join")
 	public String joinForm(Manager manager) {
@@ -71,9 +78,18 @@ public class AccountController {
 
 	
 	@GetMapping("list")
-	public String accountList(Pageable pageable, Model model) {
-		Page<Manager> page = managerService.findAllManagers(pageable);
-		model.addAttribute("managerList", page.getContent());
+	public String accountList(@ModelAttribute("condition") ManagerSearchCondition condition, Pageable pageable, Model model) {
+		log.info(condition.toString());
+		Page<Manager> page = managerService.searchManagerList(pageable, condition);
+		model.addAttribute("page", page);
+		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
+		model.addAttribute("pager", pager);
+		return "thymeleaf/account/account_list";
+	}
+	
+	@GetMapping("page/{pageNo}")
+	public String search(@ModelAttribute("condition") ManagerSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
+		Page<Manager> page = managerService.searchManagerList(PageRequest.of(pageNo, 10), condition);
 		model.addAttribute("page", page);
 		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
 		model.addAttribute("pager", pager);
@@ -85,9 +101,9 @@ public class AccountController {
 		//사진을 등록하지 않았을 경우
 		preventPhotoNull(manager);
 		model.addAttribute("detailObject", manager);
+		model.addAttribute("majorList", majorService.getAll());
 		return"thymeleaf/account/account_detail";
 	}
-
 	public void preventPhotoNull(Manager manager) {
 		if(manager.getPhoto() == null) {
 			manager.setPhoto(new PhotoFile());
@@ -112,6 +128,14 @@ public class AccountController {
 		Integer deleteFlag = 1;
 		managerService.delete(id, deleteFlag);
 		return "redirect:list";
+	}
+	
+	@PostMapping("update")
+	public String updateManager(Manager manager) {
+		log.info(manager.toString());
+		log.info(manager.getMajor().toString());
+		managerService.update(manager);
+		return "redirect:mangerDetail/"+manager.getId();
 	}
 	
 	@GetMapping("download/{id}")

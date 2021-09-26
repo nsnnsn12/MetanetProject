@@ -24,7 +24,6 @@ public class Pager {
 		this.totalRows = totalRows;
 		this.pageNo = pageNo;
 
-		
 		//전체 행수 / 페이지 당 행수
 		totalPageNo = totalRows / rowsPerPage;
 		if(totalRows % rowsPerPage != 0) totalPageNo++;
@@ -45,5 +44,9 @@ public class Pager {
 		
 		startRowNo = (pageNo - 1) * rowsPerPage +1;
 		endRowNo = pageNo * rowsPerPage;
+		if(totalRows == 0) {
+			startPageNo = 0;
+			endPageNo = 0;
+		}
 	}
 }

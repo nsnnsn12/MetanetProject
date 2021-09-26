@@ -24,23 +24,21 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">학사관리 <sup>MDT</sup></div>
+                <div class="sidebar-brand-text mx-3">학사관리</div>
             </a>
-
-            <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i><!-- 아이콘 수정 -->
-                    <span>마이 페이지</span></a>
-            </li>
-
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/mypage">
+                <img src="/profileImage" class="img-responsive img-profile rounded-circle mx-auto d-block p-3" width="100" height="100" alt="/img/test.jpg"/>
+                <div class="sidebar-brand-text mx-3" sec:authentication="name">
+                </div>
+            </a>
+            <div class="sidebar-brand d-flex align-items-center justify-content-center">
+                <a class="btn btn-info btn-sms" href="/logout">LogOut</a>
+            </div>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
