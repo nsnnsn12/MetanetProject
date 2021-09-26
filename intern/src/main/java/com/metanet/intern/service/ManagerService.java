@@ -15,8 +15,8 @@ import com.metanet.intern.vo.ManagerSearchCondition;
 public interface ManagerService extends UserDetailsService{
 	public Long join(Manager manager);
 	
-	public Manager fineOne(Long id);
-	
+	public Manager findOne(Long id);
+	public Manager findOne(String loginId);
 	public Long save(Manager manager);
 	
 	public Page<Manager> findAllManagers(Pageable pageable);
@@ -27,4 +27,5 @@ public interface ManagerService extends UserDetailsService{
 	public Page<Manager> searchManagerList(Pageable pageable, ManagerSearchCondition condition);
 
 	public void update(Manager manager);
+	public void mypageUpdate(Manager manager);
 }

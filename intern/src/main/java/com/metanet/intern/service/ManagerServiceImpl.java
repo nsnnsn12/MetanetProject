@@ -45,6 +45,7 @@ public class ManagerServiceImpl implements ManagerService{
 	PasswordEncoder passwordEncoder;
 	
 	private final StorageService storageService;
+	private final Integer isNotDeleted = 0;
 
 	@Autowired
 	public ManagerServiceImpl(StorageService storageService) {
@@ -66,7 +67,7 @@ public class ManagerServiceImpl implements ManagerService{
 		return manager.getId();
 	}
 	
-	public Manager fineOne(Long id) {
+	public Manager findOne(Long id) {
 		return managerRepository.findById(id).get();
 	}
 	
@@ -81,6 +82,31 @@ public class ManagerServiceImpl implements ManagerService{
 		manager.setMajor(tempManager.getMajor());
 		manager.setRole(tempManager.getRole());
 		managerRepository.save(manager);
+	}
+	
+	@Override
+	public void mypageUpdate(Manager tempManager) {
+		Manager manager = managerRepository.getById(tempManager.getId());
+		//파일저장
+		PhotoFile photoFile = storageService.photoStore(tempManager.getImage());
+		
+		if(photoFile != null) {
+			photoRepository.save(photoFile);
+			manager.setPhoto(photoFile);
+		}
+		//이름, 이메일, 전화번호, 생년월일
+		manager.setName(tempManager.getName());
+		manager.setEmail(tempManager.getEmail());
+		manager.setTelNo(tempManager.getTelNo());
+		manager.setBirth(tempManager.getBirth());
+		managerRepository.save(manager);
+		
+	}
+	
+	@Override
+	public Manager findOne(String loginId) {
+		// TODO Auto-generated method stub
+		return managerRepository.findByLoginIdAndIsDeleted(loginId, isNotDeleted);
 	}
 	
 	public Page<Manager> findAllManagers(Pageable pageable){
@@ -123,8 +149,7 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final Integer isDeleted = 0;
-		Manager manager = managerRepository.findByLoginIdAndIsDeleted(username, isDeleted);
+		Manager manager = managerRepository.findByLoginIdAndIsDeleted(username, isNotDeleted);
 		if(manager == null) {
 			throw new IllegalStateException("아이디가 존재하지 않습니다.");
 		}
