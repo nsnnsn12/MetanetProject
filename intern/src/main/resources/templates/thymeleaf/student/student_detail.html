@@ -13,62 +13,56 @@
 					<h6 class="m-0 font-weight-bold text-primary">학적정보 조회</h6>
 				</div>
 				<div class="ml-auto">
-					<button class="btn btn-sm btn-outline-info"  onclick = "location.href='/records/modify'">수정</button>
+					<button class="btn btn-sm btn-outline-info"
+						th:onclick="'location.href=\'/student/modify/'+${student.id}+'\''">수정</button>
 				</div>
 			</div>
-            <div class="card-body">
-            	<img th:src="@{${'/account/download/' + student.photo.id }}" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" alt="..."/>
-                <div class="row g-3">
-                    <div class="col-sm-6">
-                        <label for="lastName" class="form-label">이름</label> 
-                        <label type="text" class="form-control" id="이름" th:text="${student.name}"></label>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">학번</label> 
-                        <label type="text" class="form-control" id="학번" th:text="${student.studentNumber}"></label>
-                    </div>
-                    
-                    <div class="col-12">
-                        <label for="address" class="form-label">전화번호</label> 
-                        <label type="text" class="form-control" id="전화번호" th:text="${student.telNo}"></label>
-                    </div>
-                    
+			<div class="card-body">
+				<img th:src="@{${'/account/download/' + student.photo.id }}"
+					class="img-responsive rounded mx-auto d-block border p-3"
+					width="300" height="300" alt="/img/test.jpg" />
+				<div class="row g-3">
+					<div class="col-sm-6">
+						<label class="form-label">이름</label> <label type="text"
+							class="form-control" id="이름" th:text="${student.name}"></label>
+					</div>
+					<div class="col-sm-6">
+						<label class="form-label">학번</label> <label type="text"
+							class="form-control" id="학번" th:text="${student.studentNumber}"></label>
+					</div>
+					<div class="col-sm-6">
+						<label class="form-label">전화번호</label> <label type="text"
+							class="form-control" id="전화번호" th:text="${student.telNo}"></label>
+					</div>
+					<div class="col-sm-6">
+						<label class="form-label">생년월일</label> <label type="text"
+							class="form-control" id="생년월일" th:text="${student.birth}"></label>
+					</div>
+					<div class="col-12">
+						<label class="form-label">전공</label> <label class="form-control"
+							id="전공" th:text="${student.major.title}"></label>
+					</div>
 				</div>
 				<hr class="my-4">
 				<div class="row g-3">
-	                    <div class="col-sm-6">
-	                        <label for="username" class="form-label">전공</label>
-							<label class="form-control" id="전공" th:text="${student.major.title}"></label>
-	                    </div>
-	                                        
-	                    <div class="col-sm-6">
-	                        <label for="lastName" class="form-label">학적상태</label> 
-	                        <label type="text" class="form-control" id="학적상태" th:text="${student.status}"></label>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="lastName" class="form-label">입학년도</label> 
-	                        <label type="text" class="form-control" id="입학년도">2021년</label>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="firstName" class="form-label">학기</label> 
-	                        <label type="text" class="form-control" id="학기" th:text="${student.semester}"></label>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="lastName" class="form-label">생성일</label> 
-	                        <label type="date" class="form-control" id="생성일" th:text="${student.createDate}"></label>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="firstName" class="form-label">수정일</label> 
-	                        <label type="text" class="form-control" id="수정일" th:text="${student.modifyDate}"></label>
-	                    </div>
-              
-                	</div>
-            </div>
+					<div class="col-sm-6">
+						<label class="form-label">학적상태</label> <label type="text"
+							class="form-control" id="학적상태" th:text="${student.status}"></label>
+					</div>
+					<div class="col-sm-6">
+						<label class="form-label">학기</label> <label type="text"
+							class="form-control" id="학기" th:text="${student.semester}"></label>
+					</div>
+					<div class="col-sm-6">
+						<label class="form-label">생성일</label> <label type="date"
+							class="form-control" id="생성일" th:text="${student.createDate}"></label>
+					</div>
+					<div class="col-sm-6">
+						<label class="form-label">수정일</label> <label type="text"
+							class="form-control" id="수정일" th:text="${student.modifyDate}"></label>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

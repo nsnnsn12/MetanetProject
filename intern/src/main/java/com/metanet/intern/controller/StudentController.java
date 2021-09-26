@@ -78,9 +78,19 @@ public class StudentController {
 	}
 
 	// 학적 수정
-	@GetMapping("modify")
-	public String modify() {
+	@GetMapping("modify/{id}")
+	public String modifyForm(@PathVariable("id") Student student, Model model) {
+		model.addAttribute("majorList", majorService.getAll());
+		model.addAttribute("student", student);
 		return "/thymeleaf/student/student_modify";
 	}
+	
+	// 학적 수정 처리
+		@PostMapping("modify")
+		public String modify(Student student) {
+			if (studentService.modify(student) == null)
+				return "/thymeleaf/404page";
+			return "redirect:joinSuccess";
+		}
 
 }

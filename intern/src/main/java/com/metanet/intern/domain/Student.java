@@ -45,6 +45,7 @@ public class Student extends BaseEntity{
 	private Major major;
 	
 	private String name;
+	
 	@Temporal(TemporalType.DATE)
 	private Date birth;
 	
