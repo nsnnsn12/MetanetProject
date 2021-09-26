@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public abstract class SearchCondition {
 	//검색어
-	private String text;
+	private String text ="";
 	//검색 조건
-	private String type;
+	private String type ="";
 }

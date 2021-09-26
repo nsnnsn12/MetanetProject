@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.enummer.Role;
+import com.metanet.intern.service.MajorService;
 import com.metanet.intern.service.ManagerService;
 import com.metanet.intern.service.StorageService;
 import com.metanet.intern.vo.ManagerSearchCondition;
@@ -44,6 +45,9 @@ public class AccountController {
 
 	@Autowired
 	StorageService storageService;
+	
+	@Autowired
+	MajorService majorService;
 	
 	@GetMapping("join")
 	public String joinForm(Manager manager) {
@@ -97,9 +101,9 @@ public class AccountController {
 		//사진을 등록하지 않았을 경우
 		preventPhotoNull(manager);
 		model.addAttribute("detailObject", manager);
+		model.addAttribute("majorList", majorService.getAll());
 		return"thymeleaf/account/account_detail";
 	}
-
 	public void preventPhotoNull(Manager manager) {
 		if(manager.getPhoto() == null) {
 			manager.setPhoto(new PhotoFile());
@@ -124,6 +128,14 @@ public class AccountController {
 		Integer deleteFlag = 1;
 		managerService.delete(id, deleteFlag);
 		return "redirect:list";
+	}
+	
+	@PostMapping("update")
+	public String updateManager(Manager manager) {
+		log.info(manager.toString());
+		log.info(manager.getMajor().toString());
+		managerService.update(manager);
+		return "redirect:mangerDetail/"+manager.getId();
 	}
 	
 	@GetMapping("download/{id}")

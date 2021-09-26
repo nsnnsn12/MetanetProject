@@ -25,4 +25,6 @@ public interface ManagerService extends UserDetailsService{
 	public void delete(Long id, Integer deleteFlag);
 	
 	public Page<Manager> searchManagerList(Pageable pageable, ManagerSearchCondition condition);
+
+	public void update(Manager manager);
 }

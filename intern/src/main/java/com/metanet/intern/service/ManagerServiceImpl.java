@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.metanet.intern.domain.Major;
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.enummer.Role;
@@ -72,6 +73,14 @@ public class ManagerServiceImpl implements ManagerService{
 	public Long save(Manager manager) {
 		managerRepository.save(manager);
 		return manager.getId();
+	}
+	
+	@Override
+	public void update(Manager tempManager) {
+		Manager manager = managerRepository.getById(tempManager.getId());
+		manager.setMajor(tempManager.getMajor());
+		manager.setRole(tempManager.getRole());
+		managerRepository.save(manager);
 	}
 	
 	public Page<Manager> findAllManagers(Pageable pageable){
