@@ -119,6 +119,8 @@ public class AccountController {
 	
 	@GetMapping("accept")
 	public String updateAccept(Long id, Integer acceptFlag) {
+		log.info(id.toString());
+		log.info(acceptFlag.toString());
 		managerService.updateAccept(id, acceptFlag);
 		return "redirect:list";
 	}
