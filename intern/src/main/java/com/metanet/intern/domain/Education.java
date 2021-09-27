@@ -20,8 +20,12 @@ import com.metanet.intern.enummer.EducationDivision;
 import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Builder
 @Entity
@@ -30,7 +34,7 @@ public class Education extends BaseEntity{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="education_id")
 	private Long id;
-	private String name;
+	private String title;
 	@ManyToOne
 	@JoinColumn(name="major_id")
 	private Major major;

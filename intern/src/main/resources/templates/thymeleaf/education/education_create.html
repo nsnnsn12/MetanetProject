@@ -13,33 +13,41 @@
 					<h6 class="m-0 font-weight-bold text-primary">교과목 등록</h6>
 				</div>
 			</div>
-			<form class="needs-validation" novalidate>
+			<form class="needs-validation" method="POST" th:action="@{/education/create}" novalidate>
 	            <div class="card-body">
 	                <div class="row g-3">
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label">전공</label> 
-	                        <select class="custom-select d-block w-100" id="state" required>
-								<option value="">전공선택</option>
-								<option>컴퓨터공학</option>
+							<select class="custom-select d-block w-100" th:field="*{education.major}">
+								<option value="">전공을 선택하세요</option>
+								<option th:each="major : ${majorList}"
+									th:value="${major.id}"
+									th:text="${major.title}">
+								</option>
 							</select>
 							<div class="invalid-feedback">전공을 선택해주세요.</div>
 	                    </div>
 	                    
 	                    <div class="col-sm-6 mb-3">
 	                        <label>이수구분</label> 
-							<select class="custom-select d-block w-100" id="state" required>
-								<option value="">이수선택</option>
-								<option>전공심화</option>
+							<select class="form-control" th:field="*{education.division}">
+								<option value="">이수구분을 선택하세요</option>
+								<option th:each="roleValue : ${T(com.metanet.intern.enummer.EducationDivision).values()}"
+									th:value="${roleValue.name()}"
+									th:text="${roleValue}">
+								</option>
 							</select>
 							<div class="invalid-feedback">이수구분을 선택해주세요.</div>
 	                    </div>
 	                    <div class=" col-sm-6 mb-3">
-							<label for="title">교과목명</label> <input type="text" class="form-control" id="title"
+							<label for="title">교과목명</label> 
+							<input type="text" class="form-control" id="title" th:field="*{education.title}"
 								placeholder="교과목을 입력해주세요" required>
 							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
 						</div>
 						<div class=" col-sm-6 mb-3">
-							<label for="code">교과목코드</label> <input type="text" class="form-control" id="code"
+							<label for="code">교과목코드</label> 
+							<input type="text" class="form-control" id="code" th:field="*{education.code}"
 								placeholder="교과목을 입력해주세요" required>
 							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
 						</div>
@@ -51,37 +59,37 @@
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label">학점</label> 
 	                        <div class="custom-control custom-radio">
-								<input name="credit" id="zero" type="radio" class="custom-control-input" checked required>
+								<input name="credit" th:field="*{education.credit}" value="0" id="zero"  type="radio" class="custom-control-input" checked required>
 								<label class="custom-control-label" for="zero">0</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input name="credit" id="one" type="radio" class="custom-control-input" checked required>
+								<input name="credit" th:field="*{education.credit}" value="1" id="one" type="radio" class="custom-control-input" required>
 								<label class="custom-control-label" for="one">1</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input name="credit" id="two" type="radio" class="custom-control-input" required> <label
-									class="custom-control-label" for="two">2</label>
+								<input name="credit" th:field="*{education.credit}" value="2" id="two" type="radio" class="custom-control-input" required> 
+								<label class="custom-control-label" for="two">2</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input name="credit" id="three" type="radio" class="custom-control-input" required> <label
-									class="custom-control-label" for="three">3</label>
+								<input name="credit" th:field="*{education.credit}" value="3" id="three" type="radio" class="custom-control-input" required> 
+								<label class="custom-control-label" for="three">3</label>
 							</div>
 	                    </div>
 	                </div>
 	                <hr class="mb-4">
 					<div class="row g-3">
 						<div class="col-12 mb-3">
-							<textarea name="contents" id="contents">[[*{contents}]]</textarea> 
+							<textarea name="contents" id="contents" th:field="*{education.content}">[[*{contents}]]</textarea> 
 						</div>
 	                </div>
 					<hr class="mb-4">
-					<button class="btn btn-lg btn-outline-info btn-block" type="submit" onclick = "">등록</button>
+					<button class="btn btn-lg btn-outline-info btn-block" type="submit">등록</button>
 	            </div>
             </form>
 		</div>
 	</div>
-	<script src="/js/ckeditor/ckeditor.js"></script>
-	<script>
+
+	<script >
 		$(function () {
 			CKEDITOR.replace('contents', { 
 				width:'1000px',
