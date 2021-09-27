@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentController {
 	@Autowired
 	StudentService studentService;
-	
+
 	@Autowired
 	MajorService majorService;
 
@@ -34,9 +34,9 @@ public class StudentController {
 		Page<Student> page = studentService.list(pageable);
 		model.addAttribute("studentList", page.getContent());
 		model.addAttribute("page", page);
-		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
-		model.addAttribute("pager", pager);	
-		
+		Pager pager = new Pager(page.getSize(), 5, (int) page.getTotalElements(), page.getNumber());
+		model.addAttribute("pager", pager);
+
 		return "/thymeleaf/student/student_list";
 	}
 
@@ -47,12 +47,12 @@ public class StudentController {
 		model.addAttribute("student", student);
 		return "/thymeleaf/student/student_detail";
 	}
-	
-	//사진유무 검사
+
+	// 사진유무 검사
 	public void preventPhotoNull(Student student) {
-		if(student.getPhoto() == null) {
+		if (student.getPhoto() == null) {
 			student.setPhoto(new PhotoFile());
-			student.getPhoto().setId((long)0);
+			student.getPhoto().setId((long) 0);
 		}
 	}
 
@@ -84,13 +84,13 @@ public class StudentController {
 		model.addAttribute("student", student);
 		return "/thymeleaf/student/student_modify";
 	}
-	
+
 	// 학적 수정 처리
-		@PostMapping("modify")
-		public String modify(Student student) {
-			if (studentService.modify(student) == null)
-				return "/thymeleaf/404page";
-			return "redirect:joinSuccess";
-		}
+	@PostMapping("modify")
+	public String modify(Student student) {
+		if (studentService.modify(student) == null)
+			return "/thymeleaf/404page";
+		return "redirect:joinSuccess";
+	}
 
 }
