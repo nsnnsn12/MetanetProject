@@ -6,15 +6,15 @@
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
 		<!-- DataTales Example -->
-		<div class="card shadow mb-4">
+		<div class="card shadow mx-auto w-75">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">학적정보 조회</h6>
 			</div>
 			<form id="pageForm" class="card-body" th:object="${condition}" action="/student/list">
 				<div class="d-flex mb-2">
-					<div class="input-group col-lg-6 mr-auto">
+					<div class="input-group mr-auto">
 						<div class="input-group-prepend">
-							<select class="form-control" th:field="*{type}" >
+							<select class="form-control mr-2" th:field="*{type}" >
 								<option value="">
 									검색조건
 								</option>
@@ -25,22 +25,28 @@
 									학번
 								</option>
 							</select>
+							<select class="form-control mr-2" id="전공" th:field="*{majorFilter}">
+										<option value="">전공</option>
+										<option th:each="major : ${majorList}" th:value="${major.id}"
+											th:text="${major.title}"></option>
+							</select>
 						</div>
-						<input type="text" class="form-control" th:field="*{text}">
-						<button class="col-1 col-md-2 col-sm-2 btn btn-sm btn-outline-primary mr-auto">검색</button>
+						<input type="text" class="form-control mr-2" th:field="*{text}">
+						<button class="btn btn-sm btn-outline-primary mr-2">검색</button>
+						<button class="btn btn-sm btn-outline-info" onclick="location.href='/student/join'">등록</button>
 					</div>
-					<button class="col-1 btn btn-sm btn-outline-info" onclick="location.href='/student/join'">등록</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-hover text-center" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th>
-									<select class="form-control" id="전공" th:field="*{majorFilter}">
+									전공
+									<!-- <select class="form-control" id="전공" th:field="*{majorFilter}">
 										<option value="">전공을 선택하세요</option>
 										<option th:each="major : ${majorList}" th:value="${major.id}"
 											th:text="${major.title}"></option>
-									</select>
+									</select> -->
 								</th>
 								<th>학번</th>
 								<th>이름</th>
