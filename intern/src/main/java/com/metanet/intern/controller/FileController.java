@@ -41,6 +41,7 @@ public class FileController {
 		log.info(principal.getName());
 		log.info(managerService.findOne(principal.getName()).toString());
 		Manager manager = managerService.findOne(principal.getName());
+		if(manager.getPhoto() == null) return ResponseEntity.notFound().build();
 		Resource file = storageService.loadAsResource(manager.getPhoto().getSaveFileName());
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
