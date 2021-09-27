@@ -5,15 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.metanet.intern.domain.Manager;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.domain.Student;
 import com.metanet.intern.repository.MajorRepository;
 import com.metanet.intern.repository.PhotoRepository;
 import com.metanet.intern.repository.StudentRepository;
+import com.metanet.intern.spec.ManagerSpec;
+import com.metanet.intern.spec.StudentSpec;
+import com.metanet.intern.vo.StudentSearchCondition;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +51,25 @@ public class StudentService {
 		return studentRepository.findByIsDeleted(0, pageable);
 	}
 
+	// 목록 검색 조회
+	public Page<Student> searchList(Pageable pageable, StudentSearchCondition condition) {
+		Specification<Student> spec = Specification.where(StudentSpec.isNotDeleted());
+		
+		if(!condition.getType().isBlank() && !condition.getText().isBlank()) {
+			if(condition.getType().equals("name")) {
+				spec = spec.and(StudentSpec.likeName(condition.getText()));
+			}else {
+				spec = spec.and(StudentSpec.likeStudentNumber(condition.getText()));
+			}
+		}
+		
+		if(condition.getMajorFilter() != null) {
+			spec = spec.and(StudentSpec.equalMajor(condition.getMajorFilter()));
+		}
+		
+		return studentRepository.findAll(spec, pageable);
+	}
+
 	// 등록
 	public Long join(Student student) {
 		// 중복검사
@@ -66,7 +90,7 @@ public class StudentService {
 
 		// 데이터베이스 저장
 		studentRepository.save(student);
-		
+
 		return student.getId();
 	}
 
@@ -92,6 +116,17 @@ public class StudentService {
 
 		// 데이터베이스 수정
 		studentRepository.save(student);
+
+		return student.getId();
+	}
+
+	// 삭제
+	public Long delete(Student student) {
+		// 삭제 처리
+		student.setIsDeleted(1);
+
+		// 데이터베이스 수정
+//		studentRepository.save(student);
 
 		return student.getId();
 	}

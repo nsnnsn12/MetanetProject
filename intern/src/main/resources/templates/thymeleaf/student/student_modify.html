@@ -9,14 +9,11 @@
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex">
 				<div>
-					<h6 class="m-0 font-weight-bold text-primary">학적정보 조회</h6>
+					<h6 class="m-0 font-weight-bold text-primary">학적정보 수정</h6>
 				</div>
 				<div class="ml-auto">
-					<button class="btn btn-sm btn-outline-info"
+					<button class="btn btn-block btn-outline-info"
 						onclick="history.back(-1)">취소</button>
-				</div>
-				<div class="ml-3">
-					<button class="btn btn-sm btn-outline-info">저장</button>
 				</div>
 			</div>
 			<form class="needs-validation" th:action="@{/student/modify}"
@@ -27,13 +24,14 @@
 					<div class="d-flex">
 						<img th:src="@{${'/account/download/' + student.photo.id }}"
 							id="image" class="img-responsive rounded ml-auto border p-3"
-							width="300" height="300" alt="/img/test.jpg" />
+							width="300" height="300" onerror="javascript:src='/img/test.jpg'" />
 						<div class="mt-auto">
 							<input class="file-upload" type="file" id="chooseFile"
 								th:field="*{image}" name="chooseFile" accept="image/*"
 								onchange="loadFile(this)">
 						</div>
 					</div>
+					<input type="hidden" th:field="*{id}" />
 					<div class="row g-3">
 						<div class="col-sm-6">
 							<label class="form-label">이름</label> <input type="text"
@@ -98,6 +96,11 @@
 					<hr class="mb-4">
 					<button class="btn btn-lg btn-outline-info btn-block">수정</button>
 				</div>
+			</form>
+			<form th:action="@{/student/modify}"
+				th:object="${student}">
+				<input type="hidden" th:field="*{id}" />
+				<button class="btn btn-lg btn-outline-info btn-block">삭제</button>
 			</form>
 		</div>
 	</div>

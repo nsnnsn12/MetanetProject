@@ -16,11 +16,15 @@
 					<button class="btn btn-sm btn-outline-info"
 						th:onclick="'location.href=\'/student/modify/'+${student.id}+'\''">수정</button>
 				</div>
+				<div class="ml-3">
+					<button class="btn btn-sm btn-outline-info"
+						th:onclick="'location.href=\'/student/delete/'+${student.id}+'\''">삭제</button>
+				</div>
 			</div>
 			<div class="card-body">
-				<img th:src="@{${'/account/download/' + student.photo.id }}"
+				<img th:src="@{${'/account/download/' + student.photo.id}}"
 					class="img-responsive rounded mx-auto d-block border p-3"
-					width="300" height="300" alt="/img/test.jpg" />
+					width="300" height="300" onerror="javascript:src='/img/test.jpg'" />
 				<div class="row g-3">
 					<div class="col-sm-6">
 						<label class="form-label">이름</label> <label type="text"
@@ -38,18 +42,20 @@
 						<label class="form-label">생년월일</label> <label type="text"
 							class="form-control" id="생년월일" th:text="${student.birth}"></label>
 					</div>
-					<div class="col-12">
+				</div>
+				
+				<hr class="my-4">
+				
+				<div class="row g-3">
+					<div class="col-sm-6">
 						<label class="form-label">전공</label> <label class="form-control"
 							id="전공" th:text="${student.major.title}"></label>
 					</div>
-				</div>
-				<hr class="my-4">
-				<div class="row g-3">
 					<div class="col-sm-6">
 						<label class="form-label">학적상태</label> <label type="text"
 							class="form-control" id="학적상태" th:text="${student.status}"></label>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-12">
 						<label class="form-label">학기</label> <label type="text"
 							class="form-control" id="학기" th:text="${student.semester}"></label>
 					</div>
