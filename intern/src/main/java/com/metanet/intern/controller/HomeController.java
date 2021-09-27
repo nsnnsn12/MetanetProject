@@ -31,7 +31,7 @@ public class HomeController {
 	@GetMapping(value = {"/", "/login"})
 	public String longinView() {
 		if (isAuthenticated()) {
-	        return "index";
+	        return "redirect:index";
 	    }
 		return "thymeleaf/account/login";
 	}
