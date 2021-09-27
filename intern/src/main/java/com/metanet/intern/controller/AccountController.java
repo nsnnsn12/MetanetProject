@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.enummer.Role;
 import com.metanet.intern.service.MajorService;
 import com.metanet.intern.service.ManagerService;
 import com.metanet.intern.service.StorageService;
+import com.metanet.intern.vo.EducationSearchCondition;
 import com.metanet.intern.vo.ManagerSearchCondition;
 import com.metanet.intern.vo.Pager;
 
@@ -48,6 +50,9 @@ public class AccountController {
 	
 	@Autowired
 	MajorService majorService;
+	
+	private Pager pager;
+	private final int pageGroupSize = 5;
 	
 	@GetMapping("join")
 	public String joinForm(Manager manager) {
@@ -80,20 +85,22 @@ public class AccountController {
 	@GetMapping("list")
 	public String accountList(@ModelAttribute("condition") ManagerSearchCondition condition, Pageable pageable, Model model) {
 		log.info(condition.toString());
-		Page<Manager> page = managerService.searchManagerList(pageable, condition);
-		model.addAttribute("page", page);
-		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
-		model.addAttribute("pager", pager);
+		paging(condition, model, pageable);
 		return "thymeleaf/account/account_list";
 	}
 	
 	@GetMapping("page/{pageNo}")
 	public String search(@ModelAttribute("condition") ManagerSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
-		Page<Manager> page = managerService.searchManagerList(PageRequest.of(pageNo, 10), condition);
-		model.addAttribute("page", page);
-		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
-		model.addAttribute("pager", pager);
+		Pageable pageable = PageRequest.of(pageNo, 10);
+		paging(condition, model, pageable);
 		return "thymeleaf/account/account_list";
+	}
+	
+	private void paging(ManagerSearchCondition condition, Model model, Pageable pageable) {
+		Page<Manager> page = managerService.searchManagerList(pageable, condition);
+		model.addAttribute("page", page);
+		pager = new Pager(page.getSize(), pageGroupSize, (int)page.getTotalElements(), page.getNumber());
+		model.addAttribute("pager", pager);
 	}
 	
 	@GetMapping("mangerDetail/{id}")
