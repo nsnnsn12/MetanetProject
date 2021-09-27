@@ -80,11 +80,11 @@
 								<td th:text="${manager.isAccept == 1?'승인':'미승인'}"></td> 
 								<td th:text="${manager.email}"></td> 
 								<td>
-									<a th:if="${manager.isAccept == 0}" th:href="@{/account/accept(id=${manager.id}, isAccept = 1)}"
+									<a th:if="${manager.isAccept == 0}" th:href="@{/account/accept(id=${manager.id}, acceptFlag = 1)}"
 									class="btn btn-sm btn-outline-info">
 										승인
 									</a>
-									<a th:if="${manager.isAccept == 1}" th:href="@{/account/accept(id=${manager.id}, isAccept = 0)}"
+									<a th:if="${manager.isAccept == 1}" th:href="@{/account/accept(id=${manager.id}, acceptFlag = 0)}"
 									class="btn btn-sm btn-outline-danger">
 										승인취소
 									</a>
