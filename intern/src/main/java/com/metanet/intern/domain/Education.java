@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.metanet.intern.enummer.EducationDivision;
 
@@ -50,4 +51,7 @@ public class Education extends BaseEntity{
 	private Integer credit;
 	@Lob
 	private String content;
+	
+	@Transient
+	private Long majorId;
 }

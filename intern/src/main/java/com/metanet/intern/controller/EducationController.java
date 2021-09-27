@@ -27,12 +27,12 @@ public class EducationController {
 	public String list() {
 		return "thymeleaf/education/education_list";
 	}
-	
+
 	@GetMapping("detail")
 	public String detail() {
 		return "thymeleaf/education/education_modify";
 	}
-	
+
 	@GetMapping("create")
 	public String createForm(Education education, Model model) {
 		model.addAttribute("majorList", majorService.getAll());
