@@ -32,7 +32,7 @@ public class MajorController {
 	
 	@PostMapping("create")
 	public String inserMajor(Major major) {
-		majorService.inserMajor(major);
+		majorService.insertMajor(major);
 		log.info(major.getTitle());
 		return "redirect:list";
 	}

@@ -17,7 +17,7 @@ public class MajorService {
 	
 	final Integer notDeleted = 0;
 
-	public void inserMajor(Major major) {
+	public void insertMajor(Major major) {
 		majorRepository.save(major);
 	}
 	

@@ -13,34 +13,41 @@
 					<h6 class="m-0 font-weight-bold text-primary">교과목 등록</h6>
 				</div>
 			</div>
-			<form class="needs-validation" novalidate>
+			<form class="needs-validation" th:action="@{/education/create}"
+			th:objcet="${education}" method="POST" novalidate>
 	            <div class="card-body">
 	                <div class="row g-3">
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label">전공</label> 
-	                        <select class="custom-select d-block w-100" id="state" required>
-								<option value="">전공선택</option>
-								<option>컴퓨터공학</option>
+	                       <select class="form-control"  id="전공" required>
+								<option th:each="major : ${majorList}"
+									th:value="${major.id}"
+									th:text="${major.title}">
+								</option>
 							</select>
 							<div class="invalid-feedback">전공을 선택해주세요.</div>
 	                    </div>
 	                    
 	                    <div class="col-sm-6 mb-3">
 	                        <label>이수구분</label> 
-							<select class="custom-select d-block w-100" id="state" required>
+							<select class="form-control"  required>
 								<option value="">이수선택</option>
-								<option>전공심화</option>
-							</select>
+								<option value="MI">전공심화</option>
+								<option value="MC">전공핵심</option>
+								<option value="MN">전공필수</option>
+								<option value="ELN">교양필수</option>
+								<option value="ELS">교양선택</option>
+								</select>
 							<div class="invalid-feedback">이수구분을 선택해주세요.</div>
 	                    </div>
 	                    <div class=" col-sm-6 mb-3">
 							<label for="title">교과목명</label> <input type="text" class="form-control" id="title"
-								placeholder="교과목을 입력해주세요" required>
+								placeholder="교과목을 입력해주세요" name="name" required>
 							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
 						</div>
 						<div class=" col-sm-6 mb-3">
 							<label for="code">교과목코드</label> <input type="text" class="form-control" id="code"
-								placeholder="교과목을 입력해주세요" required>
+								placeholder="교과목을 입력해주세요" name="code" required>
 							<div class="invalid-feedback">교과목명을 입력해주세요.</div>
 						</div>
 					</div>
