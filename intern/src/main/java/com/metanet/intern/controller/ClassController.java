@@ -54,7 +54,7 @@ public class ClassController {
 	
 	@PostMapping("create")
 	public String create(Lecture lecture) {
-		log.info(lecture.toString());
+		log.info(lecture.getId().toString());
 		lectureService.create(lecture);
 		return "redirect:/lecture/list";
 	}

@@ -81,10 +81,10 @@
 						<tbody>
 							<tr th:each="lecture : ${page.getContent()}">
 								<td>
-									<a th:href="@{/education/detail/}+${lecture.id}" th:text="${lecture.education.code}"></a>
+									<a th:href="@{/lecture/modify/}+${lecture.id}" th:text="${lecture.education.code}"></a>
 								</td>
 								<td>
-									<a th:href="@{/education/detail/}+${lecture.id}" th:text="${lecture.education.major.title}"></a>
+									<a th:href="@{/lecture/modify/}+${lecture.id}" th:text="${lecture.education.major.title}"></a>
 								</td>
 								<td th:text="${lecture.education.title}"></td>
 								<td th:text="${lecture.education.credit}"></td>

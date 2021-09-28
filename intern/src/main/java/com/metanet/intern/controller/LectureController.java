@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Lecture;
+import com.metanet.intern.service.EducationService;
 import com.metanet.intern.service.LectureService;
 import com.metanet.intern.service.MajorService;
 import com.metanet.intern.vo.EducationSearchCondition;
@@ -26,12 +28,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/lecture")
 public class LectureController {
 	@Autowired
+	EducationService educationService;
+	@Autowired
 	LectureService lectureService;
 	@Autowired
 	MajorService majorService;
 	
 	private Pager pager;
 	private final int pageGroupSize = 5;
+	@ModelAttribute("lecture")
+	public Lecture setLecture() {
+		return new Lecture();
+	}
 	
 	@GetMapping("list")
 	public String list(@ModelAttribute("condition") LectureSearchCondition condition, Pageable pageable, Model model) {
@@ -58,43 +66,25 @@ public class LectureController {
 		model.addAttribute("pager", pager);
 	}
 	
-	@GetMapping("student_detail")
-	public String student_detail() {
-		return "thymeleaf/lecture/student/student_detail";
+	@GetMapping("create/{id}")
+	public String createForm(@PathVariable("id")Education education, Model model) {
+		model.addAttribute("education", education);
+		model.addAttribute("professors",educationService.getProfessor(education));
+		return "thymeleaf/lecture/lecture_modify";
 	}
-
-	@GetMapping("attendance_search")
-	public String attendance_search() {
-		return "thymeleaf/lecture/attendance/attendance_search";
+	
+	@PostMapping("create")
+	public String create(Lecture lecture) {
+		log.info(lecture.toString());
+		lectureService.create(lecture);
+		return "redirect:/lecture/list";
 	}
-
-	@GetMapping("attendance_detail")
-	public String attendance_detail() {
-		return "thymeleaf/lecture/attendance/attendance_detail";
-	}
-
-	@GetMapping("attendance_modify")
-	public String attendance_modify() {
-		return "thymeleaf/lecture/attendance/attendance_modify";
-	}
-
-	@GetMapping("grade_search")
-	public String grade_search() {
-		return "thymeleaf/lecture/grade/grade_search";
-	}
-
-	@GetMapping("grade_detail")
-	public String grade_detail() {
-		return "thymeleaf/lecture/grade/grade_detail";
-	}
-
-	@GetMapping("grade_create")
-	public String grade_create() {
-		return "thymeleaf/lecture/grade/grade_create";
-	}
-
-	@GetMapping("grade_modify")
-	public String grade_modify() {
-		return "thymeleaf/lecture/grade/grade_modify";
+	
+	@GetMapping("modify/{id}")
+	public String modify(@PathVariable("id")Lecture lecture, Model model) {
+		model.addAttribute("lecture", lecture);
+		model.addAttribute("education", lecture.getEducation());
+		model.addAttribute("professors",educationService.getProfessor(lecture.getEducation()));
+		return "thymeleaf/lecture/lecture_modify";
 	}
 }
