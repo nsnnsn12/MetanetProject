@@ -2,35 +2,60 @@ package com.metanet.intern.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Lecture;
 import com.metanet.intern.service.LectureService;
+import com.metanet.intern.service.MajorService;
+import com.metanet.intern.vo.EducationSearchCondition;
+import com.metanet.intern.vo.LectureSearchCondition;
 import com.metanet.intern.vo.Pager;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("/lecture")
 public class LectureController {
 	@Autowired
 	LectureService lectureService;
+	@Autowired
+	MajorService majorService;
 	
-	@GetMapping("student_search")
-	public String student_search() {
-		return "thymeleaf/lecture/student/student_search";
+	private Pager pager;
+	private final int pageGroupSize = 5;
+	
+	@GetMapping("list")
+	public String list(@ModelAttribute("condition") LectureSearchCondition condition, Pageable pageable, Model model) {
+		log.info(condition.toString());
+		paging(condition, model, pageable);
+		return "thymeleaf/lecture/lecture_list";
 	}
 
-	@GetMapping("list")
-	public String educationList(Pageable pageable, Model model) {
-		//Page<Education> page = lectureService.findAllEducations(pageable);
-		//model.addAttribute("educationList", page.getContent());
-		//model.addAttribute("page", page);
-		//Pager pager = new Pager(page.getSize(),5,(int)page.getTotalElements(),page.getNumber());
-		return "thymeleaf/lecture/student_search";
+	@GetMapping("page/{pageNo}")
+	public String search(@ModelAttribute("condition") LectureSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
+		Pageable pageable = PageRequest.of(pageNo, 10);
+		paging(condition, model, pageable);
+		return "thymeleaf/lecture/lecture_list";
+	}
+	
+	private void paging(LectureSearchCondition condition, Model model, Pageable pageable) {
+		model.addAttribute("majorList", majorService.getAll());
+		Page<Lecture> page = lectureService.searchLectureList(pageable, condition);
+		for(Lecture lecture : page.getContent()) {
+			log.info(lecture.getEducation().getTitle());
+		}
+		model.addAttribute("page", page);
+		pager = new Pager(page.getSize(), pageGroupSize, (int)page.getTotalElements(), page.getNumber());
+		model.addAttribute("pager", pager);
 	}
 	
 	@GetMapping("student_detail")

@@ -56,6 +56,6 @@ public class ClassController {
 	public String create(Lecture lecture) {
 		log.info(lecture.toString());
 		lectureService.create(lecture);
-		return "redirect:/education/open/list";
+		return "redirect:/lecture/list";
 	}
 }

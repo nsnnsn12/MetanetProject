@@ -6,112 +6,125 @@
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
 		<!-- DataTales Example -->
-		<div class="card shadow mb-4">
+		<div class="card shadow mx-auto w-75">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">개설과목 관리</h6>
+				<h6 class="m-0 font-weight-bold text-primary">직원 조회</h6>
 			</div>
-			<div class="card-body">
+			<form id="pageForm" class="card-body" th:object="${condition}" action="/lecture/list">
 				<div class="d-flex mb-2">
-					<div class="input-group col-lg-6 mr-auto">
+					<div class="input-group mr-auto">
 						<div class="input-group-prepend">
-							<select name="" id="" class="form-control">
+							<select name="" id="" class="form-control" th:field="*{type}">
 								<option value="">
+									검색조건
+								</option>
+								<option value="code">
 									과목코드
 								</option>
-								<option value="">
+								<option value="title">
 									과목명
+								</option>
+								<option value="name">
+									담당교수
+								</option>
+							</select>
+							<select class="form-control" th:field="*{major}">
+								<option value="">전공</option>
+								<option th:each="major : ${majorList}"
+									th:value="${major.id}"
+									th:text="${major.title}">
+								</option>
+							</select>
+							<select class="form-control" th:field="*{credit}">
+								<option value="">
+									학점
+								</option>
+								<option value="0">
+									0
+								</option>
+								<option value="1">
+									1
+								</option>
+								<option value="2">
+									2
+								</option>
+								<option value="3">
+									3
+								</option>
+							</select>
+							<select class="form-control" th:field="*{division}">
+								<option value="">이수구분</option>
+								<option th:each="roleValue : ${T(com.metanet.intern.enummer.EducationDivision).values()}"
+									th:value="${roleValue.name()}"
+									th:text="${roleValue}">
 								</option>
 							</select>
 						</div>
-						<input type="text" class="form-control">
-						<button class="col-1 btn btn-sm btn-outline-primary mr-auto">검색</button>
+						<input type="text" class="form-control mr-2" th:field="*{text}">
+						<button class="btn btn-sm btn-outline-primary mr-auto">검색</button>
 					</div>
-					<button class="col-1 btn btn-sm btn-outline-info">등록</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-hover text-center" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th>과목코드</th>
-								<th>
-									<select class="form-control">
-										<option value="">
-											전공명
-										</option>
-										<option value="">
-											컴퓨터공학
-										</option>
-										<option value="">
-											물리학
-										</option>
-									</select>
-								</th>
+								<th>전공</th>
 								<th>과목명</th>
-								<th>
-									<select class="form-control">
-										<option value="0">
-											학점
-										</option>
-										<option value="1">
-											1
-										</option>
-										<option value="2">
-											2
-										</option>
-										<option value="3">
-											3
-										</option>
-									</select>
-								</th>
-								<th>
-									<select class="form-control">
-										<option value="0">
-											이수구분
-										</option>
-										<option value="">
-											전공필수
-										</option>
-										<option value="">
-											전공선택
-										</option>
-										<option value="">
-											전공심화
-										</option>
-										<option value="">
-											교양필수
-										</option>
-										<option value="">
-											교양선택
-										</option>
-									</select>
-								</th>
+								<th>학점</th>
+								<th>이수구분</th>
+								<th>담당교수</th>
+								<th>최대인원</th>
+								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>F150E</td>
-								<td>컴퓨터공학</td>
-								<td>전산이론</td>
-								<td>3</td>
-								<td>전공필수</td>
+							<tr th:each="lecture : ${page.getContent()}">
+								<td>
+									<a th:href="@{/education/detail/}+${lecture.id}" th:text="${lecture.education.code}"></a>
+								</td>
+								<td>
+									<a th:href="@{/education/detail/}+${lecture.id}" th:text="${lecture.education.major.title}"></a>
+								</td>
+								<td th:text="${lecture.education.title}"></td>
+								<td th:text="${lecture.education.credit}"></td>
+								<td th:text="${lecture.education.division}"></td>
+								<td th:text="${lecture.professor.name}"></td>
+								<td th:text="${lecture.maximumPerson}"></td>
+								<td>
+									<a class="btn btn-sm btn-outline-danger" th:href="@{/education/delete(id=${lecture.id})}">
+										삭제
+									</a>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="d-flex justify-content-center">
-					<ul class="pagination">
-						<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					<ul class="pagination" th:if="${pager.totalRows != 0}">
+						<li class="page-item disabled" th:if="${!page.isFirst()}"><a class="page-link" th:href="@{/lecture/list(page=0}">처음</a></li>
+						<li class="page-item" th:if="${pager.groupNo > 1 }"><a class="page-link" th:href="@{/lecture/list(page=${pager.startPageNo-1})}">이전</a></li>
+						<th:block th:each="num : ${#numbers.sequence(pager.startPageNo,pager.endPageNo)}"> 
+							<li class="page-item">
+								<a class="page-link" th:onclick="|pageMove('${num-1}')|"th:text="${num}"></a>
+							</li>
+						</th:block>
+						<li class="page-item" th:if="${pager.groupNo < pager.totalGroupNo}"><a class="page-link" th:href="@{/lecture/list(page=${pager.endPageNo+1})}">다음</a></li>
+						<li class="page-item" th:if="${!page.isLast()}"><a class="page-link" th:href="@{/lecture/list(page=${page.getTotalPages())}">맨끝</a></li>
 					</ul>
 				</div>
-			</div>
+			</form>
 		</div>
 
 	</div>
-	<!-- /.container-fluid -->
+	<script>
+		function pageMove(pageNo){
+			console.log('페이지이동:'+pageNo);
+			//$('#pageForm').attr('action','주소').submit();
+			var url = '/lecture/page/'+pageNo;
+			$('#pageForm').attr('action',url).submit();
+		}
+	</script>
 </div>
 
 </html>

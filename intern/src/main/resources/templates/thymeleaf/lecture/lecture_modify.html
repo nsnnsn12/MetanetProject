@@ -40,13 +40,14 @@
 	                    </div>
 						<div class="col-sm-6 mb-3">
 	                        <label class="form-label">교수</label>
-							<select class="form-control" th:field="*{lecture.professor}">
+							<select class="form-control" th:field="*{lecture.professor}" required>
 								<option value="">교수를 선택해주세요.</option>
 								<option th:each="professor : ${professors}"
 									th:value="${professor.id}"
 									th:text="${professor.name}">
 								</option>
 							</select>
+							<div class="invalid-feedback">교수를 선택해주세요</div>
 	                    </div>
 						<div class="col-sm-6 mb-3">
 	                        <label class="form-label">최대인원</label>
