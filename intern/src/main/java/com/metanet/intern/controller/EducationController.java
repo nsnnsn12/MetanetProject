@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Manager;
@@ -56,11 +57,13 @@ public class EducationController {
 		model.addAttribute("pager", pager);
 	}
 	
-	@GetMapping("detail")
-	public String detail() {
-		return "thymeleaf/education/education_modify";
+	@GetMapping("detail/{id}")
+	public String detail(@PathVariable("id")Education education, Model model) {
+		model.addAttribute("education", education);
+		model.addAttribute("majorList", majorService.getAll());
+		return "thymeleaf/education/education_create";
 	}
-
+	
 	@GetMapping("create")
 	public String createForm(Education education, Model model) {
 		model.addAttribute("majorList", majorService.getAll());
@@ -69,11 +72,25 @@ public class EducationController {
 	
 	@PostMapping("create")
 	public String create(Education education) {
-		log.info(education.getContent());
+		log.info(education.toString());
 		educationService.createEducation(education);
 		return "redirect:list";
 	}
 
+	@GetMapping("delete")
+	public String deleteManager(Long id) {
+		educationService.delete(id);
+		return "redirect:list";
+	}
+//	
+//	@GetMapping("educationNo/{id}")
+//	@ResponseBody
+//	public Education getEducaiton(@PathVariable("id")Education education, Model model) {
+//		education.setProfessors(educationService.test(education));
+//		return education;
+//	}
+	
+	
 	@GetMapping("open/list")
 	public String openList() {
 		return "thymeleaf/education/open_list";

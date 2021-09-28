@@ -33,8 +33,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn
 @Getter
 @NoArgsConstructor
 @Setter
@@ -74,7 +72,7 @@ public class Manager extends BaseEntity{
 	private Integer isAccept = 0;
 	private String telNo;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name= "major_id")
 	private Major major;
 	
