@@ -43,7 +43,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="notice : ${page.getContent()}">
-								<td th:text="${notice.noticeTitle}"></td>
+								<td><a href="/notice/detail" th:text="${notice.noticeTitle}"></a></td>
 								<td th:text="${notice.writer}"></td>
 								<td th:text="${notice.viewcount}"></td>
 								<td th:text="${notice.createDate}"></td>
