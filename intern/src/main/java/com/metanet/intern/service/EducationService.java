@@ -1,5 +1,7 @@
 package com.metanet.intern.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.repository.EducatinoRepository;
+import com.metanet.intern.repository.ManagerRepository;
 import com.metanet.intern.spec.EducationSpec;
 import com.metanet.intern.spec.ManagerSpec;
 import com.metanet.intern.vo.EducationSearchCondition;
@@ -23,6 +26,10 @@ public class EducationService {
 	@Autowired
 	EducatinoRepository educatinoRepository;
 
+	@Autowired
+	ManagerRepository managerRepository;
+	
+	private final int delete = 1, notDelete = 0;
 	public void createEducation(Education education) {
 		educatinoRepository.save(education);
 	}
@@ -51,5 +58,13 @@ public class EducationService {
 		}
 		
 		return educatinoRepository.findAll(spec, pageable);
+	}
+
+	public void delete(Long id) {
+		educatinoRepository.getById(id).setIsDeleted(delete);
+	}
+	
+	public List<Manager> getProfessor(Education education) {
+		return managerRepository.findByIsDeletedAndMajor(0, education.getMajor());
 	}
 }

@@ -51,4 +51,7 @@ public class Education extends BaseEntity{
 	private Integer credit;
 	@Lob
 	private String content;
+	
+	@Transient
+	private List<Manager> professors;
 }

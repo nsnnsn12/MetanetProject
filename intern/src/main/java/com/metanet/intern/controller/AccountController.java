@@ -105,6 +105,7 @@ public class AccountController {
 	
 	@GetMapping("mangerDetail/{id}")
 	public String mangerDetail(@PathVariable("id")Manager manager, Model model) {
+		log.info(manager.toString());
 		//사진을 등록하지 않았을 경우
 		preventPhotoNull(manager);
 		model.addAttribute("detailObject", manager);
