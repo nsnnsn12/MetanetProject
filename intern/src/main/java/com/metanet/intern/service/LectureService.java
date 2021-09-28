@@ -24,9 +24,9 @@ public class LectureService {
 	@Autowired
 	LectureRepository lectureRepository;
 	
-	final Integer isNotDeleted = 0;
+	private final int delete = 1, notDelete = 0;
 	public Page<LectureListJoin> findAllEducations(Pageable pageable){
-		return lectureRepository.findAllEducations(isNotDeleted, pageable);
+		return lectureRepository.findAllEducations(notDelete, pageable);
 	};
 	
 	public void create(Lecture lecture) {
@@ -60,5 +60,9 @@ public class LectureService {
 		}
 		
 		return lectureRepository.findAll(spec, pageable);
+	}
+
+	public void delete(Long id) {
+		lectureRepository.getById(id).setIsDeleted(delete);
 	}
 }

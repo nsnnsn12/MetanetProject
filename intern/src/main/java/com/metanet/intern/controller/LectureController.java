@@ -87,4 +87,10 @@ public class LectureController {
 		model.addAttribute("professors",educationService.getProfessor(lecture.getEducation()));
 		return "thymeleaf/lecture/lecture_modify";
 	}
+	
+	@GetMapping("delete")
+	public String deleteLecture(Long id) {
+		lectureService.delete(id);
+		return "redirect:list";
+	}
 }
