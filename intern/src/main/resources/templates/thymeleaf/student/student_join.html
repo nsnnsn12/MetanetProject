@@ -23,11 +23,11 @@
 							class="img-responsive rounded ml-auto border p-3" width="300"
 							height="300" alt="..." />
 						<div class="mt-auto">
-							<input class="file-upload" type="file" id="chooseFile" th:field="*{image}" 
+							<input class="file-upload ml-2 mr-5" type="file" id="chooseFile" th:field="*{image}" 
 								name="chooseFile" accept="image/*" onchange="loadFile(this)">
 						</div>
 					</div>
-					<div class="row g-3">
+					<div class="row g-3 mt-3">
 						<div class="col-sm-6">
 							<label class="form-label">이름</label> <input type="text" th:field="*{name}"
 								class="form-control" id="이름" placeholder="이름을 입력하세요" value=""
