@@ -22,7 +22,6 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @Builder
-@ToString
 @Entity
 public class Lecture extends BaseEntity{
 	//강의

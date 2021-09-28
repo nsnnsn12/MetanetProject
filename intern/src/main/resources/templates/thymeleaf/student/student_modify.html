@@ -75,10 +75,13 @@
 							<label class="form-label">학적상태</label> <select
 								class="form-control" th:field="*{status}" id="학적상태" required>
 								<option value="">학적을 선택하세요</option>
-								<option value="graduated" th:selected="${graduated eq student.status}">졸업</option>
+								<option value="graduated"
+									th:selected="${graduated eq student.status}">졸업</option>
 								<option value="leave" th:selected="${leave eq student.status}">휴학</option>
-								<option value="attending" th:selected="${attending eq student.status}">재학</option>
-								<option value="returned" th:selected="${returned eq student.status}">복학</option>
+								<option value="attending"
+									th:selected="${attending eq student.status}">재학</option>
+								<option value="returned"
+									th:selected="${returned eq student.status}">복학</option>
 								<!-- <option
 									th:each="academicValue : ${T(com.metanet.intern.enummer.Academic).values()}"
 									th:value="${academicValue}" th:text="${academicValue}"
@@ -92,15 +95,24 @@
 								th:field="*{semester}" required>
 							<div class="invalid-feedback">유효한 학기가 아닙니다.</div>
 						</div>
+						<div class="col-sm-6">
+							<label class="form-label">생성일</label> <input type="text"
+								class="form-control" id="생성일" th:field="*{createDate}" disabled>
+						</div>
+						<div class="col-sm-6">
+							<label class="form-label">수정일</label> <input type="text"
+								class="form-control" id="수정일" th:field="*{modifyDate}" disabled>
+						</div>
 					</div>
 					<hr class="mb-4">
 					<button class="btn btn-lg btn-outline-info btn-block">수정</button>
 				</div>
 			</form>
-			<form th:action="@{/student/modify}"
-				th:object="${student}">
+			<form th:action="@{/student/modify}" th:object="${student}">
 				<input type="hidden" th:field="*{id}" />
-				<button class="btn btn-lg btn-outline-info btn-block">삭제</button>
+				<div class="card-body">
+					<button class="btn btn-lg btn-outline-info btn-block">삭제</button>
+				</div>
 			</form>
 		</div>
 	</div>
