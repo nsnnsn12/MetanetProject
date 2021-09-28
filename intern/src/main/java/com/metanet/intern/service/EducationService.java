@@ -23,6 +23,7 @@ public class EducationService {
 	@Autowired
 	EducatinoRepository educatinoRepository;
 
+	private final int delete = 1, notDelete = 0;
 	public void createEducation(Education education) {
 		educatinoRepository.save(education);
 	}
@@ -51,5 +52,9 @@ public class EducationService {
 		}
 		
 		return educatinoRepository.findAll(spec, pageable);
+	}
+
+	public void delete(Long id) {
+		educatinoRepository.getById(id).setIsDeleted(delete);
 	}
 }

@@ -56,11 +56,13 @@ public class EducationController {
 		model.addAttribute("pager", pager);
 	}
 	
-	@GetMapping("detail")
-	public String detail() {
-		return "thymeleaf/education/education_modify";
+	@GetMapping("detail/{id}")
+	public String detail(@PathVariable("id")Education education, Model model) {
+		model.addAttribute("education", education);
+		model.addAttribute("majorList", majorService.getAll());
+		return "thymeleaf/education/education_create";
 	}
-
+	
 	@GetMapping("create")
 	public String createForm(Education education, Model model) {
 		model.addAttribute("majorList", majorService.getAll());
@@ -69,11 +71,18 @@ public class EducationController {
 	
 	@PostMapping("create")
 	public String create(Education education) {
-		log.info(education.getContent());
+		log.info(education.toString());
 		educationService.createEducation(education);
 		return "redirect:list";
 	}
 
+	@GetMapping("delete")
+	public String deleteManager(Long id) {
+		educationService.delete(id);
+		return "redirect:list";
+	}
+	
+	
 	@GetMapping("open/list")
 	public String openList() {
 		return "thymeleaf/education/open_list";
