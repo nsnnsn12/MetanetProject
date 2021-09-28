@@ -87,11 +87,14 @@
 								<td th:text="${education.credit}"></td>
 								<td th:text="${education.division}"></td>
 								<td>
-									<button 
+									<!-- <button 
 									class="btn btn-sm btn-outline-info" 
-									data-toggle="modal" data-target="#myModal" type="button">
+									data-toggle="modal" data-target="#myModal" type="button" th:onclick="|getProfessorList('${education.id}')|">
 										등록
-									</button>
+									</button> -->
+									<a class="btn btn-sm btn-outline-info" th:href="${'/class/create/' + education.id}">
+										등록
+									</a>
 								</td>
 								<td>
 									<a class="btn btn-sm btn-outline-danger" th:href="@{/education/delete(id=${education.id})}">
@@ -142,21 +145,7 @@
 								<th>교수선택</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td>F150E</td>
-								<td>컴퓨터공학</td>
-								<td>전산이론</td>
-								<td>3</td>
-								<td>전공필수</td>
-								<td>
-									<select class="form-control">
-										<option value="">교수선택</option>
-										<option>한항규</option>
-										<option>안재엽</option>
-									</select>
-								</td>
-							</tr>
+						<tbody id="tbody">
 						</tbody>
 					</table>
 				</div>
@@ -176,6 +165,60 @@
 			var url = '/education/page/'+pageNo;
 			$('#pageForm').attr('action',url).submit();
 		}
+
+		function getProfessorList(detailNo){
+			console.log(detailNo);
+			var url = '/education/educationNo/'+detailNo;
+			var result ='';
+			$.ajax({
+				url: url,
+				success:function(data){
+					console.log('교수 가져오기');
+					console.log(data);
+					var division = '';
+					switch(data.division){
+						case 'MI':
+							division = '전공심화';
+							break;
+						case 'MC':
+							division = '전공핵심';
+							break;
+						case 'MN':
+							division = '전공필수';
+							break;
+						case 'ELN':
+							division = '교양필수';
+							break;
+						case 'ELS':
+							division = '교양선택';
+							break;
+					}
+
+					var selectOption = '<option value="">교수선택</option>';
+					for(var professor of data.professors){
+						selectOption += `<option value="${professor.id}">${professor.name}</option>`;
+					}
+					result=
+					`
+					<tr>
+						<td>${data.code}</td>
+						<td>${data.major.title}</td>
+						<td>${data.title}</td>
+						<td>${data.credit}</td>
+						<td>${division}</td>
+						<td>
+							<select class="form-control">
+								${selectOption}
+							</select>
+						</td>
+					</tr>
+					`;
+
+					$("#tbody").html(result);
+				}
+			})
+		}
+		
 	</script>
 </div>
 

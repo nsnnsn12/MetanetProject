@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Manager;
@@ -81,6 +82,13 @@ public class EducationController {
 		educationService.delete(id);
 		return "redirect:list";
 	}
+//	
+//	@GetMapping("educationNo/{id}")
+//	@ResponseBody
+//	public Education getEducaiton(@PathVariable("id")Education education, Model model) {
+//		education.setProfessors(educationService.test(education));
+//		return education;
+//	}
 	
 	
 	@GetMapping("open/list")

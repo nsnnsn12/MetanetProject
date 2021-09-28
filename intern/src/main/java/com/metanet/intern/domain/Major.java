@@ -28,7 +28,10 @@ public class Major extends BaseEntity{
 	@Column(unique = true)
 	private String code;
 	
-	@OneToMany(mappedBy = "major")
-	private List<Student> students = new ArrayList<>();
+//	@OneToMany(mappedBy = "major")
+//	private List<Student> students = new ArrayList<>();
+//	
+//	@OneToMany(mappedBy = "major")
+//	private List<Manager> professors = new ArrayList<>();
 	
 }
