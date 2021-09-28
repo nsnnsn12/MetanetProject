@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.metanet.intern.domain.Major;
 import com.metanet.intern.domain.Notice;
 import com.metanet.intern.repository.NoticeRepository;
 import com.metanet.intern.spec.NoticeSpec;
@@ -47,6 +48,12 @@ public class NoticeService {
 		noticeRepository.save(notice);
 	}
 
+	public void deleteNotice(Long id) {
+		Notice notice = noticeRepository.findById(id).get();
+		notice.setIsDeleted(1);
+		noticeRepository.save(notice);
+	}
+	
 	public Page<Notice> getAllList(Pageable pageable) {
 		return noticeRepository.findByIsDeleted(notDeleted, pageable);
 	}
