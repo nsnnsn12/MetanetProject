@@ -25,63 +25,39 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div >
+                    <i class="fa fa-bars"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">학사관리</div>
+                <div class="sidebar-brand-text mx-3">학사정보 관리</div>
             </a>
             <hr class="sidebar-divider my-0">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/mypage">
-                <img src="/profileImage" class="img-responsive img-profile rounded-circle mx-auto d-block p-3" width="100" height="100" onerror="javascript:src='/img/test.jpg'"/>
-                <div class="sidebar-brand-text mx-3" sec:authentication="name">
-                </div>
-            </a>
-            <div class="sidebar-brand d-flex align-items-center justify-content-center">
-                <a class="btn btn-info btn-sms" href="/logout">LogOut</a>
-            </div>
             <!-- Divider -->
             <hr class="sidebar-divider">
-
             <!-- Heading -->
             <div class="sidebar-heading">
-                인적자원 관리
+                MENU
             </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-fw fa-wrench"></i>
+                <a class="nav-link collapsed" href="/account/list">
+                    <i class="fas fa-fw fa-table"></i>
                     <span>직원 관리</span>
                 </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        
-                        <a class="collapse-item" href="/account/list">직원관리</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i> <!-- 아이콘 수정 -->
+                <a class="nav-link collapsed" href="/student/list">
+                    <i class="fas fa-fw fa-table"></i> <!-- 아이콘 수정 -->
                     <span>학적 관리</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">학적부 관리:</h6>
-                        <a class="collapse-item" href="/student/list">학적 관리</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-table"></i>
                     <span>수업 관리</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
@@ -89,8 +65,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         
                         <a class="collapse-item" href="/education/list">교과목 관리</a>
-                        <a class="collapse-item" href="/education/open/list">개설과목관리</a>
-                        <a class="collapse-item" href="/major/list">전공관리</a>
+                        <a class="collapse-item" href="/education/open/list">개설과목 관리</a>
+                        <a class="collapse-item" href="/major/list">전공 관리</a>
                     </div>
                 </div>
             </li>
@@ -108,17 +84,17 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>수강관리</span>
+                    <span>수강 관리</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         
                         
-                        <a class="collapse-item" href="/lecture/student_search">수강생관리</a>
-                        <a class="collapse-item" href="/lecture/attendance_search">출결관리</a>
+                        <a class="collapse-item" href="/lecture/student_search">수강생 관리</a>
+                        <a class="collapse-item" href="/lecture/attendance_search">출결 관리</a>
                         <div class="collapse-divider"></div>
 
-                        <a class="collapse-item" href="/lecture/grade_search">성적관리</a>
+                        <a class="collapse-item" href="/lecture/grade_search">성적 관리</a>
                         
                     </div>
                 </div>
