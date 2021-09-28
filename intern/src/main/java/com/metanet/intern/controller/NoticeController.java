@@ -42,20 +42,6 @@ public class NoticeController {
 		return "thymeleaf/notice/notice_list";
 	}
 	
-//	@GetMapping("list")
-//	public String list(@ModelAttribute("condition") EducationSearchCondition condition, Pageable pageable, Model model) {
-//		log.info(condition.toString());
-//		paging(condition, model, pageable);
-//		return "thymeleaf/education/education_list";
-//	}
-//
-//	@GetMapping("page/{pageNo}")
-//	public String search(@ModelAttribute("condition") EducationSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
-//		Pageable pageable = PageRequest.of(pageNo, 10);
-//		paging(condition, model, pageable);
-//		return "thymeleaf/education/education_list";
-//	}
-//	
 	private void paging(SearchCondition condition, Model model, Pageable pageable) {
 		
 		Page<Notice> page = noticeService.searchNoticeList(pageable, condition);
@@ -77,4 +63,18 @@ public class NoticeController {
 		return "redirect:list";
 	}
 	
+	@GetMapping("detail/{id}")
+	public String noticeDetailForm(@PathVariable("id")Notice notice, Model model){
+		log.info("notice진입");
+		model.addAttribute("noticeDetail", notice);
+		
+		return "thymeleaf/notice/notice_detail";
+	}
+	
+	@PostMapping("update")
+	public String updateNotice(Notice notice, Model model) {
+		log.info("notice update");
+		noticeService.updateNotice(notice);
+		return "redirect:list";
+	}
 }

@@ -28,7 +28,8 @@
 							
 						</div>
 						<input type="text" class="form-control mr-2" th:field="*{text}">
-						<button class="btn btn-sm btn-outline-primary mr-2">검색</button>
+						<button class="btn btn-outline-primary mr-2">검색</button>
+						<a class="btn btn-outline-info" href="/notice/create">등록</a>
 					</div>
 				</div>
 				<div class="table-responsive">
@@ -43,7 +44,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="notice : ${page.getContent()}">
-								<td><a href="/notice/detail" th:text="${notice.noticeTitle}"></a></td>
+								<td><a th:href="@{/notice/detail/}+${notice.id}" th:text="${notice.noticeTitle}"></a></td>
 								<td th:text="${notice.writer}"></td>
 								<td th:text="${notice.viewcount}"></td>
 								<td th:text="${notice.createDate}"></td>
