@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +38,7 @@ public class NoticeController {
 	private final int pageGroupSize = 5;
 	
 	@GetMapping("list")
-	public String list(@ModelAttribute("condition") SearchCondition condition, Pageable pageable, Model model) {
+	public String list(@ModelAttribute("condition") SearchCondition condition,@PageableDefault(sort = {"createDate"}, direction = Direction.DESC) Pageable pageable, Model model) {
 		log.info(condition.toString());
 		paging(condition, model, pageable);
 		return "thymeleaf/notice/notice_list";

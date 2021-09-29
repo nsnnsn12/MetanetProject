@@ -5,6 +5,8 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,7 +35,7 @@ public class HomeController {
 	NoticeService noticeService;
 	
 	@GetMapping("/index")
-	public String index(Model model, Pageable pageable) {
+	public String index(Model model, @PageableDefault(sort = {"createDate"}, direction = Direction.DESC, size = 5) Pageable pageable) {
 		Page<Notice> page = noticeService.getAllList(pageable);
 		model.addAttribute("page", page);
 		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
