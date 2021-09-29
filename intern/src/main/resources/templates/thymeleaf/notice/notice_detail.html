@@ -6,38 +6,74 @@
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
-	<div class="container-sm">
+	<div class="container-sm" >
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex">
 				<div>
 					<h6 class="m-0 font-weight-bold text-primary">공지 상세</h6>
 				</div>
+				<div class="ml-auto">
+					<a class="btn btn-outline-info btn-sm" th:href="@{/notice/update/}+${noticeDetail.id}" >수정</a>
+				</div>
 			</div>
-			<form class="needs-validation" th:action= "@{/notice/update(id=${noticeDetail.id})}" 
-			th:object="${noticeDetail}" >
-	            <div class="card-body">
-	                <div class="row g-3">
-	                    
-	                    <div class=" col-sm-12 mb-3"> 
-	                    <input type="hidden" th:field="*{id}"></input>
-	                    <label for="title" class="form-label">제목</label>
-							<input type="text" class="form-control"  th:value="${noticeDetail.noticeTitle}" disabled></input>
-						</div>
-						
-					</div>
-	                    
-	
+			<div class="card-body">
+				<table class="table table-bordered" style="min-height:500px;">
+					<colgroup>
+						<col width="10%">
+						<col width="40%">
+						<col width="10%">
+						<col width="40%">
+					</colgroup>
+					
+					<tr style="height:10%" class="text-center">
+						<!-- 작성자 -->
+						<td class="bg-gray-200">작성자</td>
+						<!-- writer -->
+						<td th:text="${noticeDetail.writer}"></td>
+						<!-- 등록일 -->
+						<td class="bg-gray-200">등록일</td>
+						<!-- Cdate -->
+						<td th:text="${noticeDetail.createDate}"></td>
+					</tr>
+					<tr style="height:10%">
+						<!-- 제목 -->
+						<td class="bg-gray-200 text-center">제목</td>
+						<td colspan="3" th:text="${noticeDetail.noticeTitle}"></td>
+					</tr>
+					<tr style="height:80%">
+						<td class="bg-gray-200 text-center">내용</td>
+						<td colspan="3" th:utext="${noticeDetail.content}"></td>
+					</tr>
+
+				</table>
 				
-	                <hr class="mb-4">
-					<div class="row g-3">
-						<div class="col-12 mb-3">
-							<p class="card-text" th:utext="${noticeDetail.content}"></p>
-						</div>
-	                </div>
-					<hr class="mb-4">
-					<button class="btn btn-lg btn-outline-info btn-block" type="submit">수정</button>
-	            </div>
-            </form>
+			</div>
+		</div>
+		<div class="card mb-2">
+			<div class="card-header bg-light">
+			        <i class="fa fa-comment fa"></i> 댓글
+			</div>
+			<div class="card-body">
+				<ul class="list-group list-group-flush">
+				    <li class="list-group-item">
+					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+					<button type="button" class="btn btn-info mt-3" onClick="javascript:addReply();">댓글달기</button>
+				    </li>
+				</ul>
+			</div>
+			<div class="media border p-3">
+			  <img src="/img/test.png" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+			  <div class="media-body">
+			    <h6>작성자 <small><i>작성일자:2021/09/02</i></small></h6>
+			    <div class="d-flex justify-content-end row">
+				    <p class="mr-auto col-10 p-0">Lorem ipsum... <br/> asdfasdfasdfsd</p>
+				    <div class="mr-auto col-2 p-0 my-3">
+				    	<a class="btn btn-outline-info btn-sm ml-5">수정</a>
+				    	<a class="btn btn-outline-info btn-sm">삭제</a>
+				    </div>
+			    </div>
+			  </div>
+			</div>
 		</div>
 	</div>
 

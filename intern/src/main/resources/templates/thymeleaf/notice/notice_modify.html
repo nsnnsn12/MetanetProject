@@ -1,46 +1,47 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="thymeleaf/layout/default">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="thymeleaf/layout/default">
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
 	<div class="container-sm">
 		<div class="card shadow mb-4">
-			<div class="card-header py-3 d-flex">
-				<div>
-					<h6 class="m-0 font-weight-bold text-primary">공지 수정</h6>
+			<form class="needs-validation" method="POST" th:action="@{/notice/update}" th:object="${noticeDetail}" novalidate>
+				<div class="card-header py-3 d-flex">
+					<div>
+						<h6 class="m-0 font-weight-bold text-primary">공지 수정</h6>
+					</div>
+					<div class="ml-auto">
+						<button class="btn btn-outline-info btn-sm"> 수정</button>
+					</div>
+					<div>
+						<a class="btn btn-outline-info btn-sm" th:href="@{/notice/delete(id=${noticeDetail.id})}">삭제</a>
+					</div>
 				</div>
-			</div>
-			<form class="needs-validation" method="POST" th:action="@{/notice/update}" th:object="${notice}" novalidate>
-	            <div class="card-body">
-	                <div class="row g-3">
-	                    
-	                    <div class=" col-sm-12 mb-3"> 
-							<input type="text" class="form-control" id="title" th:field="*{noticeTitle}"
-								th:value="*{noticeTitle}" placeholder="제목을 입력해주세요" name="name" required>
+				<input type="hidden" th:field="*{id}"></input>
+				<div class="card-body">
+					<div class="row g-3">
+
+						<div class=" col-sm-12 mb-3">
+							<input type="text" class="form-control" th:field="*{noticeTitle}" placeholder="제목을 입력해주세요" required>
 							<div class="invalid-feedback">제목을 입력해주세요.</div>
 						</div>
-						
+
 					</div>
-	                    
-	
-				
-	                <hr class="mb-4">
+
+
+
+					<hr class="mb-4">
 					<div class="row g-3">
 						<div class="col-12 mb-3">
-							<textarea name="contents" id="contents" th:field="*{content}" th:value="*{content}">[[*{contents}]]</textarea> 
+							<textarea id="contents" th:field="*{content}">[[*{contents}]]</textarea>
 						</div>
-	                </div>
-					<hr class="mb-4">
-					<button class="btn btn-lg btn-outline-info btn-block" type="submit">등록</button>
-	            </div>
-            </form>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 
-	<script >
+	<script>
 		$(function () {
 			CKEDITOR.replace('contents', { 
 				width:'1000px',
