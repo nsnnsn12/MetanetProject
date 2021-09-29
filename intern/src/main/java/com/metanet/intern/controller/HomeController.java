@@ -3,6 +3,8 @@ package com.metanet.intern.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.metanet.intern.domain.Manager;
+import com.metanet.intern.domain.Notice;
 import com.metanet.intern.service.ManagerService;
+import com.metanet.intern.service.NoticeService;
 import com.metanet.intern.spec.ManagerSpec;
+import com.metanet.intern.vo.Pager;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,8 +29,15 @@ public class HomeController {
 	@Autowired
 	ManagerService managerService;
 	
+	@Autowired
+	NoticeService noticeService;
+	
 	@GetMapping("/index")
-	public String index() {
+	public String index(Model model, Pageable pageable) {
+		Page<Notice> page = noticeService.getAllList(pageable);
+		model.addAttribute("page", page);
+		Pager pager = new Pager(page.getSize(), 5, (int)page.getTotalElements(), page.getNumber());
+		model.addAttribute("pager", pager);
 		return "thymeleaf/index";
 	}	
 	@GetMapping(value = {"/", "/login"})

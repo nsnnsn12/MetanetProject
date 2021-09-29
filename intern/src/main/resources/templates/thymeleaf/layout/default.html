@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lagn="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <th:block th:replace="thymeleaf/fragments/head :: headFragment"></th:block>
 
     <body id="page-top">
@@ -7,7 +7,7 @@
             <th:block th:replace="thymeleaf/fragments/sidebar :: sidebarFragment"></th:block>
 
             <div id="content-wrapper" class="d-flex flex-column">
-                <div id="content">
+                <div id="content" class="bg-white">
                     <th:block th:replace="thymeleaf/fragments/topbar :: topbarFragment"></th:block>
                     <th:block layout:fragment="content"></th:block>
                 </div>
