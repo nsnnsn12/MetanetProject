@@ -5,15 +5,21 @@
 	layout:decorator="thymeleaf/layout/default">
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
-	<div class="container">
+	<div class="container-sm">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex">
 				<div>
 					<h6 class="m-0 font-weight-bold text-primary">학적정보 수정</h6>
 				</div>
-				<div class="ml-auto">
-					<button class="btn btn-block btn-outline-info"
+				<div class="ml-auto mr-2">
+					<button class="btn btn-outline-info"
 						onclick="history.back(-1)">취소</button>
+				</div>
+				<div>
+					<form th:action="@{/student/delete}" th:object="${student}">
+						<input type="hidden" th:field="*{id}" />
+							<button class="btn btn-outline-info">삭제</button>
+					</form>
 				</div>
 			</div>
 			<form class="needs-validation" th:action="@{/student/modify}"
@@ -26,13 +32,13 @@
 							id="image" class="img-responsive rounded ml-auto border p-3"
 							width="300" height="300" onerror="javascript:src='/img/test.jpg'" />
 						<div class="mt-auto">
-							<input class="file-upload" type="file" id="chooseFile"
+							<input class="file-upload ml-3 mr-5" type="file" id="chooseFile"
 								th:field="*{image}" name="chooseFile" accept="image/*"
 								onchange="loadFile(this)">
 						</div>
 					</div>
 					<input type="hidden" th:field="*{id}" />
-					<div class="row g-3">
+					<div class="row g-3 mt-3">
 						<div class="col-sm-6">
 							<label class="form-label">이름</label> <input type="text"
 								class="form-control" id="이름" placeholder="이름을 입력하세요"
@@ -106,12 +112,6 @@
 					</div>
 					<hr class="mb-4">
 					<button class="btn btn-lg btn-outline-info btn-block">수정</button>
-				</div>
-			</form>
-			<form th:action="@{/student/modify}" th:object="${student}">
-				<input type="hidden" th:field="*{id}" />
-				<div class="card-body">
-					<button class="btn btn-lg btn-outline-info btn-block">삭제</button>
 				</div>
 			</form>
 		</div>
