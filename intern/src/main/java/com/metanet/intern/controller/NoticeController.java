@@ -65,16 +65,34 @@ public class NoticeController {
 	
 	@GetMapping("detail/{id}")
 	public String noticeDetailForm(@PathVariable("id")Notice notice, Model model){
+		noticeService.viewCountInc(notice);
 		log.info("notice진입");
 		model.addAttribute("noticeDetail", notice);
-		
 		return "thymeleaf/notice/notice_detail";
 	}
 	
+	@GetMapping("update/{id}")
+	public String noticeUpdateForm(@PathVariable("id")Notice notice, Model model){
+		log.info("notice입력 페이지");
+		model.addAttribute("noticeDetail", notice);
+		log.info(notice.toString());
+		
+		return "thymeleaf/notice/notice_modify";
+	}
+
 	@PostMapping("update")
 	public String updateNotice(Notice notice, Model model) {
 		log.info("notice update");
+		log.info(notice.toString());
+		model.addAttribute("noticeDetail", notice);
 		noticeService.updateNotice(notice);
+		return "redirect:list";
+	}
+	
+	@GetMapping("delete")
+	public String deleteNotice(Long id) {
+		log.info("notice delete");
+		noticeService.deleteNotice(id);
 		return "redirect:list";
 	}
 }

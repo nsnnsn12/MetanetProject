@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.intern.domain.Major;
 import com.metanet.intern.domain.Notice;
@@ -13,15 +14,13 @@ import com.metanet.intern.spec.NoticeSpec;
 import com.metanet.intern.vo.SearchCondition;
 
 @Service
+@Transactional
 public class NoticeService {
 	
 	@Autowired
 	NoticeRepository noticeRepository;
 	
 	final Integer notDeleted = 0;
-	
-	
-	
 	
 	public Page<Notice> searchNoticeList(Pageable pageable, SearchCondition condition) {
 		// //삭제되지 않은 정보
@@ -38,7 +37,10 @@ public class NoticeService {
 		return noticeRepository.findAll(spec, pageable);
 	}
 	
-	public void updateNotice(Notice notice) {
+	public void updateNotice(Notice update) {
+		Notice notice = noticeRepository.findById(update.getId()).get();
+		notice.setNoticeTitle(update.getNoticeTitle());
+		notice.setContent(update.getContent());
 		noticeRepository.save(notice);
 	}
 	
@@ -56,6 +58,12 @@ public class NoticeService {
 	
 	public Page<Notice> getAllList(Pageable pageable) {
 		return noticeRepository.findByIsDeleted(notDeleted, pageable);
+	}
+
+	public void viewCountInc(Notice notice) {
+		notice.setViewcount(notice.getViewcount()+1);
+		noticeRepository.save(notice);
+		
 	}
 
 

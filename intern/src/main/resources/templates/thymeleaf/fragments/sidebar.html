@@ -39,6 +39,13 @@
             </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link collapsed" href="/notice/list">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>공지사항</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link collapsed" href="/account/list">
                     <i class="fas fa-fw fa-table"></i>
                     <span>직원 관리</span>
@@ -66,35 +73,6 @@
                         <a class="collapse-item" href="/education/list">교과목 관리</a>
                         <a class="collapse-item" href="/lecture/list">개설과목관리</a>
                         <a class="collapse-item" href="/major/list">전공관리</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>수강 관리</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        
-                        
-                        <a class="collapse-item" href="/lecture/student_search">수강생 관리</a>
-                        <a class="collapse-item" href="/lecture/attendance_search">출결 관리</a>
-                        <div class="collapse-divider"></div>
-
-                        <a class="collapse-item" href="/lecture/grade_search">성적 관리</a>
-                        
                     </div>
                 </div>
             </li>
