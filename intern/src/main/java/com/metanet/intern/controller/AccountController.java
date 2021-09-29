@@ -143,7 +143,7 @@ public class AccountController {
 	@PostMapping("update")
 	public String updateManager(Manager manager) {
 		log.info(manager.toString());
-		log.info(manager.getMajor().toString());
+		//log.info(manager.getMajor().toString());
 		managerService.update(manager);
 		return "redirect:mangerDetail/"+manager.getId();
 	}
