@@ -13,6 +13,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,9 +25,11 @@ import lombok.Setter;
 public abstract class BaseEntity {
 	@CreatedDate
 	@Column(updatable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	private Date createDate;
 	
 	@LastModifiedDate
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	private Date modifyDate;
 	
 	@Column(nullable = false)
