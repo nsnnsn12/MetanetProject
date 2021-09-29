@@ -10,10 +10,10 @@
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex">
 				<div>
-					<h6 class="m-0 font-weight-bold text-primary">공지 상세</h6>
+					<h6 class="m-0 font-weight-bold text-primary">공지사항 조회</h6>
 				</div>
 				<div class="ml-auto">
-					<a class="btn btn-outline-info btn-sm" th:href="@{/notice/update/}+${noticeDetail.id}" >수정</a>
+					<a class="btn btn-outline-info" th:href="@{/notice/update/}+${noticeDetail.id}" >수정</a>
 				</div>
 			</div>
 			<div class="card-body">
@@ -53,15 +53,13 @@
 		</div>
 		<div class="card mb-2">
 			<div class="card-header bg-light">
-			        <i class="fa fa-comment fa"></i> 댓글
+			        <i class="fa fa-comment fa-flip-horizontal"></i> 댓글
 			</div>
-			<div class="card-body">
-				<ul class="list-group list-group-flush">
-				    <li class="list-group-item">
-					<textarea class="form-control" id="replyText" rows="3"></textarea>
+			<div class="card-body row">
+				<textarea class="form-control m-0 p-0" id="replyText" rows="3"></textarea>
+					<div class="ml-auto">
 					<button type="button" class="btn btn-info mt-3" onClick="javascript:addReply();">댓글달기</button>
-				    </li>
-				</ul>
+					</div>
 			</div>
 			<div id="replyContents">
 			</div>
@@ -200,9 +198,9 @@
 
 				var modifyId = 'reply'+reply.id;
 				var modifyOption = `
-					<div class="mr-auto col-2 p-0 my-3">
-						<a class="btn btn-outline-info btn-sm ml-5" onclick="modifyReplyForm(${modifyId});">수정</a>
-						<a class="btn btn-outline-info btn-sm" onclick="removeReply(${reply.id});">삭제</a>
+					<div class="mr-auto col-2 p-0">
+						<a class="btn btn-outline-info ml-4 mr-2" onclick="modifyReplyForm(${modifyId});">수정</a>
+						<a class="btn btn-outline-danger" onclick="removeReply(${reply.id});">삭제</a>
 					</div>
 				`;
 
@@ -210,11 +208,11 @@
 					modifyOption = '';
 				}
 				var replyContent = `
-				<div class="media border p-3 align-center">
-					<img src="/download/${photoId}" onerror="javascript:src='/img/test.jpg'" class="img-thumbnail" style="width:60px; height:60px">
-					<div class="media-body ml-3">
-					<h6>${reply.manager.name}<small class="ml-2"><i>${reply.createDate}</i></small></h6>
-					<div id="${modifyId}" class="d-flex justify-content-end">
+				<div class="media border p-2">
+					<img src="/download/${photoId}" onerror="javascript:src='/img/test.jpg'" class="rounded-circle mt-3" style="width:60px; height:60px">
+					<div class="media-body ml-3 mt-3">
+					<h6 class="bold">${reply.manager.name}<small class="ml-2"><i>${reply.createDate}</i></small></h6>
+					<div id="${modifyId}" class="d-flex">
 						<p class="col-10 p-0">${reply.contents}</p>
 						${modifyOption}
 					</div>
