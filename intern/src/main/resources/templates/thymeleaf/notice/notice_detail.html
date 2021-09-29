@@ -17,6 +17,8 @@
 				</div>
 			</div>
 			<div class="card-body">
+				<input type="hidden" id="noticeId" th:value="${noticeDetail.id}">
+				<input type="hidden" id="loginId" th:value="${#authentication.principal.username}">
 				<table class="table table-bordered" style="min-height:500px;">
 					<colgroup>
 						<col width="10%">
@@ -56,38 +58,17 @@
 			<div class="card-body">
 				<ul class="list-group list-group-flush">
 				    <li class="list-group-item">
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+					<textarea class="form-control" id="replyText" rows="3"></textarea>
 					<button type="button" class="btn btn-info mt-3" onClick="javascript:addReply();">댓글달기</button>
 				    </li>
 				</ul>
 			</div>
-			<div class="media border p-3">
-			  <img src="/img/test.png" class="mr-3 mt-3 rounded-circle" style="width:60px;">
-			  <div class="media-body">
-			    <h6>작성자 <small><i>작성일자:2021/09/02</i></small></h6>
-			    <div class="d-flex justify-content-end row">
-				    <p class="mr-auto col-10 p-0">Lorem ipsum... <br/> asdfasdfasdfsd</p>
-				    <div class="mr-auto col-2 p-0 my-3">
-				    	<a class="btn btn-outline-info btn-sm ml-5">수정</a>
-				    	<a class="btn btn-outline-info btn-sm">삭제</a>
-				    </div>
-			    </div>
-			  </div>
+			<div id="replyContents">
 			</div>
 		</div>
 	</div>
 
-	<script >
-		$(function () {
-			CKEDITOR.replace('contents', { 
-				width:'1000px',
-				filebrowserUploadUrl: '/common/ckeditor/fileUpload', 
-				font_names: "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana", 
-				font_defaultLabel: "맑은 고딕/Malgun Gothic", 
-				fontSize_defaultLabel: "12",
-				language: "ko" });
-		});
-
+	<script>
 		// Example starter JavaScript for disabling form submissions if there are invalid fields
 		(function () {
 			'use strict';
@@ -108,6 +89,144 @@
 				});
 			}, false);
 		})();
+
+		$(function () {
+			listReply();
+		});
+
+		function listReply(){
+			var noticeId = $('#noticeId').val();
+			var loginId = $('#loginId').val();
+			var url = '/reply/list';
+			$.ajax({
+				url: url,
+				data : {
+					noticeId : noticeId
+				},
+				success:function(data){
+					result = replyHtmlSetting(data, loginId);
+					$("#replyContents").html(result);
+				}
+			})
+		}
+
+		function addReply(){
+			var content = $('#replyText').val();
+			var noticeId = $('#noticeId').val();
+			var loginId = $('#loginId').val();
+			var url = '/reply/create/';
+			var result ='';
+			$.ajax({
+				url: url,
+				data : { 
+					content : content, 
+					noticeId : noticeId
+				},
+				success:function(data){
+					result = replyHtmlSetting(data, loginId);
+					$("#replyContents").html(result);
+				}
+			})
+		}
+
+		function removeReply(replyId){
+			var noticeId = $('#noticeId').val();
+			var loginId = $('#loginId').val();
+			var url = '/reply/delete';
+			var result ='';
+			$.ajax({
+				url: url,
+				data : { 
+					replyId : replyId,
+					noticeId : noticeId
+				},
+				success:function(data){
+					result = replyHtmlSetting(data, loginId);
+					$("#replyContents").html(result);
+				}
+			})
+		}
+
+		function modifyReplyForm(modifyId){
+			console.log(modifyId);
+			var modify = $(modifyId);
+			console.log(modify.attr('id'));
+			var id = String(modify.attr('id'));
+			var textareaId = 'textarea'+id;
+			console.log(modify.children().first().text());
+			var textVal = modify.children().first().text();
+			var replyModify = `
+					<textarea class="col-10 p-0 form-control" id="${textareaId}">${textVal}</textarea>
+					<div class="mr-auto col-2 p-0 my-3">
+						<a class="btn btn-outline-info btn-sm ml-5" onclick="modifyReply('${id}', '${textareaId}');">수정</a>
+						<a class="btn btn-outline-info btn-sm" onclick="listReply();">취소</a>
+					</div>
+			`;
+			modify.html(replyModify);
+		}
+
+		function modifyReply(modifyId, textareaId){
+			console.log('modifyReply:'+modifyId);
+			console.log('textareaId:'+textareaId);
+			var content = $('#'+textareaId).val();
+			var idSplit = modifyId.split('y');
+			var replyId = idSplit[1];
+			console.log(replyId);
+			console.log(content);
+
+			var loginId = $('#loginId').val();
+			var url = '/reply/update/';
+			var result ='';
+			$.ajax({
+				url: url,
+				data : { 
+					content : content, 
+					replyId : replyId
+				},
+				success:function(data){
+					result = replyHtmlSetting(data, loginId);
+					$("#replyContents").html(result);
+				}
+			})
+		}
+
+		function replyHtmlSetting(data, loginId){
+			var result ='';
+			for(var reply of data){
+				var photoId = null;
+				if(reply.manager.photo != null){
+					photoId = reply.manager.photo.id;
+				}
+
+				var modifyId = 'reply'+reply.id;
+				var modifyOption = `
+					<div class="mr-auto col-2 p-0 my-3">
+						<a class="btn btn-outline-info btn-sm ml-5" onclick="modifyReplyForm(${modifyId});">수정</a>
+						<a class="btn btn-outline-info btn-sm" onclick="removeReply(${reply.id});">삭제</a>
+					</div>
+				`;
+
+				if(reply.manager.loginId != loginId){
+					modifyOption = '';
+				}
+				var replyContent = `
+				<div class="media border p-3">
+					<img src="/download/${photoId}" onerror="javascript:src='/img/test.jpg'" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+					<div class="media-body">
+					<h6>${reply.manager.name}<small><i>작성일자:${reply.createDate}</i></small></h6>
+					<div id="${modifyId}" class="d-flex justify-content-end row">
+						<p class="col-10 p-0">${reply.contents}</p>
+						${modifyOption}
+					</div>
+					</div>
+				</div>
+				`;
+
+				result += replyContent;
+			}
+
+			return result;
+		}
 	</script>
 </div>
 </html>

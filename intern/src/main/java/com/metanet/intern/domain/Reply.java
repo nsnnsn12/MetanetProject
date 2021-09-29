@@ -11,6 +11,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,11 +32,18 @@ public class Reply extends BaseEntity{
 	private String contents;
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name="notice_id")
 	private Notice notice;
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name="manager_id")
 	private Manager manager;
+	
+	public void setNotice(Notice notice) {
+		this.notice = notice;
+		notice.getReplies().add(this);
+	}
 	
 }
