@@ -7,65 +7,69 @@
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
 	<div class="container-sm">
-		<div class="card shadow mb-4">
-			<div class="card-header py-3 d-flex">
-				<div>
-					<h6 class="m-0 font-weight-bold text-primary">학적정보 등록</h6>
+		<form class="needs-validation" th:action="@{/student/join}"
+			th:object="${student}" method="POST" enctype="multipart/form-data"
+			novalidate>
+			<div class="card shadow mb-4">
+				<div class="card-header py-3 d-flex">
+					<div>
+						<h6 class="m-0 font-weight-bold text-primary">학적정보 등록</h6>
+					</div>
+					<div class="ml-auto">
+						<button class="btn btn-outline-info" type="submit">등록</button>
+					</div>
 				</div>
-			</div>
-			<form class="needs-validation" th:action="@{/student/join}"
-				th:object="${student}" method="POST" enctype="multipart/form-data"
-				oninput='password2.setCustomValidity(password2.value != password.value ? "비밀번호가 맞지 않습니다." : "")'
-				novalidate>
 				<div class="card-body">
 					<div class="d-flex">
-						<img src="/img/test.jpg" id="image" 
+						<img src="/img/test.jpg" id="image"
 							class="img-responsive rounded ml-auto border p-3" width="300"
 							height="300" alt="..." />
 						<div class="mt-auto">
-							<input class="file-upload ml-2 mr-5" type="file" id="chooseFile" th:field="*{image}" 
-								name="chooseFile" accept="image/*" onchange="loadFile(this)">
+							<input class="file-upload ml-2 mr-5" type="file" id="chooseFile"
+								th:field="*{image}" name="chooseFile" accept="image/*"
+								onchange="loadFile(this)">
 						</div>
 					</div>
 					<div class="row g-3 mt-3">
 						<div class="col-sm-6">
-							<label class="form-label">이름</label> <input type="text" th:field="*{name}"
-								class="form-control" id="이름" placeholder="이름을 입력하세요" value=""
-								required>
+							<label class="form-label">이름</label> <input type="text"
+								th:field="*{name}" class="form-control" id="이름"
+								placeholder="이름을 입력하세요" value="" required>
 							<div class="invalid-feedback">유효한 이름이 아닙니다.</div>
 						</div>
 
 						<div class="col-sm-6">
-							<label class="form-label">학번</label> <input type="text" th:field="*{studentNumber}"
-								class="form-control" id="학번" placeholder="학번을 입력하세요" value=""
-								required>
+							<label class="form-label">학번</label> <input type="text"
+								th:field="*{studentNumber}" class="form-control" id="학번"
+								placeholder="학번을 입력하세요" value="" required>
 							<div class="invalid-feedback">유효한 학번이 아닙니다.</div>
 						</div>
 
 						<div class="col-sm-6">
-							<label class="form-label">비밀번호</label> <input type="password" th:field="*{password}"
-								class="form-control" id="비밀번호" placeholder="비밀번호를 입력하세요"
-								value="" required>
+							<label class="form-label">비밀번호</label> <input type="password"
+								th:field="*{password}" class="form-control" id="비밀번호"
+								placeholder="비밀번호를 입력하세요" value="" required>
 							<div class="invalid-feedback">유효한 비밀번호가 아닙니다.</div>
 						</div>
 
 						<div class="col-sm-6">
-							<label class="form-label">비밀번호 확인</label> <input type="password" name="password2" class="form-control" id="비밀번호"
+							<label class="form-label">비밀번호 확인</label> <input type="password"
+								name="password2" class="form-control" id="비밀번호"
 								placeholder="비밀번호를 입력하세요" required>
 							<div class="invalid-feedback">비밀번호가 맞지 않습니다.</div>
 						</div>
 
 						<div class="col-sm-6">
-							<label class="form-label">전화번호</label> <input type="text" th:field="*{telNo}"
-								class="form-control" id="전화번호" placeholder="전화번호를 입력하세요"
-								required>
+							<label class="form-label">전화번호</label> <input type="text"
+								th:field="*{telNo}" class="form-control" id="전화번호"
+								placeholder="전화번호를 입력하세요" required>
 							<div class="invalid-feedback">유효한 전화번호가 아닙니다.</div>
 						</div>
-						
+
 						<div class="col-sm-6">
-							<label class="form-label">생년월일</label> <input type="date" th:field="*{birth}"
-								class="form-control" id="생년월일" placeholder="생년월일"
-								required>
+							<label class="form-label">생년월일</label> <input type="date"
+								th:field="*{birth}" class="form-control" id="생년월일"
+								placeholder="생년월일" required>
 							<div class="invalid-feedback">유효한 생년월일이 아닙니다.</div>
 						</div>
 					</div>
@@ -74,20 +78,18 @@
 
 					<div class="row g-3">
 						<div class="col-sm-6">
-							<label class="form-label">전공</label> 
-							<select class="form-control" th:field="*{majorId}" id="전공" required>
+							<label class="form-label">전공</label> <select class="form-control"
+								th:field="*{majorId}" id="전공" required>
 								<option value="">전공을 선택하세요</option>
-								<option th:each="major : ${majorList}"
-									th:value="${major.id}"
-									th:text="${major.title}">
-								</option>
+								<option th:each="major : ${majorList}" th:value="${major.id}"
+									th:text="${major.title}"></option>
 							</select>
 							<div class="invalid-feedback">전공을 선택하세요.</div>
 						</div>
 
 						<div class="col-sm-6">
-							<label class="form-label">학적상태</label> 
-							<select class="form-control" th:field="*{status}" id="학적상태" required>
+							<label class="form-label">학적상태</label> <select
+								class="form-control" th:field="*{status}" id="학적상태" required>
 								<option value="">학적을 선택하세요</option>
 								<option value="graduated">졸업</option>
 								<option value="leave">휴학</option>
@@ -102,40 +104,88 @@
 						</div>
 
 						<div class="col-12">
-							<label class="form-label">학기</label> <input type="text" th:field="*{semester}" 
-								class="form-control" id="학기" placeholder="학기를 입력하세요" value="">
+							<label class="form-label">학기</label> <input type="text"
+								th:field="*{semester}" class="form-control" id="학기"
+								placeholder="학기를 입력하세요" value="">
 							<div class="invalid-feedback">유효한 학기가 아닙니다.</div>
 						</div>
-						
 					</div>
-					<hr class="mb-4">
-					<button class="btn btn-lg btn-outline-info btn-block">등록</button>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</div>
-	<script>
-		$(document).ready(function() {
-			var readURL = function(input) {
-				if (input.files && input.files[0]) {
-					var reader = new FileReader();
+<script>
+	$(document).ready(function() {
+		var readURL = function(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
 
-					reader.onload = function(e) {
-						$('#image').attr('src', e.target.result);
-					}
-
-					reader.readAsDataURL(input.files[0]);
+				reader.onload = function(e) {
+					$('#image').attr('src', e.target.result);
 				}
+
+				reader.readAsDataURL(input.files[0]);
 			}
+		}
 
-			$(".file-upload").on('change', function() {
-				readURL(this);
-			});
-
-			$(".upload-button").on('click', function() {
-				$(".file-upload").click();
-			});
+		$(".file-upload").on('change', function() {
+			readURL(this);
 		});
+
+		$(".upload-button").on('click', function() {
+			$(".file-upload").click();
+		});
+	});
+</script>
+<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function () {
+			'use strict';
+
+			window.addEventListener('load', function () {
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				var forms = document.getElementsByClassName('needs-validation');
+
+				// Loop over them and prevent submission
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						console.log(form.checkValidity());
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+						console.log(form.classList);
+					}, false);
+				});
+				//console.log(validation);
+			}, false);
+		})();
+		
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+			'use strict';
+
+			window.addEventListener('load',
+					function() {
+						// Fetch all the forms we want to apply custom Bootstrap validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
 	</script>
 </div>
 </html>

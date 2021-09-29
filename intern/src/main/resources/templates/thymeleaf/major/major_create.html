@@ -8,31 +8,60 @@
 	<!-- Begin Page Content -->
 	<div class="container-sm">
 		<div class="card shadow mb-4">
-			<div class="card-header py-3 d-flex">
-				<div>
-					<h6 class="m-0 font-weight-bold text-primary">전공 등록</h6>
+			<form class="major needs-validation" th:action="@{/major/create}"
+				th:object="${major}" method="post" novalidate>
+				<div class="card-header py-3 d-flex">
+					<div>
+						<h6 class="m-0 font-weight-bold text-primary">전공 등록</h6>
+					</div>
+					<div class="ml-auto">
+						<button class="btn btn-outline-info" type="submit">등록</button>
+					</div>
 				</div>
-			</div>
-			<form class="major needs-validation" th:action="@{/major/create}" 
-			th:object="${major}" method="post" novalidate>
-	            <div class="card-body">
-	                <div class="row g-3">
-	                    <div class=" col-sm-6 mb-3">
-							<label for="title">전공명</label> <input type="text" class="form-control" id="title"
-								placeholder="전공을 입력해주세요" th:field="*{title}" required>
+				<div class="card-body">
+					<div class="row g-3">
+						<div class=" col-sm-6 mb-3">
+							<label for="title">전공명</label> <input type="text"
+								class="form-control" id="title" placeholder="전공을 입력해주세요"
+								th:field="*{title}" required>
 							<div class="invalid-feedback">전공명을 입력해주세요.</div>
 						</div>
 						<div class=" col-sm-6 mb-3">
-							<label for="code">과목코드</label> <input type="text" class="form-control" id="code"
-								placeholder="과목코드를 입력해주세요" th:field="*{code}" required>
+							<label for="code">과목코드</label> <input type="text"
+								class="form-control" id="code" placeholder="과목코드를 입력해주세요"
+								th:field="*{code}" required>
 							<div class="invalid-feedback">과목코드를 입력해주세요.</div>
 						</div>
 					</div>
-	                <hr class="my-4">
-					<button class="btn btn-lg btn-outline-info btn-block" type="submit" onclick = "">등록</button>
-	            </div>
-            </form>
+				</div>
+			</form>
 		</div>
 	</div>
+	<script>
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(function() {
+		'use strict';
+
+		window.addEventListener('load',
+				function() {
+					// Fetch all the forms we want to apply custom Bootstrap validation styles to
+					var forms = document
+							.getElementsByClassName('needs-validation');
+
+					// Loop over them and prevent submission
+					var validation = Array.prototype.filter.call(forms,
+							function(form) {
+								form.addEventListener('submit', function(
+										event) {
+									if (form.checkValidity() === false) {
+										event.preventDefault();
+										event.stopPropagation();
+									}
+									form.classList.add('was-validated');
+								}, false);
+							});
+				}, false);
+	})();
+	</script>
 </div>
 </html>

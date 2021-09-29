@@ -3,11 +3,16 @@
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
-	<div class="container">
+	<div class="container-sm">
 		<form class="card shadow mb-4" th:action="@{/major/update}" th:object="${detailObject}" method="post" novalidate>
 			<div class="card-header py-3 d-flex">
 				<div>
 					<h6 class="m-0 font-weight-bold text-primary">과목코드 조회</h6>
+				</div>
+				<div class="ml-auto">
+					<a class="btn btn-outline-danger mr-2"
+						th:href="@{/major/delete(id=${detailObject.id})}">삭제</a>
+					<button class="btn btn-outline-info" type="submit">수정</button>
 				</div>
 
 			</div>
@@ -21,16 +26,6 @@
 						<label for="code" class="form-label">과목코드</label> <input type="text" class="form-control" th:field="*{code}" th:value="${detailObject.code}"></input> <input type="hidden" th:field="*{id}"></input>
 					</div>
 				</div>
-				<div class="ml-auto">
-					<hr class="my-4">
-					<button class="btn btn-sm btn-outline-info" type="submit">수정</button>
-				</div>
-			</div>
-		</form>
-		<form class="card shadow mb-4" th:action="@{/major/delete}" th:object="${detailObject}" method="post" novalidate>
-			<div>
-				<input type="hidden" th:field="*{id}"></input>
-				<button class="btn btn-sm btn-outline-danger" th:href="@{/major/delete(id=${detailObject.id})}">삭제</button>
 			</div>
 		</form>
 	</div>

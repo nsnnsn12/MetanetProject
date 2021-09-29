@@ -7,28 +7,25 @@
 	<!-- Begin Page Content -->
 	<div class="container-sm">
 		<div class="card shadow mb-4">
-			<div class="card-header py-3 d-flex">
-				<div>
-					<h6 class="m-0 font-weight-bold text-primary">학적정보 수정</h6>
-				</div>
-				<div class="ml-auto mr-2">
-					<button class="btn btn-outline-info"
-						onclick="history.back(-1)">취소</button>
-				</div>
-				<div>
-					<form th:action="@{/student/delete}" th:object="${student}">
-						<input type="hidden" th:field="*{id}" />
-							<button class="btn btn-outline-info">삭제</button>
-					</form>
-				</div>
-			</div>
 			<form class="needs-validation" th:action="@{/student/modify}"
 				th:object="${student}" method="POST" enctype="multipart/form-data"
 				oninput='password2.setCustomValidity(password2.value != password.value ? "비밀번호가 맞지 않습니다." : "")'
 				novalidate>
+				<div class="card-header py-3 d-flex">
+					<div>
+						<h6 class="m-0 font-weight-bold text-primary">학적정보 수정</h6>
+					</div>
+					<div class="ml-auto mr-2">
+						<button class="btn btn-outline-danger" type="button"
+							onclick="history.back(-1)">취소</button>
+					</div>
+					<div>
+						<button class="btn btn-outline-info" onclick="history.back(-1)">수정</button>
+					</div>
+				</div>
 				<div class="card-body">
 					<div class="d-flex">
-						<img th:src="@{${'/account/download/' + student.photo.id }}"
+						<img th:src="@{${'/account/download/' + student.photo?.id }}"
 							id="image" class="img-responsive rounded ml-auto border p-3"
 							width="300" height="300" onerror="javascript:src='/img/test.jpg'" />
 						<div class="mt-auto">
@@ -48,7 +45,7 @@
 						<div class="col-sm-6">
 							<label class="form-label">학번</label> <input type="text"
 								class="form-control" id="학번" placeholder="이름을 입력하세요"
-								th:field="*{studentNumber}" required>
+								th:field="*{studentNumber}" disabled required>
 							<div class="invalid-feedback">유효한 학번이 아닙니다.</div>
 						</div>
 						<div class="col-sm-6">
@@ -110,8 +107,6 @@
 								class="form-control" id="수정일" th:field="*{modifyDate}" disabled>
 						</div>
 					</div>
-					<hr class="mb-4">
-					<button class="btn btn-lg btn-outline-info btn-block">수정</button>
 				</div>
 			</form>
 		</div>

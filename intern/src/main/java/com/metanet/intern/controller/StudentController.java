@@ -90,7 +90,7 @@ public class StudentController {
 	// 학적 수정
 	@GetMapping("modify/{id}")
 	public String modifyForm(@PathVariable("id") Student student, Model model) {
-		preventPhotoNull(student);
+		//preventPhotoNull(student);
 		model.addAttribute("majorList", majorService.getAll());
 		model.addAttribute("student", student);
 		return "/thymeleaf/student/student_modify";
@@ -99,7 +99,7 @@ public class StudentController {
 	// 학적 수정 처리
 	@ResponseBody
 	@PostMapping("modify")
-	public String modify(HttpServletResponse response, Student student) throws Exception{
+	public String modify(Student student) throws Exception{
 		if (studentService.modify(student) == null)
 			return "/thymeleaf/404page";
 		return "<script>alert('수정되었습니다.');location.href='/student/detail/"+student.getId()+"'</script>";
@@ -107,9 +107,9 @@ public class StudentController {
 	
 	//학적 삭제
 	@ResponseBody
-	@GetMapping("delete/{id}")
-	public String delete(@PathVariable("id") Student student) {
-		studentService.delete(student);
+	@GetMapping("delete")
+	public String delete(Long id) {
+		studentService.delete(id);
 		return "<script>alert('삭제되었습니다.');location.href='/student/list"+"'</script>";
 	}
 

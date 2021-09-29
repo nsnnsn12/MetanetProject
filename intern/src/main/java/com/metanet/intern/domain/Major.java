@@ -18,7 +18,6 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @Entity
-@ToString
 public class Major extends BaseEntity{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="major_id")
@@ -28,10 +27,10 @@ public class Major extends BaseEntity{
 	@Column(unique = true)
 	private String code;
 	
-//	@OneToMany(mappedBy = "major")
-//	private List<Student> students = new ArrayList<>();
-//	
-//	@OneToMany(mappedBy = "major")
-//	private List<Manager> professors = new ArrayList<>();
+	@OneToMany(mappedBy = "major")
+	private List<Student> students = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "major")
+	private List<Manager> professors = new ArrayList<>();
 	
 }

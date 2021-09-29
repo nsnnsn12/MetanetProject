@@ -5,7 +5,6 @@
 	layout:decorator="thymeleaf/layout/login_layout">
 
 <div layout:fragment="content">
-
 	<div class="p-5">
 		<form class="user needs-validation" th:action="@{/account/join}"
 			th:object="${manager}" method="POST" enctype="multipart/form-data"
@@ -75,7 +74,6 @@
 		<div class="text-center">
 			<a class="small" href="/login">로그인</a>
 		</div>
-
 	</div>
 	<script>
 		var file = document.querySelector('#getfile');

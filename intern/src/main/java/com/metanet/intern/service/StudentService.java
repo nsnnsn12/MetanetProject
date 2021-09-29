@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.format.InputAccessor.Std;
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.domain.Student;
@@ -103,16 +104,23 @@ public class StudentService {
 	}
 
 	// 수정
-	public Long modify(Student student) {
+	public Long modify(Student tempStudent) {
+		Student student = studentRepository.getById(tempStudent.getId());	
 		// 사진파일 저장
-		PhotoFile photoFile = storageService.photoStore(student.getImage());
+		PhotoFile photoFile = storageService.photoStore(tempStudent.getImage());
 		if (photoFile != null) {
 			photoRepository.save(photoFile);
 			student.setPhoto(photoFile);
 		}
 
-		// 전공 검색
-		student.setMajor(majorRepository.findById(student.getMajorId()).get());
+		//이름, 전화번호, 생년월일, 전공, 학적상태, 학
+		student.setName(tempStudent.getName());
+		student.setTelNo(tempStudent.getTelNo());
+		student.setBirth(tempStudent.getBirth());
+		student.setMajor(majorRepository.findById(tempStudent.getMajorId()).get());
+		student.setStatus(tempStudent.getStatus());
+		student.setSemester(tempStudent.getSemester());
+
 
 		// 데이터베이스 수정
 		studentRepository.save(student);
@@ -121,12 +129,11 @@ public class StudentService {
 	}
 
 	// 삭제
-	public Long delete(Student student) {
+	public Long delete(Long id) {
+		Student student =  studentRepository.getById(id);
+		
 		// 삭제 처리
 		student.setIsDeleted(1);
-
-		// 데이터베이스 수정
-//		studentRepository.save(student);
 
 		return student.getId();
 	}

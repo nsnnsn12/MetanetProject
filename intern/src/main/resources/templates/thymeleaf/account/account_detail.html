@@ -6,75 +6,89 @@
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
-	<div class="container">
-		<form class="card shadow mb-4" method="POST" th:action="@{/account/update}">
+	<div class="container-sm">
+		<form class="card shadow mb-4" method="POST"
+			th:action="@{/account/update}">
 			<input type="hidden" th:field="*{detailObject.id}" />
 			<div class="card-header py-3 d-flex">
 				<div>
 					<h6 class="m-0 font-weight-bold text-primary">교직원 조회</h6>
 				</div>
 				<div class="ml-auto">
-					<button class="btn btn-sm btn-outline-info">수정</button>
+					<button class="btn btn-outline-danger mr-2" type="button"
+						onclick="history.back(-1)">취소</button>
+				</div>
+				<div>
+					<button class="btn btn-outline-info">수정</button>
 				</div>
 			</div>
-            <div class="card-body">
-				<img th:if="${detailObject.photo == null}" src="/img/test.jpg" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" alt="..."/>
-            	<img th:if="${detailObject.photo != null}" th:src="@{${'/account/download/' + detailObject.photo.id }}" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300" alt="..."/>
-                <div class="row g-3">
-                    <div class="col-sm-6">
-                        <label for="lastName" class="form-label">이름</label> 
-                        <input type="text" class="form-control" th:value="${detailObject.name}" disabled></input>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">아이디</label> 
-                        <input type="text" class="form-control" th:value="${detailObject.loginId}" disabled></input>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label for="address" class="form-label">이메일</label> 
-                        <input type="text" class="form-control" th:value="${detailObject.email}" disabled></input>
-                    </div>
+			<div class="card-body">
+				<img th:if="${detailObject.photo == null}" src="/img/test.jpg"
+					class="img-responsive rounded mx-auto d-block border p-3"
+					width="300" height="300" alt="..." /> <img
+					th:if="${detailObject.photo != null}"
+					th:src="@{${'/account/download/' + detailObject.photo.id }}"
+					class="img-responsive rounded mx-auto d-block border p-3"
+					width="300" height="300" alt="..." />
+				<div class="row g-3">
 					<div class="col-sm-6">
-                        <label for="firstName" class="form-label">전화번호</label> 
-                        <input type="text" class="form-control" th:value="${detailObject.telNo}" disabled></input>
-                    </div>
-                    
+						<label for="lastName" class="form-label">이름</label> <input
+							type="text" class="form-control" th:value="${detailObject.name}"
+							disabled></input>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">아이디</label> <input
+							type="text" class="form-control"
+							th:value="${detailObject.loginId}" disabled></input>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="address" class="form-label">이메일</label> <input
+							type="text" class="form-control" th:value="${detailObject.email}"
+							disabled></input>
+					</div>
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">전화번호</label> <input
+							type="text" class="form-control" th:value="${detailObject.telNo}"
+							disabled></input>
+					</div>
+
 				</div>
 				<hr class="my-4">
 				<div class="row g-3">
-	                    <div class="col-sm-6">
-	                        <label for="username" class="form-label">전공</label>
-							<select class="form-control" th:field="*{detailObject.major}" 
+					<div class="col-sm-6">
+						<label for="username" class="form-label">전공</label> <select
+							class="form-control" th:field="*{detailObject.major}"
 							th:disabled="${detailObject.role.toString() != '교수'}">
-								<option value="">전공을 선택하세요</option>
-								<option th:each="major : ${majorList}"
-									th:value="${major.id}"
-									th:text="${major.title}">
-								</option>
-							</select>
-	                    </div>
-						<div class="col-sm-6">
-							<label for="firstName" class="form-label">권한</label> 
-							<select class="form-control" th:field="*{detailObject.role}">
-								<option th:each="roleValue : ${T(com.metanet.intern.enummer.Role).values()}"
-									th:value="${roleValue.name()}"
-									th:text="${roleValue}">
-								</option>
-							</select>
-						</div>
-	                    <div class="col-sm-6">
-	                        <label for="lastName" class="form-label">생성일</label> 
-	                        <input type="text" class="form-control" th:value="${detailObject.createDate}" disabled></input>
-	                    </div>
-	                    
-	                    <div class="col-sm-6">
-	                        <label for="firstName" class="form-label">수정일</label> 
-	                        <input type="text" class="form-control" th:value="${detailObject.modifyDate}" disabled></input>
-	                    </div>
-              
-                	</div>
-            </div>
+							<option value="">전공을 선택하세요</option>
+							<option th:each="major : ${majorList}" th:value="${major.id}"
+								th:text="${major.title}"></option>
+						</select>
+					</div>
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">권한</label> <select
+							class="form-control" th:field="*{detailObject.role}">
+							<option
+								th:each="roleValue : ${T(com.metanet.intern.enummer.Role).values()}"
+								th:value="${roleValue.name()}" th:text="${roleValue}">
+							</option>
+						</select>
+					</div>
+					<div class="col-sm-6">
+						<label for="lastName" class="form-label">생성일</label> <input
+							type="text" class="form-control"
+							th:value="${detailObject.createDate}" disabled></input>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">수정일</label> <input
+							type="text" class="form-control"
+							th:value="${detailObject.modifyDate}" disabled></input>
+					</div>
+
+				</div>
+			</div>
 		</form>
 	</div>
 </div>
