@@ -22,6 +22,7 @@ import com.metanet.intern.domain.Notice;
 import com.metanet.intern.repository.NoticeRepository;
 import com.metanet.intern.service.NoticeService;
 import com.metanet.intern.vo.EducationSearchCondition;
+import com.metanet.intern.vo.ManagerSearchCondition;
 import com.metanet.intern.vo.Pager;
 import com.metanet.intern.vo.SearchCondition;
 
@@ -40,6 +41,13 @@ public class NoticeController {
 	@GetMapping("list")
 	public String list(@ModelAttribute("condition") SearchCondition condition,@PageableDefault(sort = {"createDate"}, direction = Direction.DESC) Pageable pageable, Model model) {
 		log.info(condition.toString());
+		paging(condition, model, pageable);
+		return "thymeleaf/notice/notice_list";
+	}
+	
+	@GetMapping("page/{pageNo}")
+	public String search(@ModelAttribute("condition") ManagerSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
+		Pageable pageable = PageRequest.of(pageNo, 10);
 		paging(condition, model, pageable);
 		return "thymeleaf/notice/notice_list";
 	}
