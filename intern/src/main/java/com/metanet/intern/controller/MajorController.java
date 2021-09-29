@@ -72,7 +72,7 @@ public class MajorController {
 		return "redirect:list";
 	}
 	
-	@PostMapping("delete")
+	@GetMapping("delete")
 	public String deleteMajor(Long id) {
 		log.info("delete진입");
 		majorService.deleteMajor(id);

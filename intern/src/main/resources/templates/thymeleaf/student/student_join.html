@@ -9,7 +9,6 @@
 	<div class="container-sm">
 		<form class="needs-validation" th:action="@{/student/join}"
 			th:object="${student}" method="POST" enctype="multipart/form-data"
-			oninput='password2.setCustomValidity(password2.value != password.value ? "비밀번호가 맞지 않습니다." : "")'
 			novalidate>
 			<div class="card shadow mb-4">
 				<div class="card-header py-3 d-flex">
@@ -17,7 +16,7 @@
 						<h6 class="m-0 font-weight-bold text-primary">학적정보 등록</h6>
 					</div>
 					<div class="ml-auto">
-						<button class="btn btn-outline-info">등록</button>
+						<button class="btn btn-outline-info" type="submit">등록</button>
 					</div>
 				</div>
 				<div class="card-body">
@@ -110,7 +109,6 @@
 								placeholder="학기를 입력하세요" value="">
 							<div class="invalid-feedback">유효한 학기가 아닙니다.</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -139,5 +137,55 @@
 		});
 	});
 </script>
+<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function () {
+			'use strict';
+
+			window.addEventListener('load', function () {
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				var forms = document.getElementsByClassName('needs-validation');
+
+				// Loop over them and prevent submission
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						console.log(form.checkValidity());
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+						console.log(form.classList);
+					}, false);
+				});
+				//console.log(validation);
+			}, false);
+		})();
+		
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+			'use strict';
+
+			window.addEventListener('load',
+					function() {
+						// Fetch all the forms we want to apply custom Bootstrap validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
+	</script>
 </div>
 </html>
