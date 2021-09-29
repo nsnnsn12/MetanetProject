@@ -8,13 +8,13 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mx-auto w-75">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">직원 조회</h6>
+				<h6 class="m-0 font-weight-bold text-primary">교과목 관리</h6>
 			</div>
 			<form id="pageForm" class="card-body" th:object="${condition}" action="/education/list">
 				<div class="d-flex mb-2">
 					<div class="input-group mr-auto">
 						<div class="input-group-prepend">
-							<select name="" id="" class="form-control" th:field="*{type}">
+							<select name="" id="" class="form-control mr-2" th:field="*{type}">
 								<option value="">
 									검색조건
 								</option>
@@ -25,14 +25,14 @@
 									과목명
 								</option>
 							</select>
-							<select class="form-control" th:field="*{major}">
+							<select class="form-control mr-2" th:field="*{major}">
 								<option value="">전공</option>
 								<option th:each="major : ${majorList}"
 									th:value="${major.id}"
 									th:text="${major.title}">
 								</option>
 							</select>
-							<select class="form-control" th:field="*{credit}">
+							<select class="form-control mr-2" th:field="*{credit}">
 								<option value="">
 									학점
 								</option>
@@ -49,7 +49,7 @@
 									3
 								</option>
 							</select>
-							<select class="form-control" th:field="*{division}">
+							<select class="form-control mr-2" th:field="*{division}">
 								<option value="">이수구분</option>
 								<option th:each="roleValue : ${T(com.metanet.intern.enummer.EducationDivision).values()}"
 									th:value="${roleValue.name()}"
@@ -58,8 +58,8 @@
 							</select>
 						</div>
 						<input type="text" class="form-control mr-2" th:field="*{text}">
-						<button class="btn btn-sm btn-outline-primary mr-auto">검색</button>
-						<button type="button" class="col-1 btn btn-sm btn-outline-info" onclick="location.href='/education/create'">등록</button>
+						<button class="btn btn-outline-primary mr-2">검색</button>
+						<button type="button" class="btn btn-outline-info" onclick="location.href='/education/create'">등록</button>
 					</div>
 				</div>
 				<div class="table-responsive">
@@ -87,12 +87,12 @@
 								<td th:text="${education.credit}"></td>
 								<td th:text="${education.division}"></td>
 								<td>
-									<a class="btn btn-sm btn-outline-info" th:href="${'/lecture/create/' + education.id}">
+									<a class="btn col-md-8 btn-outline-info" th:href="${'/lecture/create/' + education.id}">
 										등록
 									</a>
 								</td>
 								<td>
-									<a class="btn btn-sm btn-outline-danger" th:href="@{/education/delete(id=${education.id})}">
+									<a class="btn col-md-8 btn-outline-danger" th:href="@{/education/delete(id=${education.id})}">
 										삭제
 									</a>
 								</td>
