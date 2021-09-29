@@ -7,11 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.intern.domain.Manager;
 import com.metanet.intern.repository.ManagerRepository;
 import com.metanet.intern.vo.ManagerSearchCondition;
 
+@Transactional
 public interface ManagerService extends UserDetailsService{
 	public Long join(Manager manager);
 	
