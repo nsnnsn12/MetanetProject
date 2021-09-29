@@ -210,11 +210,11 @@
 					modifyOption = '';
 				}
 				var replyContent = `
-				<div class="media border p-3">
-					<img src="/download/${photoId}" onerror="javascript:src='/img/test.jpg'" class="mr-3 mt-3 rounded-circle" style="width:60px;">
-					<div class="media-body">
-					<h6>${reply.manager.name}<small><i>작성일자:${reply.createDate}</i></small></h6>
-					<div id="${modifyId}" class="d-flex justify-content-end row">
+				<div class="media border p-3 align-center">
+					<img src="/download/${photoId}" onerror="javascript:src='/img/test.jpg'" class="img-thumbnail" style="width:60px; height:60px">
+					<div class="media-body ml-3">
+					<h6>${reply.manager.name}<small class="ml-2"><i>${reply.createDate}</i></small></h6>
+					<div id="${modifyId}" class="d-flex justify-content-end">
 						<p class="col-10 p-0">${reply.contents}</p>
 						${modifyOption}
 					</div>
