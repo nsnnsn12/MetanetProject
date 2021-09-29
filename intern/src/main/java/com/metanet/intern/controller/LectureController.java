@@ -77,7 +77,7 @@ public class LectureController {
 	public String create(Lecture lecture) {
 		log.info(lecture.toString());
 		lectureService.create(lecture);
-		return "redirect:/lecture/list";
+		return "redirect:list";
 	}
 	
 	@GetMapping("modify/{id}")

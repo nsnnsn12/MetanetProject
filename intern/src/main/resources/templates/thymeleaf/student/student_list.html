@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="thymeleaf/layout/default">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="thymeleaf/layout/default">
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
@@ -8,41 +10,35 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mx-auto w-75">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">학적정보 조회</h6>
+				<h6 class="m-0 font-weight-bold text-primary">학적 관리</h6>
 			</div>
-			<form id="pageForm" class="card-body" th:object="${condition}" action="/student/list">
+			<form id="pageForm" class="card-body" th:object="${condition}"
+				action="/student/list">
 				<div class="d-flex mb-2">
 					<div class="input-group mr-auto">
 						<div class="input-group-prepend">
-							<select class="form-control mr-2" th:field="*{type}" >
-								<option value="">
-									검색조건
-								</option>
-								<option value="name">
-									이름
-								</option>
-								<option value="studentNumber">
-									학번
-								</option>
-							</select>
-							<select class="form-control mr-2" id="전공" th:field="*{majorFilter}">
-										<option value="">전공</option>
-										<option th:each="major : ${majorList}" th:value="${major.id}"
-											th:text="${major.title}"></option>
+							<select class="form-control mr-2" th:field="*{type}">
+								<option value="">검색조건</option>
+								<option value="name">이름</option>
+								<option value="studentNumber">학번</option>
+							</select> <select class="form-control mr-2" id="전공"
+								th:field="*{majorFilter}">
+								<option value="">전공</option>
+								<option th:each="major : ${majorList}" th:value="${major.id}"
+									th:text="${major.title}"></option>
 							</select>
 						</div>
 						<input type="text" class="form-control mr-2" th:field="*{text}">
 						<button class="btn btn-outline-primary mr-2">검색</button>
-						<a class="btn btn-outline-info" onclick="location.href='/student/join'">등록</a>
+						<a class="btn btn-outline-info"
+							onclick="location.href='/student/join'">등록</a>
 					</div>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-hover text-center" id="dataTable">
 						<thead>
 							<tr>
-								<th>
-									전공
-									<!-- <select class="form-control" id="전공" th:field="*{majorFilter}">
+								<th>전공 <!-- <select class="form-control" id="전공" th:field="*{majorFilter}">
 										<option value="">전공을 선택하세요</option>
 										<option th:each="major : ${majorList}" th:value="${major.id}"
 											th:text="${major.title}"></option>
@@ -57,7 +53,8 @@
 						<tbody>
 							<tr th:each="student : ${page.getContent()}">
 								<td th:text="${student.major.title}"></td>
-								<td><a th:href="@{/student/detail/}+${student.id}" th:text="${student.studentNumber}"></a></td>
+								<td><a th:href="@{/student/detail/}+${student.id}"
+									th:text="${student.studentNumber}"></a></td>
 								<td th:text="${student.name}"></td>
 								<td th:text="${student.telNo}"></td>
 								<td th:text="${student.status}"></td>
@@ -67,13 +64,23 @@
 				</div>
 				<div class="d-flex justify-content-center">
 					<ul class="pagination">
-						<li class="page-item disabled" th:if="${!page.isFirst()}"><a class="page-link" th:href="@{/account/list(page=0}">처음</a></li>
-						<li class="page-item" th:if="${pager.groupNo > 1 }"><a class="page-link" th:href="@{/account/list(page=${pager.startPageNo-1})}">이전</a></li>
-						<th:block th:each="num : ${#numbers.sequence(pager.startPageNo,pager.endPageNo)}"> 
-							<li class="page-item"><a class="page-link" th:href="@{/account/list(page=${num-1})}" th:text="${num}"></a></li>
+						<li class="page-item disabled" th:if="${!page.isFirst()}"><a
+							class="page-link" th:href="@{/account/list(page=0}">처음</a></li>
+						<li class="page-item" th:if="${pager.groupNo > 1 }"><a
+							class="page-link"
+							th:href="@{/account/list(page=${pager.startPageNo-1})}">이전</a></li>
+						<th:block
+							th:each="num : ${#numbers.sequence(pager.startPageNo,pager.endPageNo)}">
+							<li class="page-item"><a class="page-link"
+								th:href="@{/account/list(page=${num-1})}" th:text="${num}"></a></li>
 						</th:block>
-						<li class="page-item" th:if="${pager.groupNo < pager.totalGroupNo}"><a class="page-link" th:href="@{/account/list(page=${pager.endPageNo+1})}">다음</a></li>
-						<li class="page-item" th:if="${!page.isLast()}"><a class="page-link" th:href="@{/account/list(page=${page.getTotalPages())}">맨끝</a></li>
+						<li class="page-item"
+							th:if="${pager.groupNo < pager.totalGroupNo}"><a
+							class="page-link"
+							th:href="@{/account/list(page=${pager.endPageNo+1})}">다음</a></li>
+						<li class="page-item" th:if="${!page.isLast()}"><a
+							class="page-link"
+							th:href="@{/account/list(page=${page.getTotalPages())}">맨끝</a></li>
 					</ul>
 				</div>
 			</form>

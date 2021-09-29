@@ -6,7 +6,7 @@
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
-	<div class="container">
+	<div class="container-sm">
 		<form class="card shadow mb-4" th:object="${manager}" method="POST" enctype="multipart/form-data" th:action="@{/update}">
 			<input type="hidden" th:field="*{id}" />
 			<div class="card-header py-3 d-flex">
@@ -18,10 +18,10 @@
 				</div>
 			</div>
             <div class="card-body">
-				<div class="form-group">
-					<img id="preview" th:unless="*{photo != null}" src="/img/test.jpg" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300"/>
-					<img id="preview" th:if="*{photo != null}" th:src="@{'/download/' + *{photo.id}}" class="img-responsive rounded mx-auto d-block border p-3" width="300" height="300"/>
-					<input type="file" th:field="*{image}" id="getfile" accept="image/*"/>
+				<div class="form-group d-flex">
+					<img id="preview" th:unless="*{photo != null}" src="/img/test.jpg" class="img-responsive rounded ml-auto d-block border p-3" width="300" height="300"/>
+					<img id="preview" th:if="*{photo != null}" th:src="@{'/download/' + *{photo.id}}" class="img-responsive rounded ml-auto d-block border p-3" width="300" height="300"/>
+					<input class="mt-auto ml-2 mr-5" type="file" th:field="*{image}" id="getfile" accept="image/*"/>
 				</div>
                 <div class="row g-3">
                     <div class="col-sm-6">

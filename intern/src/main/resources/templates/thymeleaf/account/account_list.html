@@ -8,7 +8,7 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mx-auto w-75">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">직원 조회</h6>
+				<h6 class="m-0 font-weight-bold text-primary">직원 관리</h6>
 			</div>
 			<form id="pageForm" class="card-body" th:object="${condition}" action="/account/list">
 				<div class="d-flex mb-2">
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-hover text-center" id="dataTable">
 						<thead>
 							<tr>
 								<th>

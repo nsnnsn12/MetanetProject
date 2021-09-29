@@ -107,7 +107,7 @@ public class AccountController {
 	public String mangerDetail(@PathVariable("id")Manager manager, Model model) {
 		log.info(manager.toString());
 		//사진을 등록하지 않았을 경우
-		preventPhotoNull(manager);
+		//preventPhotoNull(manager);
 		model.addAttribute("detailObject", manager);
 		model.addAttribute("majorList", majorService.getAll());
 		return"thymeleaf/account/account_detail";
@@ -143,7 +143,7 @@ public class AccountController {
 	@PostMapping("update")
 	public String updateManager(Manager manager) {
 		log.info(manager.toString());
-		log.info(manager.getMajor().toString());
+		//log.info(manager.getMajor().toString());
 		managerService.update(manager);
 		return "redirect:mangerDetail/"+manager.getId();
 	}

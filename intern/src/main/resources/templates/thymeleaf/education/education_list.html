@@ -87,12 +87,7 @@
 								<td th:text="${education.credit}"></td>
 								<td th:text="${education.division}"></td>
 								<td>
-									<!-- <button 
-									class="btn btn-sm btn-outline-info" 
-									data-toggle="modal" data-target="#myModal" type="button" th:onclick="|getProfessorList('${education.id}')|">
-										등록
-									</button> -->
-									<a class="btn btn-sm btn-outline-info" th:href="${'/class/create/' + education.id}">
+									<a class="btn btn-sm btn-outline-info" th:href="${'/lecture/create/' + education.id}">
 										등록
 									</a>
 								</td>
@@ -107,56 +102,20 @@
 				</div>
 				<div class="d-flex justify-content-center">
 					<ul class="pagination" th:if="${pager.totalRows != 0}">
-						<li class="page-item disabled" th:if="${!page.isFirst()}"><a class="page-link" th:href="@{/account/list(page=0}">처음</a></li>
-						<li class="page-item" th:if="${pager.groupNo > 1 }"><a class="page-link" th:href="@{/account/list(page=${pager.startPageNo-1})}">이전</a></li>
+						<li class="page-item disabled" th:if="${!page.isFirst()}"><a class="page-link" th:href="@{/education/list(page=0}">처음</a></li>
+						<li class="page-item" th:if="${pager.groupNo > 1 }"><a class="page-link" th:href="@{/education/list(page=${pager.startPageNo-1})}">이전</a></li>
 						<th:block th:each="num : ${#numbers.sequence(pager.startPageNo,pager.endPageNo)}"> 
 							<li class="page-item">
 								<a class="page-link" th:onclick="|pageMove('${num-1}')|"th:text="${num}"></a>
 							</li>
 						</th:block>
-						<li class="page-item" th:if="${pager.groupNo < pager.totalGroupNo}"><a class="page-link" th:href="@{/account/list(page=${pager.endPageNo+1})}">다음</a></li>
-						<li class="page-item" th:if="${!page.isLast()}"><a class="page-link" th:href="@{/account/list(page=${page.getTotalPages())}">맨끝</a></li>
+						<li class="page-item" th:if="${pager.groupNo < pager.totalGroupNo}"><a class="page-link" th:href="@{/education/list(page=${pager.endPageNo+1})}">다음</a></li>
+						<li class="page-item" th:if="${!page.isLast()}"><a class="page-link" th:href="@{/education/list(page=${page.getTotalPages())}">맨끝</a></li>
 					</ul>
 				</div>
 			</form>
 		</div>
 
-	</div>
-	<div class="modal" id="myModal">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title">개설과목등록</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th>과목코드</th>
-								<th>전공명</th>
-								<th>과목명</th>
-								<th>학점</th>
-								<th>이수구분</th>
-								<th>교수선택</th>
-							</tr>
-						</thead>
-						<tbody id="tbody">
-						</tbody>
-					</table>
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">등록</button>
-				</div>
-
-			</div>
-		</div>
 	</div>
 	<script>
 		function pageMove(pageNo){
