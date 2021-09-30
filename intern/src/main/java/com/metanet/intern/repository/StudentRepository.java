@@ -11,7 +11,7 @@ import com.metanet.intern.domain.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpecificationExecutor<Student>{
 	//학번조회
-	List<Student> findByStudentNumber(Integer studentNumber);
+	List<Student> findByStudentNumber(String studentNumber);
 	
 	//학생목록 조회
 	Page<Student> findByIsDeleted(Integer isDeleted, Pageable pageable);

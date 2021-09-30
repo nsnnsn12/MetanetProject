@@ -53,7 +53,7 @@ public class Student extends BaseEntity{
 	
 	//학번
 	@Column(unique = true)
-	private Integer studentNumber;
+	private String studentNumber;
 	
 	private String password;
 	

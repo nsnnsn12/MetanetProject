@@ -1,10 +1,5 @@
 package com.metanet.intern.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,15 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.metanet.intern.domain.Manager;
-import com.metanet.intern.domain.Notice;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.domain.Student;
 import com.metanet.intern.service.MajorService;
 import com.metanet.intern.service.StudentService;
-import com.metanet.intern.vo.ManagerSearchCondition;
 import com.metanet.intern.vo.Pager;
-import com.metanet.intern.vo.SearchCondition;
 import com.metanet.intern.vo.StudentSearchCondition;
 
 import lombok.extern.slf4j.Slf4j;
