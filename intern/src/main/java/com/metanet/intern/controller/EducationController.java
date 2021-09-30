@@ -86,27 +86,4 @@ public class EducationController {
 		educationService.delete(id);
 		return "redirect:list";
 	}
-//	
-//	@GetMapping("educationNo/{id}")
-//	@ResponseBody
-//	public Education getEducaiton(@PathVariable("id")Education education, Model model) {
-//		education.setProfessors(educationService.test(education));
-//		return education;
-//	}
-	
-	
-	@GetMapping("open/list")
-	public String openList() {
-		return "thymeleaf/education/open_list";
-	}
-	
-	@GetMapping("open/create")
-	public String openCreate() {
-		return "thymeleaf/education/open_create";
-	}
-	
-	@GetMapping("open/modify")
-	public String openModify() {
-		return "thymeleaf/education/open_modify";
-	}
 }

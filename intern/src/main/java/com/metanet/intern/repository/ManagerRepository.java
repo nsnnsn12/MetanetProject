@@ -11,6 +11,7 @@ import java.util.*;
 
 import com.metanet.intern.domain.Major;
 import com.metanet.intern.domain.Manager;
+import com.metanet.intern.enummer.Role;
 
 public interface ManagerRepository extends JpaRepository<Manager, Long>, JpaSpecificationExecutor<Manager>{
 	List<Manager> findByLoginId(String loginId);
@@ -18,4 +19,6 @@ public interface ManagerRepository extends JpaRepository<Manager, Long>, JpaSpec
 	Page<Manager> findByIsDeleted(Integer isDeleted, Pageable pageable);
 	
 	List<Manager> findByIsDeletedAndMajor(Integer isDeleted, Major major);
+	
+	List<Manager> findByIsDeletedAndRole(Integer isDeleted, Role role);
 }

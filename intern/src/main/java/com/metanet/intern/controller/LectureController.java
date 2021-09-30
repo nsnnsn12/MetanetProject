@@ -69,8 +69,12 @@ public class LectureController {
 	
 	@GetMapping("create/{id}")
 	public String createForm(@PathVariable("id")Education education, Model model) {
+		if(education.getDivision().name().equals("ELN") ||  education.getDivision().name().equals("ELS")) {
+			model.addAttribute("professors",educationService.allGetProfessor());
+		}else {
+			model.addAttribute("professors",educationService.getProfessor(education));
+		}
 		model.addAttribute("education", education);
-		model.addAttribute("professors",educationService.getProfessor(education));
 		return "thymeleaf/lecture/lecture_modify";
 	}
 	
