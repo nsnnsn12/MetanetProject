@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,9 +37,10 @@ public class EducationController {
 	
 	private Pager pager;
 	private final int pageGroupSize = 5;
+	private final int pageSize = 3;
 	
 	@GetMapping("list")
-	public String list(@ModelAttribute("condition") EducationSearchCondition condition,Pageable pageable, Model model) {
+	public String list(@ModelAttribute("condition") EducationSearchCondition condition,@PageableDefault(sort = {"createDate"}, direction = Direction.DESC, size = pageSize)Pageable pageable, Model model) {
 		log.info(condition.toString());
 		paging(condition, model, pageable);
 		return "thymeleaf/education/education_list";
@@ -45,7 +48,7 @@ public class EducationController {
 
 	@GetMapping("page/{pageNo}")
 	public String search(@ModelAttribute("condition") EducationSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
-		Pageable pageable = PageRequest.of(pageNo, 10);
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(Direction.DESC, "createDate"));
 		paging(condition, model, pageable);
 		return "thymeleaf/education/education_list";
 	}

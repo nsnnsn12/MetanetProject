@@ -10,6 +10,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +55,7 @@ public class AccountController {
 	
 	private Pager pager;
 	private final int pageGroupSize = 5;
+	private final int pageSize = 3;
 	
 	@GetMapping("join")
 	public String joinForm(Manager manager) {
@@ -83,7 +86,7 @@ public class AccountController {
 
 	
 	@GetMapping("list")
-	public String accountList(@ModelAttribute("condition") ManagerSearchCondition condition, Pageable pageable, Model model) {
+	public String accountList(@ModelAttribute("condition") ManagerSearchCondition condition, @PageableDefault(sort = {"createDate"}, direction = Direction.DESC, size = pageSize)Pageable pageable, Model model) {
 		log.info(condition.toString());
 		paging(condition, model, pageable);
 		return "thymeleaf/account/account_list";
@@ -91,7 +94,7 @@ public class AccountController {
 	
 	@GetMapping("page/{pageNo}")
 	public String search(@ModelAttribute("condition") ManagerSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
-		Pageable pageable = PageRequest.of(pageNo, 10);
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(Direction.DESC, "createDate"));
 		paging(condition, model, pageable);
 		return "thymeleaf/account/account_list";
 	}
