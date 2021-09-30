@@ -123,6 +123,7 @@
 				success:function(data){
 					result = replyHtmlSetting(data, loginId);
 					$("#replyContents").html(result);
+					$('#replyText').val('')
 				}
 			})
 		}
