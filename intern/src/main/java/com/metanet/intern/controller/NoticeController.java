@@ -98,7 +98,7 @@ public class NoticeController {
 		log.info(notice.toString());
 		model.addAttribute("noticeDetail", notice);
 		noticeService.updateNotice(notice);
-		return "redirect:list";
+		return "redirect:detail/"+notice.getId();
 	}
 	
 	@GetMapping("delete")
