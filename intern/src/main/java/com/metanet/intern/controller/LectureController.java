@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,13 +39,14 @@ public class LectureController {
 	
 	private Pager pager;
 	private final int pageGroupSize = 5;
+	private final int pageSize = 3;
 	@ModelAttribute("lecture")
 	public Lecture setLecture() {
 		return new Lecture();
 	}
 	
 	@GetMapping("list")
-	public String list(@ModelAttribute("condition") LectureSearchCondition condition, Pageable pageable, Model model) {
+	public String list(@ModelAttribute("condition") LectureSearchCondition condition, @PageableDefault(sort = {"createDate"}, direction = Direction.DESC, size = pageSize)Pageable pageable, Model model) {
 		log.info(condition.toString());
 		paging(condition, model, pageable);
 		return "thymeleaf/lecture/lecture_list";
@@ -50,7 +54,7 @@ public class LectureController {
 
 	@GetMapping("page/{pageNo}")
 	public String search(@ModelAttribute("condition") LectureSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
-		Pageable pageable = PageRequest.of(pageNo, 10);
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(Direction.DESC, "createDate"));
 		paging(condition, model, pageable);
 		return "thymeleaf/lecture/lecture_list";
 	}
@@ -58,9 +62,6 @@ public class LectureController {
 	private void paging(LectureSearchCondition condition, Model model, Pageable pageable) {
 		model.addAttribute("majorList", majorService.getAll());
 		Page<Lecture> page = lectureService.searchLectureList(pageable, condition);
-		for(Lecture lecture : page.getContent()) {
-			log.info(lecture.getEducation().getTitle());
-		}
 		model.addAttribute("page", page);
 		pager = new Pager(page.getSize(), pageGroupSize, (int)page.getTotalElements(), page.getNumber());
 		model.addAttribute("pager", pager);

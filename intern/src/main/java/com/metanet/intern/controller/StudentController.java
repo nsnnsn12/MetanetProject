@@ -1,8 +1,15 @@
 package com.metanet.intern.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -14,16 +21,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.metanet.intern.domain.Manager;
+import com.metanet.intern.domain.Notice;
 import com.metanet.intern.domain.PhotoFile;
 import com.metanet.intern.domain.Student;
 import com.metanet.intern.service.MajorService;
 import com.metanet.intern.service.StudentService;
+import com.metanet.intern.vo.ManagerSearchCondition;
 import com.metanet.intern.vo.Pager;
+import com.metanet.intern.vo.SearchCondition;
 import com.metanet.intern.vo.StudentSearchCondition;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 @RequestMapping("/student")
 public class StudentController {
 	@Autowired
@@ -32,16 +44,30 @@ public class StudentController {
 	@Autowired
 	MajorService majorService;
 
+	private Pager pager;
+	private final int pageGroupSize = 5;
+	private final int pageSize = 3;
+	
 	// 학적 목록조회
 	@GetMapping("list")
-	public String list(@ModelAttribute("condition") StudentSearchCondition condition, Pageable pageable, Model model) {
+	public String list(@ModelAttribute("condition") StudentSearchCondition condition, @PageableDefault(sort = {"createDate"}, direction = Direction.DESC, size = pageSize)Pageable pageable, Model model) {
+		paging(condition, model, pageable);
+		return "/thymeleaf/student/student_list";
+	}
+	
+	@GetMapping("page/{pageNo}")
+	public String search(@ModelAttribute("condition") StudentSearchCondition condition, @PathVariable("pageNo")int pageNo, Model model) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(Direction.DESC, "createDate"));
+		paging(condition, model, pageable);
+		return "/thymeleaf/student/student_list";
+	}
+	
+	private void paging(StudentSearchCondition condition, Model model, Pageable pageable) {
 		Page<Student> page = studentService.searchList(pageable, condition);
 		model.addAttribute("page", page);
 		Pager pager = new Pager(page.getSize(), 5, (int) page.getTotalElements(), page.getNumber());
 		model.addAttribute("pager", pager);
 		model.addAttribute("majorList", majorService.getAll());
-
-		return "/thymeleaf/student/student_list";
 	}
 
 	// 학적 상세조회
