@@ -14,15 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.metanet.intern.domain.Lecture;
 import com.metanet.intern.domain.Major;
-import com.metanet.intern.domain.Manager;
 import com.metanet.intern.service.MajorService;
-import com.metanet.intern.vo.LectureSearchCondition;
 import com.metanet.intern.vo.MajorSearchCondition;
 import com.metanet.intern.vo.Pager;
-import com.metanet.intern.vo.StudentSearchCondition;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,11 +39,12 @@ public class MajorController {
 		return "thymeleaf/major/major_create";
 	}
 	
+	@ResponseBody
 	@PostMapping("create")
 	public String inserMajor(Major major) {
 		majorService.insertMajor(major);
 		log.info(major.getTitle());
-		return "redirect:list";
+		return "<script>alert('등록되었습니다.');location.href='/major/list'</script>";
 	}
 	
 	@GetMapping("list")
@@ -80,18 +78,20 @@ public class MajorController {
 		return "thymeleaf/major/major_detail";
 	}
 	
+	@ResponseBody
 	@PostMapping("update")
 	public String updateMajor(Major major, Model model){
 		log.info("update진입");
 		log.info(major.getId().toString());
 		majorService.updateMajor(major);
-		return "redirect:list";
+		return "<script>alert('수정되었습니다.');location.href='/major/detail/"+major.getId()+"'</script>";
 	}
 	
+	@ResponseBody
 	@GetMapping("delete")
 	public String deleteMajor(Long id) {
 		log.info("delete진입");
 		majorService.deleteMajor(id);
-		return "redirect:list";
+		return "<script>alert('삭제되었습니다.');location.href='/major/list'</script>";
 	}
 }

@@ -6,28 +6,34 @@
 
 <div layout:fragment="content">
 	<!-- Begin Page Content -->
-	<div class="container-sm" >
+	<div class="container-sm">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex">
 				<div>
 					<h6 class="m-0 font-weight-bold text-primary">공지사항 조회</h6>
 				</div>
 				<div class="ml-auto">
-					<a class="btn btn-outline-info" th:href="@{/notice/update/}+${noticeDetail.id}" >수정</a>
+					<a class="btn btn-outline-danger mr-2"
+						th:href="@{/notice/delete(id=${noticeDetail.id})}">삭제</a>
+				</div>
+				<div>
+					<a class="btn btn-outline-info"
+						th:href="@{/notice/update/}+${noticeDetail.id}">수정</a>
 				</div>
 			</div>
 			<div class="card-body">
 				<input type="hidden" id="noticeId" th:value="${noticeDetail.id}">
-				<input type="hidden" id="loginId" th:value="${#authentication.principal.username}">
-				<table class="table table-bordered" style="min-height:500px;">
+				<input type="hidden" id="loginId"
+					th:value="${#authentication.principal.username}">
+				<table class="table table-bordered" style="min-height: 500px;">
 					<colgroup>
 						<col width="10%">
 						<col width="40%">
 						<col width="10%">
 						<col width="40%">
 					</colgroup>
-					
-					<tr style="height:10%" class="text-center">
+
+					<tr style="height: 10%" class="text-center">
 						<!-- 작성자 -->
 						<td class="bg-gray-200">작성자</td>
 						<!-- writer -->
@@ -37,32 +43,32 @@
 						<!-- Cdate -->
 						<td th:text="${noticeDetail.createDate}"></td>
 					</tr>
-					<tr style="height:10%">
+					<tr style="height: 10%">
 						<!-- 제목 -->
 						<td class="bg-gray-200 text-center">제목</td>
 						<td colspan="3" th:text="${noticeDetail.noticeTitle}"></td>
 					</tr>
-					<tr style="height:80%">
+					<tr style="height: 80%">
 						<td class="bg-gray-200 text-center">내용</td>
 						<td colspan="3" th:utext="${noticeDetail.content}"></td>
 					</tr>
 
 				</table>
-				
+
 			</div>
 		</div>
 		<div class="card mb-2">
 			<div class="card-header bg-light">
-			        <i class="fa fa-comment fa-flip-horizontal"></i> 댓글
+				<i class="fa fa-comment fa-flip-horizontal"></i> 댓글
 			</div>
 			<div class="card-body row">
 				<textarea class="form-control m-0 p-0" id="replyText" rows="3"></textarea>
-					<div class="ml-auto">
-					<button type="button" class="btn btn-info mt-3" onClick="javascript:addReply();">댓글달기</button>
-					</div>
+				<div class="ml-auto">
+					<button type="button" class="btn btn-info mt-3"
+						onClick="javascript:addReply();">댓글달기</button>
+				</div>
 			</div>
-			<div id="replyContents">
-			</div>
+			<div id="replyContents"></div>
 		</div>
 	</div>
 

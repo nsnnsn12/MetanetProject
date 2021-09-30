@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Major;
@@ -68,11 +69,12 @@ public class NoticeController {
 		return "thymeleaf/notice/notice_create";
 	}
 	
+	@ResponseBody
 	@PostMapping("create")
 	public String inserNoticce(Notice notice, Principal principal) {
 		log.info(notice.toString());
 		noticeService.createNotice(notice, principal.getName());
-		return "redirect:list";
+		return "<script>alert('등록되었습니다.');location.href='/notice/list'</script>";
 	}
 	
 	@GetMapping("detail/{id}")
@@ -92,19 +94,21 @@ public class NoticeController {
 		return "thymeleaf/notice/notice_modify";
 	}
 
+	@ResponseBody
 	@PostMapping("update")
 	public String updateNotice(Notice notice, Model model) {
 		log.info("notice update");
 		log.info(notice.toString());
 		model.addAttribute("noticeDetail", notice);
 		noticeService.updateNotice(notice);
-		return "redirect:detail/"+notice.getId();
+		return "<script>alert('수정되었습니다.');location.href='/notice/detail/"+notice.getId()+"'</script>";
 	}
 	
+	@ResponseBody
 	@GetMapping("delete")
 	public String deleteNotice(Long id) {
 		log.info("notice delete");
 		noticeService.deleteNotice(id);
-		return "redirect:list";
+		return "<script>alert('삭제되었습니다.');location.href='/notice/list"+"'</script>";
 	}
 }

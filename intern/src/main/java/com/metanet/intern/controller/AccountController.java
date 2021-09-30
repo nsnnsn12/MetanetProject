@@ -136,19 +136,21 @@ public class AccountController {
 		return "redirect:list";
 	}
 	
+	@ResponseBody
 	@GetMapping("delete")
 	public String deleteManager(Long id) {
 		Integer deleteFlag = 1;
 		managerService.delete(id, deleteFlag);
-		return "redirect:list";
+		return "<script>alert('삭제되었습니다.');location.href='/account/list"+"'</script>";
 	}
 	
+	@ResponseBody
 	@PostMapping("update")
 	public String updateManager(Manager manager) {
 		log.info(manager.toString());
 		//log.info(manager.getMajor().toString());
 		managerService.update(manager);
-		return "redirect:mangerDetail/"+manager.getId();
+		return "<script>alert('수정되었습니다.');location.href='/account/mangerDetail/"+manager.getId()+"'</script>";
 	}
 	
 	@GetMapping("download/{id}")

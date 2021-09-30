@@ -85,17 +85,12 @@ public class StudentController {
 	}
 
 	// 학적 등록 처리
+	@ResponseBody
 	@PostMapping("join")
 	public String join(Student student) {
 		if (studentService.join(student) == null)
 			return "/thymeleaf/404page";
-		return "redirect:joinSuccess";
-	}
-
-	// 학적 등록 성공
-	@GetMapping("joinSuccess")
-	public String joinSuccess() {
-		return "thymeleaf/student/student_join_success";
+		return "<script>alert('등록되었습니다.');location.href='/student/list'</script>";
 	}
 
 	// 학적 수정

@@ -38,9 +38,9 @@
 						</thead>
 						<tbody>
 							<tr th:each="major : ${page.getContent()}">
-								<td th:text="${major.title}"></td>
 								<td><a th:href="@{/major/detail/}+${major.id}"
-									th:text="${major.code}"></a></td>
+									th:text="${major.title}"></a></td>
+								<td th:text="${major.code}"></td>
 							</tr>
 						</tbody>
 					</table>

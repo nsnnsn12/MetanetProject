@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Lecture;
@@ -78,10 +79,11 @@ public class LectureController {
 		return "thymeleaf/lecture/lecture_modify";
 	}
 	
+	@ResponseBody
 	@PostMapping("create")
 	public String create(Lecture lecture) {
 		lectureService.create(lecture);
-		return "redirect:list";
+		return "<script>alert('처리되었습니다.');location.href='/lecture/list'</script>";
 	}
 	
 	@GetMapping("modify/{id}")
@@ -92,9 +94,10 @@ public class LectureController {
 		return "thymeleaf/lecture/lecture_modify";
 	}
 	
+	@ResponseBody
 	@GetMapping("delete")
 	public String deleteLecture(Long id) {
 		lectureService.delete(id);
-		return "redirect:list";
+		return "<script>alert('삭제되었습니다.');location.href='/lecture/list"+"'</script>";
 	}
 }

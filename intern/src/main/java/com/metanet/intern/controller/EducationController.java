@@ -74,16 +74,18 @@ public class EducationController {
 		return "thymeleaf/education/education_create";
 	}
 	
+	@ResponseBody
 	@PostMapping("create")
 	public String create(Education education) {
 		log.info(education.toString());
 		educationService.createEducation(education);
-		return "redirect:list";
+		return "<script>alert('처리되었습니다.');location.href='/education/list'</script>";
 	}
 
+	@ResponseBody
 	@GetMapping("delete")
 	public String deleteManager(Long id) {
 		educationService.delete(id);
-		return "redirect:list";
+		return "<script>alert('삭제되었습니다.');location.href='/education/list"+"'</script>";
 	}
 }

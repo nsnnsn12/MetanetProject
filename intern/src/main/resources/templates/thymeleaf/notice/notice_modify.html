@@ -10,8 +10,9 @@
 					<div>
 						<h6 class="m-0 font-weight-bold text-primary">공지사항 수정</h6>
 					</div>
-					<div class="ml-auto">
-						<a class="btn btn-outline-danger mr-2" th:href="@{/notice/delete(id=${noticeDetail.id})}">삭제</a>
+					<div class="ml-auto mr-2">
+						<button class="btn btn-outline-danger" type="button"
+							onclick="history.back(-1)">취소</button>
 					</div>
 					<div>
 						<button class="btn btn-outline-info"> 수정</button>
