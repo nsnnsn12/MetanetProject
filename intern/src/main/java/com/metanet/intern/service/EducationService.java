@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.intern.domain.Education;
 import com.metanet.intern.domain.Manager;
+import com.metanet.intern.enummer.Role;
 import com.metanet.intern.repository.EducatinoRepository;
 import com.metanet.intern.repository.ManagerRepository;
 import com.metanet.intern.spec.EducationSpec;
@@ -66,5 +67,9 @@ public class EducationService {
 	
 	public List<Manager> getProfessor(Education education) {
 		return managerRepository.findByIsDeletedAndMajor(0, education.getMajor());
+	}
+	
+	public List<Manager> allGetProfessor() {
+		return managerRepository.findByIsDeletedAndRole(notDelete, Role.professor);
 	}
 }

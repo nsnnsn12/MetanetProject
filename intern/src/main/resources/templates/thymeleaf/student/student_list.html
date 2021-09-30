@@ -67,7 +67,7 @@
 						<li class="page-item" th:if="${!page.isFirst()}"><a class="page-link" th:onclick="pageMove(0)">처음</a></li>
 						<li class="page-item" th:if="${pager.groupNo > 1 }"><a class="page-link" th:onclick="|pageMove('${pager.startPageNo-1}')|">이전</a></li>
 						<th:block th:each="num : ${#numbers.sequence(pager.startPageNo,pager.endPageNo)}"> 
-							<li class="page-item">
+							<li class="page-item" th:classappend="${page.number == num-1 ? 'active' : ''}">
 								<a class="page-link" th:onclick="|pageMove('${num-1}')|"th:text="${num}"></a> 
 							</li>
 						</th:block>
